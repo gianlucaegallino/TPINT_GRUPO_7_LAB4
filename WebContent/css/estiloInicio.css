@@ -1,0 +1,90 @@
+/* estiloInicio.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+.headerInicio {
+    background-color: #646464;
+    height: 8vh;
+    padding: 50px;
+    display: flex; /* Activamos Flexbox */
+    align-items: center; /* Centramos verticalmente */
+    justify-content: space-between; /* Espacio entre elementos */
+}
+
+.bodyInicio {
+    background-color: #fff;
+}
+
+.icon {
+    width: 80px; 
+    height: auto; 
+    margin-right: auto;
+}
+
+.IniciarSesion a {
+    color: #fff;
+    text-align: end;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.menus {
+    display: flex; /* Activamos Flexbox */
+    justify-content: space-around; /* Espacio entre elementos */
+    margin: 20px;
+}
+
+.botonInicio {
+    width: 87%;
+   	box-sizing: content-box;
+    background-color:#9f3647;
+    border: 2px solid #9f3647;
+    color: #ffffff;
+    padding: 1rem 3.6rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.botonInicio:hover {
+    background-color: #663647;
+}
+
+hr{
+	padding: 5px;
+	background-color: #646464;
+	height: 20px;
+	margin: 15px 0;
+	background: radial-gradient(rgba(185, 185, 185, 0.8), #646464); 
+	/* Otro estilo
+	background: linear-gradient (to right, transparent, rgba(185, 185, 185, 0.8) , #646464);   */
+	border: none;
+}
+
+
+
+/* Media query para pantallas peque�as (celulares) */
+@media (max-width: 1200px) {
+    .headerInicio {
+        flex-direction: column; /* Apilamos los elementos en columna */
+        padding: 20px; /* Reducimos el padding */
+    }
+
+    .icon {
+        margin-bottom: 10px; /* Agregamos margen inferior al logo */
+    }
+
+    .menus {
+        flex-direction: column; /* Apilamos los botones en columna */
+        margin: 10px; /* Reducimos el margen */
+    }
+
+    .botonInicio {
+        width: 100%; /* Ajustamos el ancho de los botones */
+        margin-bottom: 10px; /* Agregamos margen inferior a los botones */
+    }
+}

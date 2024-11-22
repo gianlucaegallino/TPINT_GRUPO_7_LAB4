@@ -1,0 +1,298 @@
+@charset "ISO-8859-1";
+
+/* Estilos para el formulario de listar clientes */
+.formulario-listar-cliente {
+    display: none;
+    position: absolute;
+    top: 550px;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 2px solid #646464;
+    border-radius: 10px;
+    padding: 20px;
+    width: auto;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-listar-cliente h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.formulario-listar-cliente label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.formulario-listar-cliente input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.formulario-listar-cliente input[type="submit"] {
+    background-color: #646464;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.formulario-listar-cliente input[type="submit"]:hover {
+    background-color: #663647;
+}
+
+/* Tabla de clientes */
+.tabla-clientes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.tabla-clientes th, .tabla-clientes td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.tabla-clientes th {
+    background-color: #f4f4f4;
+}
+
+/* Estilos para los botones de gestión */
+.menu-gestiones-clientes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    gap: 20px;
+    z-index: 999;
+}
+
+.boton-gestion-cliente {
+    background-color: #646464;
+    border: 2px solid #646464;
+    color: #ffffff;
+    padding: 1rem 3rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.boton-gestion-cliente:hover {
+    background-color: #663647;
+}
+
+@media (max-width: 1200px) {
+    .menu-gestiones-clientes {
+        position: static;
+        margin: 20px;
+        gap: 15px;
+    }
+
+    .boton-gestion-cliente {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* ESTILOS PARA AGREGAR */
+
+.formulario-agregar{
+	display: none; /* Por defecto está oculto */
+    position:absolute;
+    top: 300px;
+    left: 27%;
+	width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #646464;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+	.formulario-agregar h2{
+		text-align: center;
+	}
+
+.formulario-agregar input[type="submit"] {
+            background-color: #646464;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .formulario-agregar input[type="submit"]:hover {
+            background-color: #663647;
+        }
+
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-container .fila {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+}
+
+.form-element {
+    flex-grow: 1;
+    flex-basis: calc(20% - 10px);
+    margin: 0;
+    padding: 0;
+}
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+input, select{
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#DNI_CUIL .form-element:nth-child(1) {
+  flex-grow: 1;
+}
+
+#DNI_CUIL .form-element:nth-child(2) {
+  flex-grow: 10;
+}
+
+#DNI_CUIL .form-element:nth-child(2) input {
+  width: 59%;
+}
+
+#DNombre_Apellido .form-element:nth-child(1) {
+  flex-grow: 1;
+}
+
+#Nombre_Apellido .form-element:nth-child(2) {
+  flex-grow: 10;
+}
+
+#Nombre_Apellido .form-element:nth-child(2) input {
+  width: 59%;
+}
+
+
+/* ESTILOS PARA EDITAR/ELIMINAR */
+
+.formulario-modificar-eliminar {
+            display: none; /* Por defecto está oculto */
+            position: absolute;
+            top: 300px;
+            left: 55%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 2px solid #646464;
+            border-radius: 10px;
+            padding: 20px;
+            width: auto;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .formulario-modificar-eliminar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .formulario-modificar-eliminar hr {
+			padding: 5px;
+			background-color: #646464;
+			height: 10px;
+			width: 100%;
+			border: none;
+        }
+
+        .formulario-modificar-eliminar label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .formulario-modificar-eliminar input,
+        .formulario-modificar-eliminar select {
+            width: 20%;
+            padding: 12px;
+            margin-bottom: 20px;
+            margin-right: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .formulario-modificar-eliminar input[type="submit"] {
+            background-color: #646464;
+            color: #fff;
+            cursor: pointer;
+            width: 200px;
+        }
+
+        .formulario-modificar-eliminar input[type="submit"]:hover {
+            background-color: #663647;
+        }
+        .formulario-modificar-eliminar table {
+		    width: 100%; /* Hace que la tabla ocupe el ancho completo del contenedor */
+		    border-collapse: collapse;
+		}
+		
+		.botonModificar, .botonEliminar {
+            background-color: #646464;
+            border: 2px solid #646464;
+            color: white;
+            padding: 12px 20px;
+            margin: 25px; 
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40%;
+            font-size: 20px;
+        }
+
+        .botonModificar:hover, .botonEliminar:hover {
+            background-color: #663647;
+        }
+        
+/* Estilo para los inputs de la tabla */
+.tabla-clientes input[type="text"] {
+    width: 100%; /* Ocupa el ancho completo de la celda */
+    padding: 8px; /* Agrega espacio interno al input */
+    border: 1px solid #ccc; /* Agrega un borde */
+    border-radius: 4px; /* Redondea las esquinas */
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+}
