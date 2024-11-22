@@ -58,14 +58,34 @@ public class SIniciarSesion extends HttpServlet {
 				Usuario usuario = negUsuario.conseguirUsuarioPorCredenciales(nomUsuario, contUsuario);
 
 				if (usuario.getUsuario() != null) {
+					
+					//Inicializa un usuario
 					// Redirige en base al tipo de usuario.
 					int tipoUsuario = usuario.getTipo_usuario();
-					String redireccion = (tipoUsuario == 1) ? "Inicio.jsp" : "InicioUsuarioBanco.jsp";
-
+					String redireccion = (tipoUsuario == 2) ? "InicioUsuarioBanco.jsp" : "Inicio.jsp";
+					
+					//Obtiene los datos de usuario, si es un cliente
+					if (tipoUsuario != 2) {
+						//Implementar
+					}
+					
 					// Arma una cookie con los datos de usuario, y las agrega a la response
-					Cookie ckNombre = new Cookie("NombreUsuario", usuario.getUsuario());
+					Cookie ckNombre;
+					Cookie ckNombrePersona;
+					Cookie ckApellidoPersona;
+					ckNombre = new Cookie("NombreUsuario", usuario.getUsuario());
+					if (tipoUsuario == 2) {
+						ckNombrePersona = new Cookie("NombrePersona", "Administrador");
+						ckApellidoPersona = new Cookie("ApellidoPersona", "Banco");
+					} else {
+						ckNombrePersona = new Cookie("NombrePersona", "Franco");
+						ckApellidoPersona = new Cookie("ApellidoPersona", "Colapinto");
+					}
 
+					// Suma las cookies a la response
 					response.addCookie(ckNombre);
+					response.addCookie(ckNombrePersona);
+					response.addCookie(ckApellidoPersona);
 
 					// Redirige a donde corresponde
 					RequestDispatcher rd = request.getRequestDispatcher("/" + redireccion);
