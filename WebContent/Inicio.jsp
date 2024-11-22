@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="normalize.css" />
     <!-- Estilo Local -->
     <link rel="stylesheet" href="./css/estiloInicioUs.css" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <title>Inicio | Banco Liberacion</title>
   </head>
   <body class="bodyInicio">
@@ -26,9 +26,16 @@
           <img src="images/logo.png" alt="Logo" class="icon" />
         </a>
       </div>
+      <!--
       <nav class="IniciarSesion">
         <a href="Login.jsp">Iniciar Sesion</a>
-      </nav>
+      </nav>  -->
+        <div class="namecard">
+            <img src="images/fotoUsuario.jpg" class="pfp">
+            <p class="line1">Gianluca Gallino</p>
+            <p class="line2"><a href="Login.jsp" id="cierre">Cerrar Sesion</a></p>
+        </div>
+      
     </header>
     <article class="menus">
 

@@ -26,9 +26,15 @@
           <img src="images/logo.png" alt="Logo" class="icon" />
         </a>
       </div>
+      <!--
       <nav class="IniciarSesion">
         <a href="Login.jsp">Iniciar Sesion</a>
-      </nav>
+      </nav>  -->
+        <div class="namecard">
+            <img src="images/fotoUsuario.jpg" class="pfp">
+            <p class="line1">Gianluca Gallino</p>
+            <p class="line2"><a href="Login.jsp" id="cierre">Cerrar Sesion</a></p>
+        </div>
     </header>
     <article class="menus">
 
