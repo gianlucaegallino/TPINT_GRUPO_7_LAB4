@@ -7,60 +7,45 @@ import entidades.Cliente;
 
 public class NegCliente {
 
-	ClienteDao cnt;
+    private final ClienteDao clienteDao;
 
-	// Constructor para inicializar cnt
-	public NegCliente() {
-		this.cnt = new ClienteDao(); // Inicializa cnt aquí
-	}
+    // Constructor que recibe el DAO
+    public NegCliente(ClienteDao clienteDao) {
+        this.clienteDao = clienteDao;
+    }
 
-	public int AgregarCliente(Cliente cliente) {
-		int datoRep=cnt.verificarDatosRepetido(cliente);
-		if (datoRep!=0) {
-			return datoRep;
-		}
-		return cnt.AgregarCliente(cliente);
-	}
+    public int AgregarCliente(Cliente cliente) {
+        int datoRep = clienteDao.verificarDatosRepetido(cliente);
+        if (datoRep != 0) {
+            return datoRep;
+        }
+        return clienteDao.AgregarCliente(cliente);
+    }
 
-	public ArrayList<Cliente> obtenerTodosLosClientes() {
-		return cnt.obtenerTodosLosClientes();
-	}
-	
+    public ArrayList<Cliente> obtenerTodosLosClientes() {
+        return clienteDao.obtenerTodosLosClientes();
+    }
 
-	/*
-	 * public int AgregarCliente(Cliente cliente, String username ) { UsuarioDao
-	 * usu= new UsuarioDao(); int idUsuario=0; idUsuario =
-	 * usu.ObtenerIdUsuario(username); return cnt.AgregarCliente(cliente,
-	 * idUsuario); }/*
-	 * 
-	 * 
-	 * 
-	 * /*public ArrayList<Cliente> obtenerTodosLosClientes() { return
-	 * cnt.obtenerTodosLosClientes(); }
-	 */
-	  public ArrayList<Cliente> ObtenerUnCliente(String dni) { 
-		 ArrayList<Cliente>lista = new ArrayList<Cliente>();
-		 ArrayList<Cliente> list1 =cnt.obtenerTodosLosClientes(); 
-		 for (Cliente cliente : list1) {
-			if(cliente.getDni().equals(dni)) {
-			lista.add(cliente);
-			} 
-		}
-		 return lista;
-	}
-	 
+    public ArrayList<Cliente> ObtenerUnCliente(String dni) {
+        ArrayList<Cliente> lista = new ArrayList<>();
+        ArrayList<Cliente> list1 = clienteDao.obtenerTodosLosClientes();
+        for (Cliente cliente : list1) {
+            if (cliente.getDni().equals(dni)) {
+                lista.add(cliente);
+            }
+        }
+        return lista;
+    }
 
-	public int EliminarCliente(String dni) {
-		return cnt.EliminarCliente(dni);
-	}
+    public int EliminarCliente(String dni) {
+        return clienteDao.EliminarCliente(dni);
+    }
 
-	public Cliente conseguirClientePorDni(String clienteDNI) {
-		ClienteDao cDao = new ClienteDao();
-		return cDao.buscarClientePorDNI(clienteDNI);
-	}
+    public Cliente conseguirClientePorDni(String clienteDNI) {
+        return clienteDao.buscarClientePorDNI(clienteDNI);
+    }
 
-	public boolean modificarCliente(Cliente cliente) {
-		ClienteDao cDao = new ClienteDao();
-		return cDao.modificarCliente(cliente);
-	}
+    public boolean modificarCliente(Cliente cliente) {
+        return clienteDao.modificarCliente(cliente);
+    }
 }

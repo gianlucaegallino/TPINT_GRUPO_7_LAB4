@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -19,327 +20,238 @@ import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Sexo;
 
-/**
- * Servlet implementation class SIClientes
- */
 @WebServlet("/SIClientes")
 public class SIClientes extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SIClientes() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    private NegCliente negCliente;
+    private NegCargarDescolgables negDesc;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+    public SIClientes() {
+        super();
+        negCliente = new NegCliente(); 
+        negDesc = new NegCargarDescolgables();
+    }
 
-		
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        cargarDescolgables(request);
+        if (request.getParameter("ProvCliente") != null) {
+            cargarLocalidades(request, response);
+        }
+    }
 
-		System.out.println("El método doGet se está ejecutando.");
-		 // NUEVO BLOQUE: Obtener la lista de sexos y pasarla al JSP
-	    NegCargarDescolgables negDesc = new NegCargarDescolgables(); // Instancia de la lógica de negocio para clientes
-		 ArrayList<Sexo> sexos = negDesc.obtenerLosSexos();
-		    if (sexos != null && !sexos.isEmpty()) {
-		        
-		        request.setAttribute("sexos", sexos);
-		    } else {
-		        
-		        request.setAttribute("mensajeError", "No se pudieron cargar los datos de sexo.");
-		    }
-		    
-		    ArrayList<Nacionalidad> nac = negDesc.ObtenerLasNacionaliadades();
-		    
-		    if (nac != null && !nac.isEmpty()) {
-		        
-		        request.setAttribute("nacionalidad", nac);
-		    } else {
-		        
-		        request.setAttribute("mensajeError", "No se pudieron cargar los datos de Nacionalidad.");
-		    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
 
-		    
-		    ArrayList<Provincia> prov = negDesc.ObtenerLasProvincias();
-		    
-		    if (prov != null && !prov.isEmpty()) {
-		        
-		        request.setAttribute("Provincia", prov);
-		    } else {
-		        
-		        request.setAttribute("mensajeError", "No se pudieron cargar los datos de Provincia.");
-		    }
-		    
-		    int filas = 0;
-			
-			if (request.getParameter("btnAgregarCliente") != null) {
-				
-		
-				
-				   
-				    //guardar el cliente, etc.
-					Cliente cliente = new Cliente();
+        if ("mostrarClientes".equals(action)) {
+            mostrarClientes(request, response);
+        } else if ("filtrarClientes".equals(action)) {
+            filtrarClientes(request, response);
+        } else if ("agregarCliente".equals(action)) {
+            agregarCliente(request, response);
+        } else if ("modificarCliente".equals(action)) {
+            modificarCliente(request, response);
+        } else if ("eliminarCliente".equals(action)) {
+            eliminarCliente(request, response);
+        } else {
+            // Manejar acción no válida
+        }
+    }
 
-					// Agrega Nombre
-					String cNomStr = request.getParameter("nombreCliente");
-					cliente.setNombre(cNomStr);
+    private void cargarDescolgables(HttpServletRequest request) {
+        // Obtener la lista de sexos y pasarla al JSP
+        ArrayList<Sexo> sexos = negDesc.obtenerLosSexos();
+        if (sexos != null && !sexos.isEmpty()) {
+            request.setAttribute("sexos", sexos);
+        } else {
+            request.setAttribute("mensajeError", "No se pudieron cargar los datos de sexo.");
+        }
 
-					// Agrega Apellido
-					String cApeStr = request.getParameter("apellidoCliente");
-					cliente.setApellido(cApeStr);
+        // Obtener la lista de nacionalidades y pasarla al JSP
+        ArrayList<Nacionalidad> nac = negDesc.ObtenerLasNacionaliadades();
+        if (nac != null && !nac.isEmpty()) {
+            request.setAttribute("nacionalidad", nac);
+        } else {
+            request.setAttribute("mensajeError", "No se pudieron cargar los datos de Nacionalidad.");
+        }
 
-					// Agrega DNI
-					String cDNIStr = request.getParameter("DniCliente");
-					cliente.setDni(cDNIStr);
-					
-					// Agrega CUIL
-					String cCuilStr = request.getParameter("CUILCliente");
-					cliente.setCuil(cCuilStr);
+        // Obtener la lista de provincias y pasarla al JSP
+        ArrayList<Provincia> prov = negDesc.ObtenerLasProvincias();
+        if (prov != null && !prov.isEmpty()) {
+            request.setAttribute("Provincia", prov);
+        } else {
+            request.setAttribute("mensajeError", "No se pudieron cargar los datos de Provincia.");
+        }
+    }
 
-					// Agrega Genero
-					String cSexoStr = request.getParameter("SexoCliente");
-					int sexoInt = Integer.parseInt(cSexoStr);
-					cliente.setSexo_id(sexoInt);
+    private void cargarLocalidades(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        int provId = Integer.parseInt(request.getParameter("ProvCliente"));
+        ArrayList<Localidad> localidades = negDesc.ObtenerLocalidadesPorProvincia(provId);
+        if (localidades != null && !localidades.isEmpty()) {
+            request.setAttribute("localidades", localidades);
+            RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
+            rd.forward(request, response);
+        } else {
+            request.setAttribute("mensajeError", "No se pudieron cargar las localidades.");
+            RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
+            rd.forward(request, response);
+        }
+    }
 
-					// Agrega la nacionalidad
-					String cNacionalidadStr = request.getParameter("NacioCliente");
-					int nacioInt = Integer.parseInt(cNacionalidadStr);
-					cliente.setNacionalidad_id(nacioInt);
+    private void mostrarClientes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Obtener la lista de clientes
+        ArrayList<Cliente> listaClientes = negCliente.obtenerTodosLosClientes();
 
-					// Agrega la Fecha
-					String Fecha = request.getParameter("FNacimientoCliente");
-					try {
-						// Crear un formato de fecha para interpretar YYYY-MM-dd
-						SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd");
+        // Pasar la lista de clientes a la JSP
+        request.setAttribute("listaC", listaClientes);
 
-						// Parsear la fecha y luego convertirla a java.sql.Date
-						java.util.Date fechaParseada = formatoEntrada.parse(Fecha);
+        // Redirigir a la JSP de listado de clientes
+        RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
+        rd.forward(request, response);
+    }
 
-						// Convertir la fecha parseada a java.sql.Date para almacenarla en la base de
-						// datos
-						java.sql.Date fecha1 = new java.sql.Date(fechaParseada.getTime());
+    private void filtrarClientes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String dni = request.getParameter("numDNIBuscar");
+        // Obtener la lista de clientes
+        ArrayList<Cliente> listaClientes = negCliente.ObtenerUnCliente(dni);
 
-						// Establecer la fecha en el objeto cuenta
-						cliente.setFecha_nacimiento(fecha1);
-					} catch (Exception e) {
-						// Manejar el caso donde el valor de la fecha no es válido
-						System.out.println("La fecha ingresada no es válida");
-					}
+        // Pasar la lista de clientes a la JSP
+        request.setAttribute("listaC", listaClientes);
 
-					// Agrega la direccion
-					String cDirecStr = request.getParameter("DirecCliente");
-					cliente.setDireccion_id(cDirecStr);
+        // Redirigir a la JSP de listado de clientes
+        RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
+        rd.forward(request, response);
+    }
 
-					// Agrega el correo
-					String cCorreoStr = request.getParameter("CorreoCliente");
-					cliente.setCorreo_electronico(cCorreoStr);
+    private void agregarCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Obtener los datos del formulario
+        String dni = request.getParameter("DniCliente");
+        String cuil = request.getParameter("CUILCliente");
+        String nombre = request.getParameter("nombreCliente");
+        String apellido = request.getParameter("apellidoCliente");
+        String telefono = request.getParameter("telefonoCliente");
+        int sexoId = Integer.parseInt(request.getParameter("SexoCliente"));
+        int nacionalidadId = Integer.parseInt(request.getParameter("NacioCliente"));
+        Date fechaNacimiento = Date.valueOf(request.getParameter("FNacimientoCliente"));
+        int localidadId = Integer.parseInt(request.getParameter("LocCliente"));
+        String direccion = request.getParameter("DirecCliente");
+        String correo = request.getParameter("CorreoCliente");
 
-					// Agrega el telefono
-					String cTelStr = request.getParameter("telefonoCliente");
-					cliente.setTelefono(cTelStr);
-					
-				
-					
+        // Validar los datos
+        if (!validarDatos(request, dni, cuil, nombre, apellido, telefono, sexoId, nacionalidadId, fechaNacimiento,
+                localidadId, direccion, correo)) {
+            return; // Si la validación falla, no se agrega el cliente
+        }
 
-					NegCliente cnt = new NegCliente();
-					filas = cnt.AgregarCliente(cliente);
-					
-					switch (filas) {
-			        case 1:
-			            // No hay conflictos, se puede agregar el cliente
-			            request.setAttribute("mensajeExito", "¡El cliente se agregó correctamente!");
-			            RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
-		        	    rd.forward(request, response);
-		        	    
-			            return;
-			        case 2:
-			            // El DNI ya existe
-			            request.setAttribute("mensajeError", "El DNI ya está registrado.");
-			            break;
-			        case 3:
-			            // El CUIL ya existe
-			            request.setAttribute("mensajeError", "El CUIL ya está registrado.");
-			            break;
-			        case 4:
-			            // El correo electrónico ya existe
-			            request.setAttribute("mensajeError", "El correo electrónico ya está registrado.");
-			            break;
-			        case 5:
-			            // El teléfono ya existe
-			            request.setAttribute("mensajeError", "El teléfono ya está registrado.");
-			            break;
-			        default:
-			            // En caso de error inesperado
-			            request.setAttribute("mensajeError", "Hubo un error al verificar los datos.");
-			            break;
-			    }
-																	
-			}
-  
-		 String provCliente = request.getParameter("ProvCliente");
-		 String LocalCliente= request.getParameter("LocCliente");
-		 //System.out.println("loalidad: " + LocalCliente );
-		 String nacCliente = request.getParameter("NacioCliente");
-		 String generoCliente= request.getParameter("SexoCliente");
-		 
-		
-		  if (provCliente != null && !provCliente.isEmpty() )   {
-			  //guardar lo ingresado en los inputs
-			  
-			  String dni = request.getParameter("DniCliente");
-		      String cuil = request.getParameter("CUILCliente");
-		      String nombre = request.getParameter("nombreCliente");
-		      String apellido = request.getParameter("apellidoCliente");
-	          String telefono = request.getParameter("telefonoCliente");
-	          String direccion = request.getParameter("DirecCliente");
-	          String correo = request.getParameter("CorreoCliente");
-	          String fechaNacimiento = request.getParameter("FNacimientoCliente");
-			  
-			  
-			  int privID= Integer.parseInt(provCliente);
-			  //NegCargarDescolgables negDesc = new NegCargarDescolgables();
-			  ArrayList<Localidad> localidades = negDesc.ObtenerLasLocalidadesPorProvincia(privID);
-			  
-			  if (localidades != null && !localidades.isEmpty()) {
-		            request.setAttribute("localidades", localidades);
-		        } else {
-		            request.setAttribute("mensajeError", "No se pudieron cargar las localidades.");
-		        }
-			  
-			// Devolver los datos ingresados al formulario
-		        request.setAttribute("DniCliente", dni);
-		        request.setAttribute("CUILCliente", cuil);
-		        request.setAttribute("nombreCliente", nombre);
-		        request.setAttribute("apellidoCliente", apellido);
-		        request.setAttribute("telefonoCliente", telefono);
-		        request.setAttribute("DirecCliente", direccion);
-		        request.setAttribute("CorreoCliente", correo);
-		        request.setAttribute("FNacimientoCliente", fechaNacimiento);
-		        request.setAttribute("Nac", nacCliente);
-		        request.setAttribute("generoCliente",generoCliente );
-		        request.setAttribute("prov", provCliente);		        						   			  
-		  }
+        // Crear la instancia de Cliente
+        Cliente cliente = new Cliente();
+        cliente.setDni(dni);
+        cliente.setCuil(cuil);
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setTelefono(telefono);
+        cliente.setSexo(new Sexo(sexoId, "")); // Se asume que la descripción del sexo no se necesita
+        cliente.setNacionalidad(new Nacionalidad(nacionalidadId, "")); // Se asume que la descripción de la nacionalidad no se necesita
+        cliente.setFecha_nacimiento(fechaNacimiento);
+        cliente.setDireccion(new Direccion(direccion, new Localidad(localidadId, "", null))); // Se asume que la provincia no se necesita
+        cliente.setCorreo_electronico(correo);
+        cliente.setEstado("1"); // Se asume que el estado es activo
 
-		 
-		// REQUESTDISPATCHER
-	    RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
-	    rd.forward(request, response);
-	    
-	    
+        // Agregar el cliente a la base de datos
+        int resultado = negCliente.AgregarCliente(cliente);
 
-	}
+        // Redirigir a la JSP de agregar cliente con un mensaje de éxito o error
+        if (resultado == 0) {
+            request.setAttribute("mensajeExito", "¡Cliente agregado correctamente!");
+        } else if (resultado == 2) {
+            request.setAttribute("mensajeError", "El DNI ya existe en la base de datos.");
+        } else if (resultado == 3) {
+            request.setAttribute("mensajeError", "El CUIL ya existe en la base de datos.");
+        } else if (resultado == 4) {
+            request.setAttribute("mensajeError", "El correo electrónico ya existe en la base de datos.");
+        } else if (resultado == 5) {
+            request.setAttribute("mensajeError", "El teléfono ya existe en la base de datos.");
+        } else {
+            request.setAttribute("mensajeError", "Error al agregar el cliente.");
+        }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+        RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
+        rd.forward(request, response);
+    }
 
-		
-		if (request.getParameter("btnMostrarCliente") != null) {
-			// Obtener la lista de clientes
-			NegCliente negCliente = new NegCliente();
-			ArrayList<Cliente> listaClientes = negCliente.obtenerTodosLosClientes();
+    private void modificarCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // ... (código para modificar un cliente)
+    }
 
-			// Pasar la lista de clientes a la JSP
-			request.setAttribute("listaC", listaClientes);
+    private void eliminarCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // ... (código para eliminar un cliente)
+    }
 
-			// Redirigir a la JSP de listado de clientes
-			RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
-			rd.forward(request, response);
+    private boolean validarDatos(HttpServletRequest request, String dni, String cuil, String nombre, String apellido,
+            String telefono, int sexoId, int nacionalidadId, Date fechaNacimiento, int localidadId, String direccion,
+            String correo) {
+        // Validación del DNI
+        if (dni == null || dni.isEmpty() || dni.length() < 7 || dni.length() > 8) {
+            request.setAttribute("mensajeError", "El DNI no tiene un formato válido.");
+            return false;
+        }
 
-		}
-		
-		if(request.getParameter("btnFiltrar")!= null){
-			String dni = request.getParameter("numDNIBuscar");
-			// Obtener la lista de clientes
-			NegCliente negCliente = new NegCliente();
-			ArrayList<Cliente> listaClientes = negCliente.ObtenerUnCliente(dni);
+        // Validación del CUIL
+        if (cuil == null || cuil.isEmpty() || !cuil.matches("(20|23|24|27)[0-9]{9}")) {
+            request.setAttribute("mensajeError", "El CUIL no tiene un formato válido.");
+            return false;
+        }
 
-		 // Pasar la lista de clientes a la JSP
-			request.setAttribute("listaC", listaClientes);
-			
-		 // Redirigir a la JSP de listado de clientes
-			RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
-		   rd.forward(request, response);
-		}
-		
-		
-		// CODIGO PARA EL MODIFICAR/ELIMINAR
-		/* BUSCAR EL DNI */
-		
-		
-		if (request.getParameter("btnBuscarDNI") != null)  {
-			String dni = request.getParameter("numeroDNIaBuscar");
-			Cliente cli = new Cliente();
-			NegCliente negCli = new NegCliente();
-			
-			cli = negCli.conseguirClientePorDni((dni));
-			System.out.println("Dni clienet: "+cli.getDni());
-			
-			if (cli.getDni() != null) {
-				request.setAttribute("cliente", cli);
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			} else {
-				request.setAttribute("mensaje", "No se encontró un cliente con ese DNI.");
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			}
-		}
-		if (request.getParameter("btnGuardar") != null) {
-			int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-			String direccion = request.getParameter("direccion");
-			String correo = request.getParameter("correo");
-			String telefono = request.getParameter("telefono");
+        // Validación del nombre
+        if (nombre == null || nombre.isEmpty()) {
+            request.setAttribute("mensajeError", "El nombre no puede estar vacío.");
+            return false;
+        }
 
-			Cliente cliente = new Cliente();
-			cliente.setIdCliente(idCliente);
-			cliente.setDireccion_id(direccion);
-			cliente.setCorreo_electronico(correo);
-			cliente.setTelefono(telefono);
+        // Validación del apellido
+        if (apellido == null || apellido.isEmpty()) {
+            request.setAttribute("mensajeError", "El apellido no puede estar vacío.");
+            return false;
+        }
 
-			NegCliente negCliente = new NegCliente();
-			boolean resultado = negCliente.modificarCliente(cliente);
+        // Validación del teléfono
+        if (telefono == null || telefono.isEmpty() || !telefono.matches("[0-9]{8,10}")) {
+            request.setAttribute("mensajeError", "El teléfono no tiene un formato válido.");
+            return false;
+        }
 
-			if (resultado) {
-				request.setAttribute("mensaje", "¡El cliente se modificó correctamente!");
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			} else {
-				request.setAttribute("mensaje", "Error al modificar el cliente.");
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			}
-		}
+        // Validación del correo electrónico
+        if (correo == null || correo.isEmpty() || !correo.matches("^[^\s@]+@[^\s@]+\.[^\s@]+$")) {
+            request.setAttribute("mensajeError", "El correo electrónico no tiene un formato válido.");
+            return false;
+        }
 
-		if (request.getParameter("btnEliminarSubmit") != null) {
-			String DniCliente = request.getParameter("dniCliente");
+        // Validación de la fecha de nacimiento
+        if (fechaNacimiento == null) {
+            request.setAttribute("mensajeError", "La fecha de nacimiento no puede estar vacía.");
+            return false;
+        }
 
-			Cliente cliente = new Cliente();
-			cliente.setDni(DniCliente);
+        // Validación de la localidad
+        if (localidadId == 0) {
+            request.setAttribute("mensajeError", "La localidad no puede estar vacía.");
+            return false;
+        }
 
-			NegCliente negCliente = new NegCliente();
-			int resultado = negCliente.EliminarCliente(DniCliente);
+        // Validación de la dirección
+        if (direccion == null || direccion.isEmpty()) {
+            request.setAttribute("mensajeError", "La dirección no puede estar vacía.");
+            return false;
+        }
 
-			if (resultado != 0) {
-				request.setAttribute("mensaje", "¡El cliente se elimino correctamente!");
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			} else {
-				request.setAttribute("mensaje", "Error al eliminar el cliente.");
-				request.getRequestDispatcher("/ClientesModificarEliminar.jsp").forward(request, response);
-			}
-		}
-
-		if (request.getParameter("btnCancelar") != null) {
-
-			RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
-			rd.forward(request, response);
-		}
-
-	}
-
+        return true;
+    }
 }
