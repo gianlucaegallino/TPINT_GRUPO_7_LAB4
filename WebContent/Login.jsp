@@ -16,6 +16,25 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 </head>
+
+  <%
+
+  Cookie[] cookies = null;
+  
+  cookies = request.getCookies();
+
+  //Remueve las cookies si estan presentes
+  
+  if( cookies != null ) {
+	  for (int i = 0; i < cookies.length; i++) {
+	  	cookies[i].setMaxAge(0);
+	  	response.addCookie(cookies[i]);
+	  }
+  }
+   
+  
+  %>
+
 <body class="bodyRegistrarse">
     <header class="headerlogin">
     	<img src="images/logo.png" alt="Logo" class="icon">

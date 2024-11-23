@@ -35,9 +35,11 @@
 	  for (int i = 0; i < cookies.length; i++) {
 	  	if (cookies[i].getName().equals("NombrePersona")){
 	  		name = cookies[i].getValue();
+	  		response.addCookie(cookies[i]);
 	  	}
 	  	if (cookies[i].getName().equals("ApellidoPersona")){
 	  		surname = cookies[i].getValue();
+	  		response.addCookie(cookies[i]);
 	  	}
 	  }
   }
