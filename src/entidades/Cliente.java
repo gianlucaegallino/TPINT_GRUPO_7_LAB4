@@ -71,14 +71,14 @@ public class Cliente {
 	public void setCuil(String cuil) {
 		this.cuil = cuil;
 	}
-	public Sexo getSexo() {
-		return sexo;
+	public String getSexo() {
+		return sexo.getDescripcion();
 	}
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-	public Nacionalidad getNacionalidad() {
-		return nacionalidad;
+	public String getNacionalidad() {
+		return nacionalidad.getNombre();
 	}
 	public void setNacionalidad(Nacionalidad nacionalidad) {
 		this.nacionalidad = nacionalidad;
@@ -89,8 +89,8 @@ public class Cliente {
 	public void setFecha_nacimiento(Date fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
-	public Direccion getDireccion() {
-		return direccion;
+	public String getDireccion() {
+		return direccion.getDireccion();
 	}
 	public void setDireccion(Direccion direccion) {
 		this.direccion = direccion;

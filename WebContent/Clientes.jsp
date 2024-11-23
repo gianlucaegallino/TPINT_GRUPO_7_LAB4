@@ -15,9 +15,9 @@
 	
 	<!-- Contenedor específico para los botones de gestión en esta vista -->
 	<article class="menu-gestiones-clientes">
-	    <a href="SIClientes" class="boton-gestion-cliente">Agregar</a>      
-        <input class="boton-gestion-cliente" id="botonEditarEliminarC" type="submit" value="Editar/Eliminar" onClick="window.location.href='ClientesModificarEliminar.jsp'"/>
-        <input class="boton-gestion-cliente" id="botonListarC" type="submit" value="Listar" onClick="window.location.href='ClientesListar.jsp'"/>
+	    <a href="ClientesAgregar.jsp" class="boton-gestion-cliente">Agregar</a>    
+	    <a href="ClientesModificarEliminar.jsp" class="boton-gestion-cliente">Editar/Eliminar</a> 
+	    <a href="ClientesListar.jsp" class="boton-gestion-cliente">Listar</a> 
     </article>
 	<script defer src="js/clientes.js"></script>
 </body>
