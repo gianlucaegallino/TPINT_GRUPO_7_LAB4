@@ -1,5 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+  <%
 
+  Cookie[] cookies = null;
+  
+  cookies = request.getCookies();
+  
+  String name = null;
+  String surname = null;
+  
+  //Agarra los valores de las cookies
+
+	  if( cookies != null ) {
+		  for (int i = 0; i < cookies.length; i++) {
+		  	if (cookies[i].getName().equals("NombrePersona")){
+		  		name = cookies[i].getValue();
+		  	}
+		  	if (cookies[i].getName().equals("ApellidoPersona")){
+		  		surname = cookies[i].getValue();
+		  	}
+		  }
+	  } else {
+		  //Agarra los valores de la request, como un backup (las cookies tardan en cargar)
+		  name = (String) request.getAttribute("NombrePersona");
+		  surname = (String) request.getAttribute("ApellidoPersona");
+	  }
+   
+  
+  %>
+  
 <!-- HTML -->
 
 <!DOCTYPE html>
@@ -20,30 +48,7 @@
     <title>Inicio | Banco Liberacion</title>
   </head>
   
-    <%
 
-  Cookie[] cookies = null;
-  
-  cookies = request.getCookies();
-  
-  String name = null;
-  String surname = null;
-  
-  //Asigna valores a las cookies
-  
-  if( cookies != null ) {
-	  for (int i = 0; i < cookies.length; i++) {
-	  	if (cookies[i].getName().equals("NombrePersona")){
-	  		name = cookies[i].getValue();
-	  	}
-	  	if (cookies[i].getName().equals("ApellidoPersona")){
-	  		surname = cookies[i].getValue();
-	  	}
-	  }
-  }
-   
-  
-  %>
   
   <body class="bodyInicio">
     <header class="headerInicio">

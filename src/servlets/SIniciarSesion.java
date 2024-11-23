@@ -92,6 +92,11 @@ public class SIniciarSesion extends HttpServlet {
 					response.addCookie(ckNombre);
 					response.addCookie(ckNombrePersona);
 					response.addCookie(ckApellidoPersona);
+					
+					
+					request.setAttribute("NombrePersona", ckNombrePersona.getValue());
+					request.setAttribute("NombrePersona", ckNombrePersona.getValue());
+					request.setAttribute("ApellidoPersona", ckApellidoPersona.getValue());
 
 					// Redirige a donde corresponde
 					RequestDispatcher rd = request.getRequestDispatcher("/" + redireccion);
