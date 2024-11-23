@@ -33,10 +33,10 @@ public class ClienteDao {
 			clienteStmt.setString(2, cliente.getApellido());
 			clienteStmt.setString(3, cliente.getDni());
 			clienteStmt.setString(4, cliente.getCuil());
-			clienteStmt.setInt(5, cliente.getSexo_id());
-			clienteStmt.setInt(6, cliente.getNacionalidad_id());
+			clienteStmt.setString(5, cliente.getSexo());
+			clienteStmt.setString(6, cliente.getNacionalidad());
 			clienteStmt.setDate(7, cliente.getFecha_nacimiento());
-			clienteStmt.setString(8, cliente.getDireccion_id());
+			clienteStmt.setString(8, cliente.getDireccion());
 			clienteStmt.setString(9, cliente.getCorreo_electronico());
 			clienteStmt.setString(10, cliente.getTelefono());
 

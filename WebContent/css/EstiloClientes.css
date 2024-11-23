@@ -1,5 +1,9 @@
 @charset "ISO-8859-1";
 
+a{
+	text-decoration: none;
+}
+
 /* Estilos para el formulario de listar clientes */
 .formulario-listar-cliente {
     display: none;
