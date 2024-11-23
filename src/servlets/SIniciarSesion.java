@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import Negocio.NegUsuario;
 import entidades.Usuario;
+import entidades.Cliente;
+import Negocio.NegCliente;
 
 /**
  * Servlet implementation class SIniciarSesion
@@ -59,21 +61,25 @@ public class SIniciarSesion extends HttpServlet {
 
 				if (usuario.getUsuario() != null) {
 					
-					//Inicializa un usuario
 					// Redirige en base al tipo de usuario.
 					int tipoUsuario = usuario.getTipo_usuario();
 					String redireccion = (tipoUsuario == 2) ? "InicioUsuarioBanco.jsp" : "Inicio.jsp";
 					
-					//Obtiene los datos de usuario, si es un cliente
+					//Obtiene los datos de cliente, si es un tipo cliente
 					if (tipoUsuario != 2) {
 						//Implementar
+						Cliente cli = new Cliente();
+						NegCliente negcli = new NegCliente();
+						
 					}
 					
-					// Arma una cookie con los datos de usuario, y las agrega a la response
+					// Arma una cookie con los datos de usuario y cliente, y las agrega a la response
 					Cookie ckNombre;
 					Cookie ckNombrePersona;
 					Cookie ckApellidoPersona;
+					
 					ckNombre = new Cookie("NombreUsuario", usuario.getUsuario());
+					
 					if (tipoUsuario == 2) {
 						ckNombrePersona = new Cookie("NombrePersona", "Administrador");
 						ckApellidoPersona = new Cookie("ApellidoPersona", "Banco");
