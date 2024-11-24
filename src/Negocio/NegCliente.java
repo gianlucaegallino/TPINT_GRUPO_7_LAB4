@@ -8,13 +8,17 @@ import entidades.Cliente;
 public class NegCliente {
 
     private final ClienteDao clienteDao;
-
+    
     // Constructor que recibe el DAO
     public NegCliente(ClienteDao clienteDao) {
         this.clienteDao = clienteDao;
     }
 
-    public int AgregarCliente(Cliente cliente) {
+    public NegCliente(){
+    	 this.clienteDao = new ClienteDao(); 
+	}
+
+	public int AgregarCliente(Cliente cliente) {
         int datoRep = clienteDao.verificarDatosRepetido(cliente);
         if (datoRep != 0) {
             return datoRep;

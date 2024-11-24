@@ -40,7 +40,7 @@ public class NegCargarDescolgables {
 		    ArrayList<Localidad> localidadesFiltradas = new ArrayList<>();
 		    
 		    for (Localidad localidad : localidades) {
-		        if (localidad.getProvinciaId() == provinciaId) {
+		        if (localidad.getProvincia().getId() == provinciaId) {
 		            localidadesFiltradas.add(localidad);
 		        }
 		    }

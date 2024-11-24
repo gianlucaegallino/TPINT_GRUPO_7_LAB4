@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import Negocio.NegCargarDescolgables;
 import Negocio.NegCliente;
 import entidades.Cliente;
+import entidades.Direccion;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
@@ -72,7 +73,7 @@ public class SIClientes extends HttpServlet {
         // Obtener la lista de nacionalidades y pasarla al JSP
         ArrayList<Nacionalidad> nac = negDesc.ObtenerLasNacionaliadades();
         if (nac != null && !nac.isEmpty()) {
-            request.setAttribute("nacionalidad", nac);
+            request.setAttribute("nacionalidad", nac); // Establecer el atributo "nacionalidad"
         } else {
             request.setAttribute("mensajeError", "No se pudieron cargar los datos de Nacionalidad.");
         }
@@ -80,7 +81,7 @@ public class SIClientes extends HttpServlet {
         // Obtener la lista de provincias y pasarla al JSP
         ArrayList<Provincia> prov = negDesc.ObtenerLasProvincias();
         if (prov != null && !prov.isEmpty()) {
-            request.setAttribute("Provincia", prov);
+            request.setAttribute("Provincia", prov); // Establecer el atributo "Provincia"
         } else {
             request.setAttribute("mensajeError", "No se pudieron cargar los datos de Provincia.");
         }
@@ -89,7 +90,7 @@ public class SIClientes extends HttpServlet {
     private void cargarLocalidades(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         int provId = Integer.parseInt(request.getParameter("ProvCliente"));
-        ArrayList<Localidad> localidades = negDesc.ObtenerLocalidadesPorProvincia(provId);
+        ArrayList<Localidad> localidades = negDesc.ObtenerLasLocalidadesPorProvincia(provId);
         if (localidades != null && !localidades.isEmpty()) {
             request.setAttribute("localidades", localidades);
             RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
@@ -229,7 +230,7 @@ public class SIClientes extends HttpServlet {
         }
 
         // Validación del correo electrónico
-        if (correo == null || correo.isEmpty() || !correo.matches("^[^\s@]+@[^\s@]+\.[^\s@]+$")) {
+        if (correo == null || correo.isEmpty() || !correo.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
             request.setAttribute("mensajeError", "El correo electrónico no tiene un formato válido.");
             return false;
         }

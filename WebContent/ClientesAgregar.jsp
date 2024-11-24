@@ -92,28 +92,28 @@
                     </div>
                         <div class="form-element">
                             <label for="NacioCliente">NACIONALIDAD:</label>
-                            <select id="NacioCliente" name="NacioCliente" required>
-                                <option value="" disabled selected>Seleccione la nacionalidad</option>
-                                            <% 
-                                          // Obtener el valor de nacCliente como String
-              					        String Nac = (String) request.getAttribute("Nac");
-                                          System.out.println("nac: ");
-                                           System.out.println(Nac);
-              					        // Convertir nacCliente a int (si es posible)
-              					        int nacCliente = (Nac != null && !Nac.isEmpty()) ? Integer.parseInt(Nac) : -1;
-              					      System.out.println("NacClinete int: "+ nacCliente);
-                                    ArrayList<Nacionalidad> nacionalidades = (ArrayList<Nacionalidad>) request.getAttribute("nacionalidad");
-                                    if (nacionalidades != null) {
-                                    for (Nacionalidad nacionalidad : nacionalidades) {
-                                            %>
-                                    <option value="<%= nacionalidad.getId() %>"<%=(nacionalidad.getId()== nacCliente)? "selected":"" %>><%= nacionalidad.getNombre() %></option>
-                                                    <% 
-                                                        }
-                                                } else { 
-                                                    %>
-                                <option value="" disabled>No hay datos disponibles</option>
-                                            <% } %>
-                                            </select>
+							<% 
+							    // Obtener el valor de nacCliente como String
+							    String nacClienteStr = (String) request.getAttribute("nacCliente");
+							    
+							    // Convertir nacCliente a int (si es posible)
+							    int nacCliente = (nacClienteStr != null && !nacClienteStr.isEmpty()) ? Integer.parseInt(nacClienteStr) : -1;
+							%>
+							<select id="NacioCliente" name="NacioCliente" required>
+							  <option value="" disabled selected>Seleccione la nacionalidad</option>
+							  <% 
+							      ArrayList<Nacionalidad> nacionalidades = (ArrayList<Nacionalidad>) request.getAttribute("nacionalidad");
+							      if (nacionalidades != null) {
+							          for (Nacionalidad nacionalidad : nacionalidades) {
+							  %>
+							  <option value="<%= nacionalidad.getId() %>"<%=(nacionalidad.getId()== nacCliente)?" selected":"" %>><%= nacionalidad.getNombre() %></option>
+							  <% 
+							          }
+							      } else { 
+							  %>
+							  <option value="" disabled>No hay datos disponibles</option>
+							  <% } %>
+							</select>
                                         </div>
                     <div class="form-element">
                         <label for="FNacimientoCliente">FECHA DE NACIMIENTO:</label>
@@ -164,20 +164,20 @@
     <select id="LocCliente" name="LocCliente" required>
         <option value="">Seleccione una Localidad</option>
         <% 
-            // Obtener las localidades desde el request
-            ArrayList<Localidad> localidades = (ArrayList<Localidad>) request.getAttribute("localidades");
-            if (localidades != null && !localidades.isEmpty()) {
-                for (Localidad localidad : localidades) {
-        %>
-            <option value="<%= localidad.getId() %>" ><%= localidad.getNombre() %></option>
-        <% 
-                }
-            } else {
-        %>
-            <option value="" disabled>No hay localidades disponibles</option>
-        <% 
-            }
-        %>
+		    // Obtener las localidades desde el request
+		    ArrayList<Localidad> localidades = (ArrayList<Localidad>) request.getAttribute("localidades");
+		    if (localidades != null && !localidades.isEmpty()) {
+		        for (Localidad localidad : localidades) {
+		%>
+		    <option value="<%= localidad.getId() %>" ><%= localidad.getNombre() %> (<%= localidad.getProvincia().getNombre() %>)</option>
+		<% 
+		        }
+		    } else {
+		%>
+		    <option value="" disabled>No hay localidades disponibles</option>
+		<% 
+		    }
+		%>
     </select>
 </div>
                     <div class="form-element">
