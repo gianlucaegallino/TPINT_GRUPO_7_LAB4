@@ -297,11 +297,13 @@ public class ClienteDao {
 
 		Connection connect = null;
 		Cliente cliente = new Cliente();
+		
 
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement("SELECT * FROM clientes WHERE id_usuario = ?");
 			sentence.setInt(1, usuario.getIdUsuario());
+			
 			ResultSet rs = sentence.executeQuery();
 			if (rs.next()) {
 				cliente = new Cliente();
@@ -323,6 +325,7 @@ public class ClienteDao {
 				e.printStackTrace();
 			}
 		}
+
 		return cliente;
 	}
 

@@ -2,6 +2,8 @@ package entidades;
 
 public class Usuario {
 
+
+
 	private int idUsuario;
 	private String usuario;
 	private String contrasena;
@@ -52,4 +54,10 @@ public class Usuario {
 		this.tipo_usuario = tipo_usuario;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", usuario=" + usuario + ", contrasena=" + contrasena
+				+ ", tipo_usuario=" + tipo_usuario + "]";
+	}
+	
 }
