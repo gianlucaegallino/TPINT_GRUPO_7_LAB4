@@ -97,6 +97,14 @@
           value="Cuentas"
           onClick="window.location.href='Cuentas.jsp'"
         />
+        
+         <input
+          class="botonInicio"
+          id="botonABMLUsuario"
+          type="submit"
+          value="Usuarios"
+          onClick="window.location.href='AgregarUsuario.jsp'"
+        />
 
 
         <input class="botonInicio" type="submit" value="Informes Estadísticos" />
