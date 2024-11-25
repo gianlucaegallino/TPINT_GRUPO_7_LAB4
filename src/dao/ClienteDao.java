@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Cliente;
+import entidades.Usuario;
 
 public class ClienteDao {
 	private String host = "jdbc:mysql://localhost:3306/";
@@ -285,6 +286,44 @@ public class ClienteDao {
 		}
 		return filasAfectadas;
 
+	}
+
+	public Cliente conseguirClienteporUsuario(Usuario usuario) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		Connection connect = null;
+		Cliente cliente = new Cliente();
+
+		try {
+			connect = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement sentence = connect.prepareStatement("SELECT * FROM clientes WHERE id_usuario = ?");
+			sentence.setInt(1, usuario.getIdUsuario());
+			ResultSet rs = sentence.executeQuery();
+			if (rs.next()) {
+				cliente = new Cliente();
+				cliente.setNombre(rs.getString("nombre"));
+				cliente.setApellido(rs.getString("apellido"));
+				// ****PONER EL RESTO DE ATRIBUTOS SI SON NECESARIOS*****
+			}else {
+				cliente = null; // para saber que es un empty result set
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connect != null) {
+					connect.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cliente;
 	}
 
 }

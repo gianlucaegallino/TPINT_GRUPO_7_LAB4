@@ -65,12 +65,14 @@ public class SIniciarSesion extends HttpServlet {
 					int tipoUsuario = usuario.getTipo_usuario();
 					String redireccion = (tipoUsuario == 2) ? "InicioUsuarioBanco.jsp" : "Inicio.jsp";
 					
+					Cliente cli = null;
 					//Obtiene los datos de cliente, si es un tipo cliente
 					if (tipoUsuario != 2) {
 						//Implementar
-						Cliente cli = new Cliente();
-						NegCliente negcli = new NegCliente();
 						
+						NegCliente negcli = new NegCliente();
+						negcli.conseguirClienteporUsuario(usuario);
+						cli = new Cliente();
 					}
 					
 					// Arma una cookie con los datos de usuario y cliente, y las agrega a la response
@@ -80,12 +82,17 @@ public class SIniciarSesion extends HttpServlet {
 					
 					ckNombre = new Cookie("NombreUsuario", usuario.getUsuario());
 					
-					if (tipoUsuario == 2) {
+					if (tipoUsuario == 2) { // Si es administradp 
 						ckNombrePersona = new Cookie("NombrePersona", "Administrador");
 						ckApellidoPersona = new Cookie("ApellidoPersona", "Banco");
 					} else {
-						ckNombrePersona = new Cookie("NombrePersona", "Franco");
-						ckApellidoPersona = new Cookie("ApellidoPersona", "Colapinto");
+						if (cli == null) { //Si la busqueda no devolvio un cliente
+							ckNombrePersona = new Cookie("NombrePersona", "Sin");
+							ckApellidoPersona = new Cookie("ApellidoPersona", "Asignar");
+						} else { // Si la busqueda devolvio un cliente
+							ckNombrePersona = new Cookie("NombrePersona", cli.getNombre());
+							ckApellidoPersona = new Cookie("ApellidoPersona", cli.getApellido());
+						}
 					}
 
 					// Suma las cookies a la response

@@ -12,7 +12,6 @@
 
   if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
 		  for (int i = 0; i < cookies.length; i++) {
-				System.out.println("vuelta");
 		  	if (cookies[i].getName().equals("NombrePersona")){
 		  		name = cookies[i].getValue();
 		  	}

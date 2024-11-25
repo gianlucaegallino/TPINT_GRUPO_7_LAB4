@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.ClienteDao;
 import entidades.Cliente;
+import entidades.Usuario;
 
 public class NegCliente {
 
@@ -52,4 +53,9 @@ public class NegCliente {
     public boolean modificarCliente(Cliente cliente) {
         return clienteDao.modificarCliente(cliente);
     }
+
+
+	public Cliente conseguirClienteporUsuario(Usuario usuario) {
+		return clienteDao.conseguirClienteporUsuario(usuario);
+	}
 }

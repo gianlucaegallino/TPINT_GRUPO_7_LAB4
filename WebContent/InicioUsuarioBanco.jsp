@@ -10,7 +10,7 @@
   
   //Agarra los valores de las cookies
 
-	  if( cookies != null ) {
+	  if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
 		  for (int i = 0; i < cookies.length; i++) {
 		  	if (cookies[i].getName().equals("NombrePersona")){
 		  		name = cookies[i].getValue();
