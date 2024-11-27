@@ -25,6 +25,7 @@
 	        }
 	    %>
 		<form action="SIClientes" method="POST">
+			<input type="hidden" name="action" value="buscarPorDNI">
 			<label for="numeroDNIaBuscar">Numero de DNI:</label>
 			<input type="text" id="numeroDNIaBuscarEditar" name="numeroDNIaBuscar" placeholder="Ingrese un DNI a buscar" required>
 			<input type="submit" value="Buscar DNI" name="btnBuscarDNI">
@@ -60,11 +61,11 @@
 			            <td><%= cliente.getCuil() %></td>
 			            <td><%= cliente.getNombre() %></td>
 			            <td><%= cliente.getApellido() %></td>
-			            <td><%= cliente.getSexo_id() %></td>
-			            <td><%= cliente.getNacionalidad_id() %></td>
+			            <td><%= cliente.getSexo() %></td>
+			            <td><%= cliente.getNacionalidad() %></td>
 			            <td><%= cliente.getFecha_nacimiento() %></td>
-			            <td class="editable"><span class="campo-valor"><%= cliente.getDireccion_id() %></span>
-                            <input type="text" name="direccion" value="<%= cliente.getDireccion_id() %>" style="display: none;">
+			            <td class="editable"><span class="campo-valor"><%= cliente.getDireccion() %></span>
+                            <input type="text" name="direccion" value="<%= cliente.getDireccion() %>" style="display: none;">
                         </td>
                         <td class="editable"><span class="campo-valor"><%= cliente.getCorreo_electronico() %></span>
                             <input type="text" name="correo" value="<%= cliente.getCorreo_electronico() %>" style="display: none;">

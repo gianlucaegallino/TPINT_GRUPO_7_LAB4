@@ -9,7 +9,12 @@ public class Nacionalidad {
         this.nombre = nombre;
     }
 
-    public int getId() {
+    public Nacionalidad(int id) {
+		super();
+		this.id = id;
+	}
+
+	public int getId() {
         return id;
     }
 

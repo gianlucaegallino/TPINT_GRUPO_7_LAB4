@@ -9,6 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Cliente;
+import entidades.Direccion;
+import entidades.Nacionalidad;
+import entidades.Sexo;
 import entidades.Usuario;
 
 public class ClienteDao {
@@ -133,14 +136,24 @@ public class ClienteDao {
 				cliente.setNombre(rs.getString("nombre"));
 				cliente.setApellido(rs.getString("apellido"));
 				cliente.setCuil(rs.getString("cuil"));
-				cliente.setSexo_id(rs.getInt("sexo_id"));
-				cliente.setNacionalidad_id(rs.getInt("nacionalidad_id"));
+				
+				int sexoId = rs.getInt("sexo_id");
+	            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
+	            cliente.setSexo(sexo);
+	            
+	            int nacioID = rs.getInt("nacionalidad_id");
+	            Nacionalidad nacio = new Nacionalidad(nacioID);
+	            cliente.setNacionalidad(nacio);
+	            
 				cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
-				cliente.setDireccion_id(rs.getString("direccion_id"));
+				
+				String direccion = rs.getString("direccion_id");
+				Direccion direc = new Direccion(direccion);
+				cliente.setDireccion(direc);
+				
 				cliente.setCorreo_electronico(rs.getString("correo_electronico"));
 				cliente.setTelefono(rs.getString("telefono"));
 				cliente.setIdCliente(rs.getInt("id_cliente"));
-				// ****PONER EL RESTO DE ATRIBUTOS NECESARIOS*****
 			}
 
 		} catch (Exception e) {

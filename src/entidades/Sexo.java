@@ -9,6 +9,19 @@ public class Sexo {
         this.descripcion = descripcion;
     }
 
+    
+	public Sexo(int id) {
+		super();
+		this.id = id;
+	}
+
+
+	public Sexo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getId() {
 		return id;
 	}

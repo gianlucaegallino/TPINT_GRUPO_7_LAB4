@@ -80,7 +80,7 @@
 
         <input class="botonInicio" type="submit" value="Informacion Cliente" />
 
-		<form action="SIClientes" method="GET">
+		
         <input
           class="botonInicio"
           id="botonABMLCliente"
@@ -88,7 +88,7 @@
           value="Cliente"
           onClick="window.location.href='Clientes.jsp'"
         />
-		 </form>
+		
 
         <input
           class="botonInicio"

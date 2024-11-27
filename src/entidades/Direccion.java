@@ -9,6 +9,14 @@ public class Direccion {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public Direccion(String direccion) {
+		super();
+		this.direccion = direccion;
+	}
+
+
 	public Direccion(String direccion, Localidad idLocalidad) {
 		super();
 		this.direccion = direccion;

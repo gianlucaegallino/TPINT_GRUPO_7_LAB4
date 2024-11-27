@@ -55,12 +55,27 @@ public class SIClientes extends HttpServlet {
             modificarCliente(request, response);
         } else if ("eliminarCliente".equals(action)) {
             eliminarCliente(request, response);
-        } else {
+        } else if("buscarPorDNI".equals(action)){
+        	buscarPorDNI(request,response);
+        }else {
             // Manejar acción no válida
         }
     }
 
-    private void cargarDescolgables(HttpServletRequest request) {
+    private void buscarPorDNI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+    	String dni = request.getParameter("numeroDNIaBuscar");
+    	
+    	Cliente client = negCliente.conseguirClientePorDni(dni);
+    	
+    	request.setAttribute("cliente", client);
+    	
+    	RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
+        rd.forward(request, response);
+		
+	}
+
+	private void cargarDescolgables(HttpServletRequest request) {
         // Obtener la lista de sexos y pasarla al JSP
         ArrayList<Sexo> sexos = negDesc.obtenerLosSexos();
         if (sexos != null && !sexos.isEmpty()) {
