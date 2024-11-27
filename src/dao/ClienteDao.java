@@ -91,10 +91,20 @@ public class ClienteDao {
 				cliente.setNombre(rs.getString("nombre"));
 				cliente.setApellido(rs.getString("apellido"));
 				cliente.setCuil(rs.getString("cuil"));
-				cliente.setSexo_id(rs.getInt("sexo_id"));
-				cliente.setNacionalidad_id(rs.getInt("nacionalidad_id"));
+				int sexoId = rs.getInt("sexo_id");
+	            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
+	            cliente.setSexo(sexo);
+	            
+	            int nacioID = rs.getInt("nacionalidad_id");
+	            Nacionalidad nacio = new Nacionalidad(nacioID);
+	            cliente.setNacionalidad(nacio);
+	            
 				cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
-				cliente.setDireccion_id(rs.getString("direccion_id"));
+				
+				String direccion = rs.getString("direccion_id");
+				Direccion direc = new Direccion(direccion);
+				cliente.setDireccion(direc);
+				
 				cliente.setCorreo_electronico(rs.getString("correo_electronico"));
 				cliente.setTelefono(rs.getString("telefono"));
 				cliente.setEstado(rs.getString("estado"));
@@ -183,7 +193,7 @@ public class ClienteDao {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement(
 					"UPDATE clientes SET direccion_id = ?, correo_electronico = ?, telefono = ? WHERE id_cliente = ?");
-			sentence.setString(1, cliente.getDireccion_id());
+			sentence.setString(1, cliente.getDireccion().getDireccion());
 			sentence.setString(2, cliente.getCorreo_electronico());
 			sentence.setString(3, cliente.getTelefono());
 			sentence.setInt(4, cliente.getIdCliente());
