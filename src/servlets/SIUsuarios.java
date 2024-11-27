@@ -75,17 +75,17 @@ public class SIUsuarios extends HttpServlet {
         us.setTipo_usuario(tipo);
 
 
-        // Agregar el cliente a la base de datos
+        // Agregar el usuario a la base de datos
         int resultado = negUsu.AgregarUsuario(us);
 
-        // Redirigir a la JSP de agregar cliente con un mensaje de éxito o error
+        // Redirigir a la JSP de agregar usuar con un mensaje de éxito o error
         if (resultado == 0) {
-            request.setAttribute("mensajeExito", "¡Cliente agregado correctamente!");
+            request.setAttribute("mensajeExito", "�Cliente agregado correctamente!");
         } else {
             request.setAttribute("mensajeError", "Error al agregar el cliente.");
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
         rd.forward(request, response);
     }
 }
