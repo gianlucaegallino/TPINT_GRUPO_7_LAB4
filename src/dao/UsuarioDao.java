@@ -128,8 +128,7 @@ public class UsuarioDao {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		Usuario usuario = new Usuario();
+;
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
@@ -138,11 +137,13 @@ public class UsuarioDao {
 			miSentencia.setString(1, nom);
 			ResultSet resultado = miSentencia.executeQuery();
 			if(resultado.next()) {
+				con.close();
 				return 1;
+				
 			}
 
 
-			con.close();
+			
 		} catch (Exception e) {
 			System.out.println("Conexion fallida");
 			e.printStackTrace();

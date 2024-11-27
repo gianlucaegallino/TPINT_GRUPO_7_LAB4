@@ -55,6 +55,11 @@
                 <h3 style="color: green;"><%= request.getAttribute("mensajeExito") %></h3> 
             </form>
         </div>
+                <div class="formulario-mensaje" style="<%= request.getAttribute("mensajeError") != null && !request.getAttribute("mensajeError").toString().isEmpty() ? "display: block;" : "display: none;" %>">
+    <form>
+        <h3 style="color: red;"><%= request.getAttribute("mensajeError") %></h3>
+    </form>
+</div>
 	</div>
 
 	<script defer src="js/clientes.js"></script>

@@ -62,57 +62,57 @@ public class SIUsuarios extends HttpServlet {
         int tipo = Integer.parseInt(request.getParameter("TipoUsuario"));
 
 
+        String msj = validarDatos(request, user, pwd, tipo);
         // Validar los datos
-        if (!validarDatos(request, user, pwd, tipo)) {
-            return; 
-        }
-
-        // Crear la instancia de usuario
-        Usuario us = new Usuario();
-        us.setUsuario(user);
-        us.setContrasena(pwd);
-        us.setTipo_usuario(tipo);
+        if (msj == null) {
+        	// Crear la instancia de usuario
+            Usuario us = new Usuario();
+            us.setUsuario(user);
+            us.setContrasena(pwd);
+            us.setTipo_usuario(tipo);
 
 
-        // Agregar el usuario a la base de datos
-        int resultado = negUsu.AgregarUsuario(us);
+            // Agregar el usuario a la base de datos
+            int resultado = negUsu.AgregarUsuario(us);
 
-        // Redirigir a la JSP de agregar usuar con un mensaje de √©xito o error
-        if (resultado == 0) {
-            request.setAttribute("mensajeExito", "°Cliente agregado correctamente!");
+            // Redirigir a la JSP de agregar usuar con un mensaje de √©xito o error
+            if (resultado == 0) {
+                request.setAttribute("mensajeExito", "°Cliente agregado correctamente!");
+            } else {
+                request.setAttribute("mensajeError", "Error al agregar el cliente.");
+            }
         } else {
-            request.setAttribute("mensajeError", "Error al agregar el cliente.");
+        	request.setAttribute("mensajeError", msj);
+        	System.out.println(msj);
         }
+
+        
 
         RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
         rd.forward(request, response);
     }
 	
-	 private boolean validarDatos(HttpServletRequest request, String user, String pwd, int tipo) {
+	 private String validarDatos(HttpServletRequest request, String user, String pwd, int tipo) {
 	        // Validaci√≥n del usuario
 	        if (user == null || user.isEmpty()) {
-	            request.setAttribute("mensajeError", "Nombre Usuario Vacio.");
-	            return false;
+	            return "Nombre Usuario Vacio.";
 	        }
 
 	        // Validaci√≥n de la contraseÒa
 	        if (pwd == null || pwd.isEmpty()) {
-	            request.setAttribute("mensajeError", "Contrasena vacia.");
-	            return false;
+	            return "Contrasena vacia.";
 	        }
 
 	        // Validacion del tipo
 	        if (tipo != 1 && tipo != 2) {
-	            request.setAttribute("mensajeError", "Tipo Invalido.");
-	            return false;
+	            return "Tipo Invalido.";
 	        }
 	        
 	        //Verificacion de usuario no existente
-	        if (negUsu.verificarExistenciaPorNombre(user) != 1) {
-	            request.setAttribute("mensajeError", "Ese nombre de usuario ya existe.");
-	            return false;
+	        if (negUsu.verificarExistenciaPorNombre(user) != 0) {
+	            return "Ese nombre de usuario ya existe.";
 	        }
 
-	        return true;
+	        return null;
 	    }
 }
