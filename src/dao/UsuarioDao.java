@@ -121,4 +121,44 @@ public class UsuarioDao {
 		return usuario;
 	}
 
+
+	public int verificarExistenciaPorNombre(String nom) {
+		 try {
+		        Class.forName("com.mysql.jdbc.Driver");
+		    } catch (ClassNotFoundException e) {
+		        e.printStackTrace();
+		    }
+
+		    Connection connect = null;
+		    try {
+		        connect = DriverManager.getConnection(host + dbName, user, pass);
+
+		        PreparedStatement usuarioStmt = connect
+		                .prepareStatement("SELECT * FROM usuarios WHERE username = ?");
+		        usuarioStmt.setString(1, nom);
+		        
+		        
+		        int usuarioResult = usuarioStmt.executeUpdate();
+		      
+		        if (usuarioResult > 0) {
+		            System.out.println("Este nombre ya existe.");
+		            return usuarioResult;
+		        } else {
+		            System.out.println("Este nombre esta bien!.");
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (connect != null) {
+		                connect.close();
+		            }
+		        } catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+		    return 0;
+	}
+
 }

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -61,12 +62,10 @@ public class SIUsuarios extends HttpServlet {
         int tipo = Integer.parseInt(request.getParameter("TipoUsuario"));
 
 
-        /* AGREGAR VALIDACION
         // Validar los datos
-        if (!validarDatos(request, dni, cuil, nombre, apellido, telefono, sexoId, nacionalidadId, fechaNacimiento,
-                localidadId, direccion, correo)) {
+        if (!validarDatos(request, user, pwd, tipo)) {
             return; 
-        }*/
+        }
 
         // Crear la instancia de usuario
         Usuario us = new Usuario();
@@ -88,4 +87,32 @@ public class SIUsuarios extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
         rd.forward(request, response);
     }
+	
+	 private boolean validarDatos(HttpServletRequest request, String user, String pwd, int tipo) {
+	        // Validación del usuario
+	        if (user == null || user.isEmpty()) {
+	            request.setAttribute("mensajeError", "Nombre Usuario Vacio.");
+	            return false;
+	        }
+
+	        // Validación de la contrase�a
+	        if (pwd == null || pwd.isEmpty()) {
+	            request.setAttribute("mensajeError", "Contrasena vacia.");
+	            return false;
+	        }
+
+	        // Validacion del tipo
+	        if (tipo != 1 && tipo != 2) {
+	            request.setAttribute("mensajeError", "Tipo Invalido.");
+	            return false;
+	        }
+	        
+	        //Verificacion de usuario no existente
+	        if (negUsu.verificarExistenciaPorNombre(user) != 1) {
+	            request.setAttribute("mensajeError", "Ese nombre de usuario ya existe.");
+	            return false;
+	        }
+
+	        return true;
+	    }
 }

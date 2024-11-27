@@ -6,6 +6,7 @@ import entidades.Usuario;
 public class NegUsuario {
 	UsuarioDao dao;
 
+
 	// Constructor para inicializar cnt
 	public NegUsuario() {
 		this.dao = new UsuarioDao(); // Inicializa cnt aquí
@@ -20,4 +21,8 @@ public class NegUsuario {
 		return dao.AgregarUsuario(usuario);
 	}
 
+	public int verificarExistenciaPorNombre(String nom) {
+		return dao.verificarExistenciaPorNombre(nom);
+	}
+	
 }
