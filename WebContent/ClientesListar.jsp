@@ -16,6 +16,7 @@
 	<div class="formulario-listar-cliente" id="formListarCliente" style="display: block;">
 		<h2>Listar Cliente</h2>
 		<form method="post" action="SIClientes">
+			<input type="hidden" name="action" value="mostrarClientes">
 			<input type="text" id="numDNICliente" name="numDNIBuscar" placeholder="Ingrese un DNI">
 			<input type="submit" id="filtrarClientes"value="Filtrar" name="btnFiltrar">
 			<input type="submit" id="mostrarTodosClientes" value="Mostrar todos los clientes" name="btnMostrarCliente">
@@ -54,10 +55,10 @@
 					<td><%=cli.getCuil() %></td>
 					<td><%=cli.getNombre() %></td>
 					<td><%=cli.getApellido() %></td>
-					<td><%=cli.getSexo_id() %></td>
-					<td><%=cli.getNacionalidad_id() %></td>
+					<td><%=cli.getSexo().getDescripcion() %></td>
+					<td><%=cli.getNacionalidad().getNombre() %></td>
 					<td><%=cli.getFecha_nacimiento() %></td>
-					<td><%=cli.getDireccion_id() %></td>
+					<td><%=cli.getDireccion().getDireccion() %></td>
 					<td><%=cli.getCorreo_electronico() %></td>
 					<td><%=cli.getTelefono() %></td>
 				</tr>

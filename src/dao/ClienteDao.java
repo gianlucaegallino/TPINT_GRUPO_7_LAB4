@@ -180,6 +180,40 @@ public class ClienteDao {
 		return cliente;
 	}
 
+	
+	public String BuscarSexo(int sexoId) {
+        // Realiza la consulta a la base de datos para obtener la descripción del sexo
+        String sexoDescripcion = null;
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+             PreparedStatement stmt = conn.prepareStatement("SELECT descripcion FROM sexo WHERE id = ?")) {
+            stmt.setInt(1, sexoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    sexoDescripcion = rs.getString("descripcion");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sexoDescripcion;
+    }
+	
+	public String BuscarNacionalidad(int id) {
+		String NacionalidadNombre = null;
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+             PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM nacionalidad WHERE id = ?")) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	NacionalidadNombre = rs.getString("nombre");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return NacionalidadNombre;
+	}
+	
 	public boolean modificarCliente(Cliente cliente) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

@@ -8,15 +8,15 @@ import entidades.Usuario;
 
 public class NegCliente {
 
-    private final ClienteDao clienteDao;
+    static ClienteDao clienteDao;
     
     // Constructor que recibe el DAO
     public NegCliente(ClienteDao clienteDao) {
-        this.clienteDao = clienteDao;
+        NegCliente.clienteDao = clienteDao;
     }
 
     public NegCliente(){
-    	 this.clienteDao = new ClienteDao(); 
+    	 NegCliente.clienteDao = new ClienteDao(); 
 	}
 
 	public int AgregarCliente(Cliente cliente) {
@@ -53,8 +53,15 @@ public class NegCliente {
     public boolean modificarCliente(Cliente cliente) {
         return clienteDao.modificarCliente(cliente);
     }
+    
+    public static String BuscarSexo(int id) {
+    	return clienteDao.BuscarSexo(id);
+    }
 
-
+    public static String BuscarNacionalidad(int id) {
+    	return clienteDao.BuscarNacionalidad(id);
+    }
+    
 	public Cliente conseguirClienteporUsuario(Usuario usuario) {
 		return clienteDao.conseguirClienteporUsuario(usuario);
 	}
