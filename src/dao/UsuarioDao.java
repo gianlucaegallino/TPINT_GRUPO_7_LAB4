@@ -123,42 +123,32 @@ public class UsuarioDao {
 
 
 	public int verificarExistenciaPorNombre(String nom) {
-		 try {
-		        Class.forName("com.mysql.jdbc.Driver");
-		    } catch (ClassNotFoundException e) {
-		        e.printStackTrace();
-		    }
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
-		    Connection connect = null;
-		    try {
-		        connect = DriverManager.getConnection(host + dbName, user, pass);
+		Usuario usuario = new Usuario();
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement miSentencia = con
+					.prepareStatement("Select * from usuarios where username = ?");
+			miSentencia.setString(1, nom);
+			ResultSet resultado = miSentencia.executeQuery();
+			if(resultado.next()) {
+				return 1;
+			}
 
-		        PreparedStatement usuarioStmt = connect
-		                .prepareStatement("SELECT * FROM usuarios WHERE username = ?");
-		        usuarioStmt.setString(1, nom);
-		        
-		        
-		        int usuarioResult = usuarioStmt.executeUpdate();
-		      
-		        if (usuarioResult > 0) {
-		            System.out.println("Este nombre ya existe.");
-		            return usuarioResult;
-		        } else {
-		            System.out.println("Este nombre esta bien!.");
-		        }
 
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    } finally {
-		        try {
-		            if (connect != null) {
-		                connect.close();
-		            }
-		        } catch (SQLException e) {
-		            e.printStackTrace();
-		        }
-		    }
-		    return 0;
+			con.close();
+		} catch (Exception e) {
+			System.out.println("Conexion fallida");
+			e.printStackTrace();
+		} finally {
+		}
+		return 0;
 	}
 
 }
