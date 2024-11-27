@@ -16,6 +16,7 @@
 	<div class="formulario-agregar" id="formularioAgregarUsuario" style="display: block;">
 		<h2>Agregar Usuario</h2>
 		<form action="SIUsuarios" method="POST">
+		<input type="hidden" name="action" value="agregarUsuario">
 			<div class="form-container">
 				<div class="fila" id="Username_Contrasena">
 					<div class="form-element">
