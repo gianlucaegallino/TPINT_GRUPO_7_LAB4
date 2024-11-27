@@ -4,6 +4,10 @@ a{
 	text-decoration: none;
 }
 
+td {
+  white-space: nowrap; /* Evita que el texto se rompa */
+}
+
 /* Estilos para el formulario de listar clientes */
 .formulario-listar-cliente {
     display: none;

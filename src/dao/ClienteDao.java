@@ -91,13 +91,14 @@ public class ClienteDao {
 				cliente.setNombre(rs.getString("nombre"));
 				cliente.setApellido(rs.getString("apellido"));
 				cliente.setCuil(rs.getString("cuil"));
+				
 				int sexoId = rs.getInt("sexo_id");
-	            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
-	            cliente.setSexo(sexo);
+				String SexoDescrip = BuscarSexo(sexoId);
+				cliente.setSexo(new Sexo(sexoId, SexoDescrip));
 	            
 	            int nacioID = rs.getInt("nacionalidad_id");
-	            Nacionalidad nacio = new Nacionalidad(nacioID);
-	            cliente.setNacionalidad(nacio);
+	            String NacioDescrip = BuscarNacionalidad(nacioID);
+	            cliente.setNacionalidad(new Nacionalidad(nacioID, NacioDescrip));
 	            
 				cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
 				
@@ -184,7 +185,7 @@ public class ClienteDao {
 	public String BuscarSexo(int sexoId) {
         // Realiza la consulta a la base de datos para obtener la descripción del sexo
         String sexoDescripcion = null;
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
              PreparedStatement stmt = conn.prepareStatement("SELECT descripcion FROM sexo WHERE id = ?")) {
             stmt.setInt(1, sexoId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -200,7 +201,7 @@ public class ClienteDao {
 	
 	public String BuscarNacionalidad(int id) {
 		String NacionalidadNombre = null;
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
              PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM nacionalidad WHERE id = ?")) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
