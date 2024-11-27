@@ -1,7 +1,12 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -68,12 +73,58 @@ public class SIClientes extends HttpServlet {
     	
     	Cliente client = negCliente.conseguirClientePorDni(dni);
     	
-    	request.setAttribute("cliente", client);
-    	
-    	RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
-        rd.forward(request, response);
+    	if(client != null) {
+    		// Obtener la descripción del sexo
+            String sexoDescripcion = BuscarSexo(client.getSexo().getId());
+            client.setSexo(new Sexo(client.getSexo().getId(), sexoDescripcion)); // Actualizar el objeto Sexo con la descripción
+            
+         // Obtener la descripción de la nacionalidad
+            String nacionalidadDescripcion = BuscarNacionalidad(client.getNacionalidad().getId());
+            client.setNacionalidad(new Nacionalidad(client.getNacionalidad().getId(), nacionalidadDescripcion)); // Actualizar el objeto Nacionalidad con la descripción
+            
+            request.setAttribute("cliente", client);
+            RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
+            rd.forward(request, response);
+        } else {
+            // Manejar el caso en que no se encuentra el cliente
+            RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
+            rd.forward(request, response);
+        }
 		
 	}
+
+	private String BuscarNacionalidad(int id) {
+		String NacionalidadNombre = null;
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+             PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM nacionalidad WHERE id = ?")) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	NacionalidadNombre = rs.getString("nombre");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return NacionalidadNombre;
+	}
+
+	private String BuscarSexo(int sexoId) {
+        // Realiza la consulta a la base de datos para obtener la descripción del sexo
+        String sexoDescripcion = null;
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion", "root", "root");
+             PreparedStatement stmt = conn.prepareStatement("SELECT descripcion FROM sexo WHERE id = ?")) {
+            stmt.setInt(1, sexoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    sexoDescripcion = rs.getString("descripcion");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sexoDescripcion;
+    }
 
 	private void cargarDescolgables(HttpServletRequest request) {
         // Obtener la lista de sexos y pasarla al JSP
