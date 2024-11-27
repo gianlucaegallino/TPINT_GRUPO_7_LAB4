@@ -37,7 +37,7 @@
 					<div class="form-element">
 						<label for="TipoUsuario">TIPO DE USUARIO:</label>
 		                <select id="TipoUsuario" name="TipoUsuario" required>
-		                	<option value="0">-- SELECCIONE TIPO DE USUARIO --</option>
+		                	<option value="" disabled selected>-- SELECCIONE TIPO DE USUARIO --</option>
 		                    <option value="1">Administrador</option>
 		                    <option value="2">Cliente</option>
 		                </select>
