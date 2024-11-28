@@ -14,11 +14,10 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <title>Gestión de Clientes | Banco Liberación</title>
 </head>
-<body class="bodyInicio">
+<body class="bodyInicio" onLoad="document.getElementById('formCargarListas').submit()">
     <!-- Form de agregar cliente -->
-    
+    <form action="SIClientes" method="GET" style="display: none" id="formCargarListas"></form>
     <div class="formulario-agregar" id="formularioAgregarCliente" style="display: block;">
-    
         <h2>Agregar Cliente</h2>
         <form action="SIClientes" method="POST">
             <input type="hidden" name="action" value="agregarCliente">

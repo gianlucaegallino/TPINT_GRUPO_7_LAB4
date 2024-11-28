@@ -82,6 +82,10 @@ public class CargarDescolgablesDao {
                     int id = rs.getInt("id");
                     String nombre = rs.getString("nombre");
                     listaProvincias.add(new Provincia(id, nombre));
+                    
+                    System.out.println(id);
+                    System.out.println(nombre);
+
                 }
             }
         } catch (SQLException e) {
@@ -112,7 +116,7 @@ public class CargarDescolgablesDao {
                 // Crear la provincia y agregar la localidad
                 Provincia provincia = new Provincia(provinciaId, provinciaNombre);
                 Localidad localidad = new Localidad(id, nombre, provincia);
-
+ 
                 listaLocalidades.add(localidad);
             }
 

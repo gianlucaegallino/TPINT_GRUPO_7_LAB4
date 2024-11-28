@@ -35,10 +35,13 @@ public class SIClientes extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        cargarDescolgables(request);
+        //cargarDescolgables(request);
+        System.out.println("Hola, me ejecute y soy el doget");
+        /*
         if (request.getParameter("ProvCliente") != null) {
             cargarLocalidades(request, response);
-        }
+        }*/
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
