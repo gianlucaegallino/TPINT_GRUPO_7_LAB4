@@ -35,13 +35,12 @@ public class SIClientes extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //cargarDescolgables(request);
-        System.out.println("Hola, me ejecute y soy el doget");
-        /*
+        cargarDescolgables(request);
+        System.out.println(request.getParameter("ProvCliente"));
         if (request.getParameter("ProvCliente") != null) {
             cargarLocalidades(request, response);
-             request.setAttribute("mensajeCarga", "Cargadas");
-        }*/
+            
+        }
         request.setAttribute("mensajeCarga", "Cargadas");
 		RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
 		rd.forward(request, response);
@@ -130,13 +129,16 @@ public class SIClientes extends HttpServlet {
 
     private void cargarLocalidades(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+    	System.out.println(request.getParameter("ProvCliente"));
         int provId = Integer.parseInt(request.getParameter("ProvCliente"));
         ArrayList<Localidad> localidades = negDesc.ObtenerLasLocalidadesPorProvincia(provId);
         if (localidades != null && !localidades.isEmpty()) {
+        	System.out.println("CULOTETA"); 
             request.setAttribute("localidades", localidades);
             RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
             rd.forward(request, response);
         } else {
+        	System.out.println("TETACULO");
             request.setAttribute("mensajeError", "No se pudieron cargar las localidades.");
             RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
             rd.forward(request, response);
