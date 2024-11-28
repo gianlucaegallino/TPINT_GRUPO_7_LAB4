@@ -40,7 +40,11 @@ public class SIClientes extends HttpServlet {
         /*
         if (request.getParameter("ProvCliente") != null) {
             cargarLocalidades(request, response);
+             request.setAttribute("mensajeCarga", "Cargadas");
         }*/
+        request.setAttribute("mensajeCarga", "Cargadas");
+		RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
+		rd.forward(request, response);
 
     }
 
