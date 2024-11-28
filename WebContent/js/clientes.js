@@ -9,33 +9,15 @@ function mostrarForm(formId) {
     document.getElementById(formId).style.display = 'block';
 }
 
-
-//document.addEventListener('DOMContentLoaded', function() {
-//    var btnbuscar = document.getElementById('btnbuscar');
-//    var btnModificar = document.querySelector('.botonModificar'); // Selecciona el botón Cancelar
-//    var tablaCliente = document.getElementById('tablaCliente');
-//    var tablaEditar = document.getElementById('tablaEditar');
-//
-//    btnbuscar.addEventListener('click', function() {
-//        tablaCliente.style.display = 'none';
-//        tablaEditar.style.display = 'block';
-//    });
-//
-//    btnModificar.addEventListener('click', function() {
-//        tablaCliente.style.display = 'block';
-//        tablaEditar.style.display = 'none';
-//    });
-//});
-
-
 document.addEventListener('DOMContentLoaded', function() {
     var btnModificar = document.getElementById('btnModificar');
     var btnGuardar = document.querySelector('input[name="btnGuardar"]');
-    var btnEliminar = document.getElementById('btnEliminar'); // Selecciona el botón Eliminar
-    var btnCancelar = document.getElementById('btnCancelar'); // Selecciona el botón Cancelar
-    var btnEliminarSubmit = document.querySelector('input[name="btnEliminarSubmit"]');
+    var btnEliminar = document.getElementById('btnEliminar'); 
+    var btnCancelar = document.getElementById('btnCancelar'); 
+    var btnEliminarSubmit = document.getElementById('btnEliminarSubmit'); 
     var camposEditables = document.querySelectorAll('.editable input');
 
+    // Botón Modificar
     btnModificar.addEventListener('click', function() {
         camposEditables.forEach(function(input) {
             input.style.display = 'block';
@@ -43,10 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         btnGuardar.style.display = 'block';
         btnModificar.style.display = 'none';
-        btnCancelar.style.display = 'block'; // Muestra el botón Cancelar
-        btnEliminar.style.display = 'none'; // Oculta el botón Eliminar
+        btnCancelar.style.display = 'block';
+        btnEliminar.style.display = 'none';
     });
 
+    // Botón Cancelar
     btnCancelar.addEventListener('click', function() {
         camposEditables.forEach(function(input) {
             input.style.display = 'none';
@@ -54,28 +37,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         btnGuardar.style.display = 'none';
         btnModificar.style.display = 'block';
-        btnCancelar.style.display = 'none'; // Oculta el botón Cancelar
-        btnEliminar.style.display = 'block'; // Muestra el botón Eliminar
+        btnCancelar.style.display = 'none';
+        btnEliminar.style.display = 'block';
     });
-    
-    btnEliminar.addEventListener('click', function() {
-        camposEditables.forEach(function(input) {
-            input.style.display = 'block';
-            input.previousElementSibling.style.display = 'none';
-        });
-        btnGuardar.style.display = 'block';
-        btnModificar.style.display = 'none';
-        btnCancelar.style.display = 'block';
-        btnEliminar.style.display = 'none'; // Ocultar el botón Eliminar
-    });
- // Eliminar cliente
-    btnEliminar.addEventListener('click', function() {
-        // Ocultar botones de modificar y guardar
-        btnModificar.style.display = 'none';
-        btnGuardar.style.display = 'none';
 
-        // Mostrar botones de confirmación de eliminación
-        btnEliminarSubmit.style.display = 'block'; // Mostrar el submit para eliminar
-        btnCancelar.style.display = 'block'; // Mostrar el botón Cancelar
+    // Botón Eliminar
+    btnEliminar.addEventListener('click', function() {
+    	// Deshabilitar los campos editables
+        camposEditables.forEach(function(input) {
+            input.disabled = true; // Deshabilitar el campo de entrada
+            input.style.backgroundColor = '#ddd'; // Cambiar el fondo a gris (opcional)
+        });
+
+        // Mostrar el botón "Eliminar" y ocultar los demás
+        btnEliminarSubmit.style.display = 'block'; 
+        btnModificar.style.display = 'none';
+        btnEliminar.style.display = 'none';
+        btnCancelar.style.display = 'block'; 
     });
 });

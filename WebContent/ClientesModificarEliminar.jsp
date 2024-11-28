@@ -78,6 +78,7 @@
         if (cliente != null) {
         %>
         <form action="SIClientes" method="POST">
+        	<input type="hidden" name="action" value="modificarCliente">
             <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>"> <!-- Agrega el idCliente oculto -->
             <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>">
             <!-- Botones para modificar o eliminar cuenta -->
