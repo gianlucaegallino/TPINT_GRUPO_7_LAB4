@@ -227,11 +227,11 @@ public class ClienteDao {
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement(
-					"UPDATE clientes SET direccion_id = ?, correo_electronico = ?, telefono = ? WHERE dni = ?");
+					"UPDATE clientes SET direccion_id = ?, correo_electronico = ?, telefono = ? WHERE id_cliente = ?");
 			sentence.setString(1, cliente.getDireccion().getDireccion());
 			sentence.setString(2, cliente.getCorreo_electronico());
 			sentence.setString(3, cliente.getTelefono());
-			sentence.setString(4, cliente.getDni());
+			sentence.setInt(4, cliente.getIdCliente());
 
 			filasAfectadas = sentence.executeUpdate() > 0; // Actualiza la base de datos
 		} catch (Exception e) {
@@ -317,7 +317,7 @@ public class ClienteDao {
 	 * e) { e.printStackTrace(); } return cliente; }
 	 */
 
-	public int EliminarCliente(String DNI) {
+	public int EliminarCliente(int idCliente) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -327,8 +327,8 @@ public class ClienteDao {
 		int filasAfectadas = 0;
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
-			PreparedStatement sentence = connect.prepareStatement("UPDATE clientes SET estado = false WHERE dni = ?");
-			sentence.setString(1, DNI);
+			PreparedStatement sentence = connect.prepareStatement("UPDATE clientes SET estado = 0 WHERE id_cliente = ?");
+			sentence.setInt(1, idCliente);
 
 			filasAfectadas = sentence.executeUpdate();
 		} catch (Exception e) {

@@ -31,21 +31,9 @@ public class NegCargarDescolgables {
 			return desc.obtenerProvincias();
 		}
 		
-		public ArrayList<Localidad> ObtenerLasLocalidades(){
-			return desc.obtenerLocalidades();
-		}
 		
 		public ArrayList<Localidad> ObtenerLasLocalidadesPorProvincia(int provinciaId) {
-		    ArrayList<Localidad> localidades = desc.obtenerLocalidades();  // Obtener todas las localidades
-		    ArrayList<Localidad> localidadesFiltradas = new ArrayList<>();
-		    
-		    for (Localidad localidad : localidades) {
-		        if (localidad.getProvincia().getId() == provinciaId) {
-		            localidadesFiltradas.add(localidad);
-		        }
-		    }
-		    
-		    return localidadesFiltradas;
+		    return desc.obtenerLocalidadesPorProvincia(provinciaId);
 		}
 }
 

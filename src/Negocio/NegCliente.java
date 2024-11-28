@@ -42,8 +42,8 @@ public class NegCliente {
         return lista;
     }
 
-    public int EliminarCliente(String dni) {
-        return clienteDao.EliminarCliente(dni);
+    public int EliminarCliente(int idClient) {
+        return clienteDao.EliminarCliente(idClient);
     }
 
     public Cliente conseguirClientePorDni(String clienteDNI) {

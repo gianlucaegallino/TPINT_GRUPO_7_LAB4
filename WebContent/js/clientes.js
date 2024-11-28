@@ -56,3 +56,18 @@ document.addEventListener('DOMContentLoaded', function() {
         btnCancelar.style.display = 'block'; 
     });
 });
+
+function cargarLocalidades(provId) {
+	  var form = document.createElement('form');
+	  form.method = 'GET';
+	  form.action = 'SIClientes';
+
+	  var input = document.createElement('input');
+	  input.type = 'hidden';
+	  input.name = 'ProvCliente';
+	  input.value = provId;
+	  form.appendChild(input);
+
+	  document.body.appendChild(form);
+	  form.submit();
+}

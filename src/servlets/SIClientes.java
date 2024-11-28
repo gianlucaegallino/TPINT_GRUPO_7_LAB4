@@ -57,12 +57,10 @@ public class SIClientes extends HttpServlet {
             filtrarClientes(request, response);
         } else if ("agregarCliente".equals(action)) {
             agregarCliente(request, response);
-        } else if ("modificarCliente".equals(action)) {
-            modificarCliente(request, response);
-        } else if ("eliminarCliente".equals(action)) {
-            eliminarCliente(request, response);
         } else if("buscarPorDNI".equals(action)){
         	buscarPorDNI(request,response);
+        } else if ("modificarEliminarCliente".equals(action)) {
+            modificarEliminarCliente(request, response);
         }else {
             // Manejar acción no válida
         }
@@ -200,8 +198,8 @@ public class SIClientes extends HttpServlet {
         cliente.setNombre(nombre);
         cliente.setApellido(apellido);
         cliente.setTelefono(telefono);
-        cliente.setSexo(new Sexo(sexoId, "")); // Se asume que la descripción del sexo no se necesita
-        cliente.setNacionalidad(new Nacionalidad(nacionalidadId, "")); // Se asume que la descripción de la nacionalidad no se necesita
+        cliente.setSexo(new Sexo(sexoId)); // Se asume que la descripción del sexo no se necesita
+        cliente.setNacionalidad(new Nacionalidad(nacionalidadId)); // Se asume que la descripción de la nacionalidad no se necesita
         cliente.setFecha_nacimiento(fechaNacimiento);
         cliente.setDireccion(new Direccion(direccion, new Localidad(localidadId, "", null))); // Se asume que la provincia no se necesita
         cliente.setCorreo_electronico(correo);
@@ -229,24 +227,24 @@ public class SIClientes extends HttpServlet {
         rd.forward(request, response);
     }
 
-    private void modificarCliente(HttpServletRequest request, HttpServletResponse response)
+    private void modificarEliminarCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	if (request.getParameter("btnGuardar") != null) {
 	    	// Obtener los datos del formulario
-	        String dni = request.getParameter("dniCliente");
+    		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
 	        String direccion = request.getParameter("direccion");
 	        String correo = request.getParameter("correo");
 	        String telefono = request.getParameter("telefono");
 	        
 	        // Validar los datos
 	        if (!validarDatosModificar(request, direccion, correo, telefono)) {
-	            return; // Si la validación falla, no se agrega el cliente
+	            return; // Si la validación falla, no se modifica el cliente
 	        }
 	
 	        // Crear la instancia de Cliente
 	        Cliente cliente = new Cliente();
-	        cliente.setDni(dni);
-	        cliente.setDireccion(new Direccion(direccion, null));
+	        cliente.setIdCliente(idCliente);
+	        cliente.setDireccion(new Direccion(direccion));
 	        cliente.setCorreo_electronico(correo);
 	        cliente.setTelefono(telefono);
 	
@@ -263,6 +261,24 @@ public class SIClientes extends HttpServlet {
 	        RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
 	        rd.forward(request, response);
     	}
+    	
+    	if (request.getParameter("btnEliminarSubmit") != null) {
+			// Obtener el DNI del cliente a eliminar
+	        int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+	
+	        // Eliminar el cliente de la base de datos
+	        int resultado = negCliente.EliminarCliente(idCliente);
+	
+	        // Redirigir a la JSP de eliminar cliente con un mensaje de éxito o error
+	        if (resultado == 0) {
+	            request.setAttribute("mensajeExito", "¡Cliente eliminado correctamente!");
+	        } else {
+	            request.setAttribute("mensajeError", "Error al eliminar el cliente.");
+	        }
+	
+	        RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
+	        rd.forward(request, response);
+		}
     }
 
     private boolean validarDatosModificar(HttpServletRequest request, String direccion, String correo,
@@ -288,7 +304,7 @@ public class SIClientes extends HttpServlet {
         return true;
 	}
 
-	private void eliminarCliente(HttpServletRequest request, HttpServletResponse response)
+	/*private void eliminarCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		if (request.getParameter("btnEliminarSubmit") != null) {
 			// Obtener el DNI del cliente a eliminar
@@ -307,7 +323,7 @@ public class SIClientes extends HttpServlet {
 	        RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
 	        rd.forward(request, response);
 		}
-    }
+    }*/
 
     private boolean validarDatos(HttpServletRequest request, String dni, String cuil, String nombre, String apellido,
             String telefono, int sexoId, int nacionalidadId, Date fechaNacimiento, int localidadId, String direccion,

@@ -95,7 +95,7 @@ public class CargarDescolgablesDao {
     }
 
     // Método para obtener las localidades desde la base de datos
-    public ArrayList < Localidad > obtenerLocalidades() {
+    public ArrayList < Localidad > obtenerLocalidadesPorProvincia(int provId) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -104,7 +104,10 @@ public class CargarDescolgablesDao {
 
         ArrayList < Localidad > listaLocalidades = new ArrayList < > ();
         try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
-            "SELECT l.id, l.nombre, p.id AS provincia_id, p.nombre AS provincia_nombre FROM localidad l JOIN provincia p ON l.provincia_id = p.id")) {
+        		"SELECT l.id, l.nombre, p.id AS provincia_id, p.nombre AS provincia_nombre " +
+                        "FROM localidad l JOIN provincia p ON l.provincia_id = p.id " +
+                        "WHERE l.provincia_id = ?")) {
+        	stmt.setInt(1, provId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

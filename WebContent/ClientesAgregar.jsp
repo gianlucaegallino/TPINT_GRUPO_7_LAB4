@@ -139,7 +139,7 @@
 							  <option value="" disabled>No hay datos disponibles</option>
 							    <% } 
                 %>
-							</select>
+							
               </select>
             </div>
             <div class="form-element">
@@ -154,7 +154,7 @@
           <div class="fila">
             <div class="form-element">
               <label for="ProvCliente">PROVINCIA:</label>
-              <select id="ProvCliente" name="ProvCliente" required onchange="this.form.submit()">
+              <select id="ProvCliente" name="ProvCliente" onchange="cargarLocalidades(this.value)" required>
                 <option value=""disabled selected> Seleccione la Provincia</option>
 
                   <% 

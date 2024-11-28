@@ -78,11 +78,11 @@
         if (cliente != null) {
         %>
         <form action="SIClientes" method="POST">
-        	<input type="hidden" name="action" value="modificarCliente">
             <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>"> <!-- Agrega el idCliente oculto -->
             <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>">
             <!-- Botones para modificar o eliminar cuenta -->
             <div class="botones-modificar-eliminar">
+        		<input type="hidden" name="action" value="modificarEliminarCliente">
                 <button class="botonModificar" id="btnModificar" name="btnModificar" type="button">Modificar</button>
                 <button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button">Eliminar</button>
                 <input type="submit" value="Guardar" name="btnGuardar" style="display: none;"> <!-- Botón Guardar oculto -->
