@@ -61,14 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Botón Buscar DNI
-    btnBuscarDNI.addEventListener('click', function() {
+    btnBuscarDNI.addEventListener('click', () => {
     	event.preventDefault();
     	// Oculta la tabla 1
         tablaCliente1.style.display = 'none';
+        console.log("trigger1");
         // Oculta la tabla 2
         tablaCliente2.style.display = 'none';
+        console.log("trigger2");
         // Muestra la tabla 2
         tablaCliente2.style.display = 'block';
+        console.log("trigger3");
     });
 });
 
