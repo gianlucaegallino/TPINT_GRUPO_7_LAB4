@@ -78,71 +78,82 @@ function cargarLocalidades(provId) {
 	  
 	  //Generamos un form invisible, y cargamos los datos del form real para que se mantengan
 	  
-	  var inputDni = document.createElement('input');
+	  let inputDni = document.createElement('input');
 	  inputDni.type = 'hidden';
 	  inputDni.name = 'DniCliente';
 	  inputDni.value = document.querySelector("#DniCliente").textContent;
 	  form.appendChild(inputDni);
+	  console.log(document.querySelector("#DniCliente").textContent);
 	  
-	  var inputCuil = document.createElement('input');
+	  let inputCuil = document.createElement('input');
 	  inputCuil.type = 'hidden';
-	  inputCuil.name = 'CUILCliente';
+	  inputCuil.name = 'CUILCliente2';
 	  inputCuil.value = document.querySelector("#CUILCliente").textContent;
 	  form.appendChild(inputCuil);
+	  console.log(document.querySelector("#CUILCliente").textContent);
 	  
-	  var inputNombre = document.createElement('input');
+	  let inputNombre = document.createElement('input');
 	  inputNombre.type = 'hidden';
 	  inputNombre.name = 'nombreCliente';
 	  inputNombre.value = document.querySelector("#nombreCliente").textContent;
 	  form.appendChild(inputNombre);
+	  console.log(inputNombre);
 	  
-	  var inputApe = document.createElement('input');
+	  let inputApe = document.createElement('input');
 	  inputApe.type = 'hidden';
 	  inputApe.name = 'apellidoCliente';
 	  inputApe.value = document.querySelector("#apellidoCliente").textContent;
 	  form.appendChild(inputApe);
+	  console.log(inputApe);
 	  
-	  var inputTel = document.createElement('input');
+	  let inputTel = document.createElement('input');
 	  inputTel.type = 'hidden';
 	  inputTel.name = 'telefonoCliente';
 	  inputTel.value = document.querySelector("#telefonoCliente").textContent;
 	  form.appendChild(inputTel);
+	  console.log(inputTel);
 	  
-	  var inputGenero = document.createElement('input');
+	  let inputGenero = document.createElement('input');
 	  inputGenero.type = 'hidden';
 	  inputGenero.name = 'SexoCliente';
 	  inputGenero.value = document.querySelector("#SexoCliente").selectedOptions[0];
 	  form.appendChild(inputGenero);
+	  console.log(inputGenero);
 	  
-	  var inputNacion = document.createElement('input');
+	  let inputNacion = document.createElement('input');
 	  inputNacion.type = 'hidden';
 	  inputNacion.name = 'NacioCliente';
 	  inputNacion.value = document.querySelector("#NacioCliente").selectedOptions[0];
 	  form.appendChild(inputNacion);
+	  console.log(inputNacion);
 	  
-	  var inputFecha = document.createElement('input');
+	  let inputFecha = document.createElement('input');
 	  inputFecha.type = 'hidden';
 	  inputFecha.name = 'FNacimientoCliente';
 	  inputFecha.value = document.querySelector("#FNacimientoCliente").value;
 	  form.appendChild(inputFecha);
+	  console.log(inputFecha);
 	  
-	  var inputProv = document.createElement('input');
+	  let inputProv = document.createElement('input');
 	  inputProv.type = 'hidden';
 	  inputProv.name = 'ProvCliente';
 	  inputProv.value = provId;
 	  form.appendChild(inputProv);
+	  console.log(inputProv);
 	  
-	  var inputDirecc = document.createElement('input');
+	  let inputDirecc = document.createElement('input');
 	  inputDirecc.type = 'hidden';
 	  inputDirecc.name = 'DirecCliente';
 	  inputDirecc.value = document.querySelector("#DirecCliente").textContent;
 	  form.appendChild(inputDirecc);
+	  console.log(inputDirecc);
 	  
-	  var inputCorreo = document.createElement('input');
+	  let inputCorreo = document.createElement('input');
 	  inputCorreo.type = 'hidden';
 	  inputCorreo.name = 'CorreoCliente';
 	  inputCorreo.value = document.querySelector("#CorreoCliente").textContent;
 	  form.appendChild(inputCorreo);
+	  console.log(inputCorreo);
 	  
 
 	  document.body.appendChild(form);
