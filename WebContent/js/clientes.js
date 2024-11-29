@@ -62,8 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Botón Buscar DNI
     btnBuscarDNI.addEventListener('click', function() {
-        // Oculta la tabla 1
+    	event.preventDefault();
+    	// Oculta la tabla 1
         tablaCliente1.style.display = 'none';
+        // Oculta la tabla 2
+        tablaCliente2.style.display = 'none';
         // Muestra la tabla 2
         tablaCliente2.style.display = 'block';
     });

@@ -47,17 +47,17 @@
                 </tr>
             </thead>
             <tbody> 
-            	<tr style="color: white">
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
-            		<td> --- </td>
+            	<tr>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
+            		<td></td>
             	</tr>
             </tbody>
         </table>
