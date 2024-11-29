@@ -33,9 +33,11 @@ public class SIClientes extends HttpServlet {
         negDesc = new NegCargarDescolgables();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         cargarDescolgables(request);
+        System.out.println("Running doget");
+
         if (request.getParameter("ProvCliente") != null) {
         	 String dni = request.getParameter("DniCliente");
              String cuil = request.getParameter("CUILCliente");
@@ -48,8 +50,21 @@ public class SIClientes extends HttpServlet {
              String localidad = request.getParameter("LocCliente");
              String direccion = request.getParameter("DirecCliente");
              String correo = request.getParameter("CorreoCliente");
+             System.out.println(dni);
+             System.out.println(cuil);
+             System.out.println(nombre);
+             System.out.println(apellido);
+             System.out.println(telefono);
+             System.out.println(sexo);
+             System.out.println(nacionalidad);
+             System.out.println(fechaNacimiento);
+             System.out.println(localidad);
+             System.out.println(direccion);
+             System.out.println(correo);
+             
             cargarLocalidades(request, response);
-            request.setAttribute("DniCliente", dni);
+      /*
+       *       request.setAttribute("DniCliente", dni);
             request.setAttribute("CUILCliente", dni);
             request.setAttribute("nombreCliente", dni);
             request.setAttribute("apellidoCliente", dni);
@@ -59,7 +74,9 @@ public class SIClientes extends HttpServlet {
             request.setAttribute("FNacimientoCliente", dni);
             request.setAttribute("LocCliente", dni);
             request.setAttribute("DirecCliente", dni);
-            request.setAttribute("CorreoCliente", dni);
+            request.setAttribute("CorreoCliente", dni);*/
+            
+            
             
         }
         request.setAttribute("mensajeCarga", "Cargadas");

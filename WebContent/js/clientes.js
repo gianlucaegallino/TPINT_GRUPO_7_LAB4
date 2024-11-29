@@ -70,17 +70,82 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function cargarLocalidades(provId) {
+	
 	  var form = document.createElement('form');
 	  form.method = 'GET';
 	  form.action = 'SIClientes';
 
-	  var input = document.createElement('input');
-	  input.type = 'hidden';
-	  input.name = 'ProvCliente';
-	  input.value = provId;
-	  console.log(input);
-	  form.appendChild(input);
+	  
+	  //Generamos un form invisible, y cargamos los datos del form real para que se mantengan
+	  
+	  var inputDni = document.createElement('input');
+	  inputDni.type = 'hidden';
+	  inputDni.name = 'DniCliente';
+	  inputDni.value = document.querySelector("#DniCliente").textContent;
+	  form.appendChild(inputDni);
+	  
+	  var inputCuil = document.createElement('input');
+	  inputCuil.type = 'hidden';
+	  inputCuil.name = 'CUILCliente';
+	  inputCuil.value = document.querySelector("#CUILCliente").textContent;
+	  form.appendChild(inputCuil);
+	  
+	  var inputNombre = document.createElement('input');
+	  inputNombre.type = 'hidden';
+	  inputNombre.name = 'nombreCliente';
+	  inputNombre.value = document.querySelector("#nombreCliente").textContent;
+	  form.appendChild(inputNombre);
+	  
+	  var inputApe = document.createElement('input');
+	  inputApe.type = 'hidden';
+	  inputApe.name = 'apellidoCliente';
+	  inputApe.value = document.querySelector("#apellidoCliente").textContent;
+	  form.appendChild(inputApe);
+	  
+	  var inputTel = document.createElement('input');
+	  inputTel.type = 'hidden';
+	  inputTel.name = 'telefonoCliente';
+	  inputTel.value = document.querySelector("#telefonoCliente").textContent;
+	  form.appendChild(inputTel);
+	  
+	  var inputGenero = document.createElement('input');
+	  inputGenero.type = 'hidden';
+	  inputGenero.name = 'SexoCliente';
+	  inputGenero.value = document.querySelector("#SexoCliente").selectedOptions[0];
+	  form.appendChild(inputGenero);
+	  
+	  var inputNacion = document.createElement('input');
+	  inputNacion.type = 'hidden';
+	  inputNacion.name = 'NacioCliente';
+	  inputNacion.value = document.querySelector("#NacioCliente").selectedOptions[0];
+	  form.appendChild(inputNacion);
+	  
+	  var inputFecha = document.createElement('input');
+	  inputFecha.type = 'hidden';
+	  inputFecha.name = 'FNacimientoCliente';
+	  inputFecha.value = document.querySelector("#FNacimientoCliente").value;
+	  form.appendChild(inputFecha);
+	  
+	  var inputProv = document.createElement('input');
+	  inputProv.type = 'hidden';
+	  inputProv.name = 'ProvCliente';
+	  inputProv.value = provId;
+	  form.appendChild(inputProv);
+	  
+	  var inputDirecc = document.createElement('input');
+	  inputDirecc.type = 'hidden';
+	  inputDirecc.name = 'DirecCliente';
+	  inputDirecc.value = document.querySelector("#DirecCliente").textContent;
+	  form.appendChild(inputDirecc);
+	  
+	  var inputCorreo = document.createElement('input');
+	  inputCorreo.type = 'hidden';
+	  inputCorreo.name = 'CorreoCliente';
+	  inputCorreo.value = document.querySelector("#CorreoCliente").textContent;
+	  form.appendChild(inputCorreo);
+	  
 
 	  document.body.appendChild(form);
+	  
 	  form.submit();
 }
