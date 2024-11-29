@@ -41,7 +41,7 @@
       style="display: block"
     >
       <h2>Agregar Cliente</h2>
-      <form action="SIClientes" method="POST">
+      <form action="SIClientes" method="POST" id="formcli">
         <input type="hidden" name="action" value="agregarCliente" />
         <div class="form-container">
           <div class="fila" id="DNI_CUIL">
