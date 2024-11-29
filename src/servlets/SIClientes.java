@@ -36,12 +36,14 @@ public class SIClientes extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         cargarDescolgables(request);
-        System.out.println(request.getParameter("ProvCliente"));
+        System.out.println("i lived 2");
         if (request.getParameter("ProvCliente") != null) {
+        	System.out.println("i lived 3");
             cargarLocalidades(request, response);
             
         }
         request.setAttribute("mensajeCarga", "Cargadas");
+        System.out.println("i lived 4");
 		RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
 		rd.forward(request, response);
 
@@ -123,20 +125,22 @@ public class SIClientes extends HttpServlet {
         } else {
             request.setAttribute("mensajeError", "No se pudieron cargar los datos de Provincia.");
         }
+        System.out.println("i lived 1");
     }
 
     private void cargarLocalidades(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
     	System.out.println(request.getParameter("ProvCliente"));
         int provId = Integer.parseInt(request.getParameter("ProvCliente"));
+        System.out.println("Im in");
         ArrayList<Localidad> localidades = negDesc.ObtenerLasLocalidadesPorProvincia(provId);
+        System.out.println("Im out and my result is");
+        System.out.println(localidades);
         if (localidades != null && !localidades.isEmpty()) {
-        	System.out.println("CULOTETA"); 
             request.setAttribute("localidades", localidades);
             RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
             rd.forward(request, response);
         } else {
-        	System.out.println("TETACULO");
             request.setAttribute("mensajeError", "No se pudieron cargar las localidades.");
             RequestDispatcher rd = request.getRequestDispatcher("/ClientesAgregar.jsp");
             rd.forward(request, response);

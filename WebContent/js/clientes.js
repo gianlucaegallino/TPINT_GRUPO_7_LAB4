@@ -66,6 +66,7 @@ function cargarLocalidades(provId) {
 	  input.type = 'hidden';
 	  input.name = 'ProvCliente';
 	  input.value = provId;
+	  console.log(input);
 	  form.appendChild(input);
 
 	  document.body.appendChild(form);
