@@ -37,8 +37,29 @@ public class SIClientes extends HttpServlet {
             throws ServletException, IOException {
         cargarDescolgables(request);
         if (request.getParameter("ProvCliente") != null) {
-        	System.out.println("i lived");
+        	 String dni = request.getParameter("DniCliente");
+             String cuil = request.getParameter("CUILCliente");
+             String nombre = request.getParameter("nombreCliente");
+             String apellido = request.getParameter("apellidoCliente");
+             String telefono = request.getParameter("telefonoCliente");
+             String sexo = request.getParameter("SexoCliente");
+             String nacionalidad = request.getParameter("NacioCliente");
+             String fechaNacimiento = request.getParameter("FNacimientoCliente");
+             String localidad = request.getParameter("LocCliente");
+             String direccion = request.getParameter("DirecCliente");
+             String correo = request.getParameter("CorreoCliente");
             cargarLocalidades(request, response);
+            request.setAttribute("DniCliente", dni);
+            request.setAttribute("CUILCliente", dni);
+            request.setAttribute("nombreCliente", dni);
+            request.setAttribute("apellidoCliente", dni);
+            request.setAttribute("telefonoCliente", dni);
+            request.setAttribute("SexoCliente", dni);
+            request.setAttribute("NacioCliente", dni);
+            request.setAttribute("FNacimientoCliente", dni);
+            request.setAttribute("LocCliente", dni);
+            request.setAttribute("DirecCliente", dni);
+            request.setAttribute("CorreoCliente", dni);
             
         }
         request.setAttribute("mensajeCarga", "Cargadas");
