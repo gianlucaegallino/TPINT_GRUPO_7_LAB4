@@ -227,7 +227,7 @@ public class ClienteDao {
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement(
-					"UPDATE clientes SET direccion_id = '?', correo_electronico = '?', telefono = '?' WHERE id_cliente = ?");
+					"UPDATE clientes SET direccion_id = ?, correo_electronico = ?, telefono = ? WHERE id_cliente = ?");
 			sentence.setString(1, cliente.getDireccion().getDireccion());
 			sentence.setString(2, cliente.getCorreo_electronico());
 			sentence.setString(3, cliente.getTelefono());

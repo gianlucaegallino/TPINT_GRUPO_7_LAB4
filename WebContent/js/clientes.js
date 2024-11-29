@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var btnCancelar = document.getElementById('btnCancelar'); 
     var btnEliminarSubmit = document.getElementById('btnEliminarSubmit'); 
     var camposEditables = document.querySelectorAll('.editable input');
+    var btnBuscarDNI = document.querySelector('input[name="btnBuscarDNI"]'); // Obtén el botón Buscar DNI
+    var tablaCliente1 = document.getElementById('tablaCliente1'); // Obtén la tabla 1
+    var tablaCliente2 = document.getElementById('tablaCliente2'); // Obtén la tabla 2
+
 
     // Botón Modificar
     btnModificar.addEventListener('click', function() {
@@ -54,6 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btnModificar.style.display = 'none';
         btnEliminar.style.display = 'none';
         btnCancelar.style.display = 'block'; 
+    });
+    
+    // Botón Buscar DNI
+    btnBuscarDNI.addEventListener('click', function() {
+        // Oculta la tabla 1
+        tablaCliente1.style.display = 'none';
+        // Muestra la tabla 2
+        tablaCliente2.style.display = 'block';
     });
 });
 

@@ -31,8 +31,8 @@
             <input type="submit" value="Buscar DNI" name="btnBuscarDNI">
         </form>
         <hr>
-        <table class="tabla-clientes" id="tablaCliente" style="display: block;">
-            <thead>
+        <table class="tabla-clientes" id="tablaCliente1" style="display: block;">
+        	<thead>
                 <tr>
                     <th>DNI</th>
                     <th>CUIL</th>
@@ -46,20 +46,56 @@
                     <th>TELEFONO</th>
                 </tr>
             </thead>
-            <tbody>
-                <%
-                Cliente cliente = (Cliente) request.getAttribute("cliente");
-                if (cliente != null) {
-                %>
-                <tr>
-                    <td><%= cliente.getDni() %></td>
-                    <td><%= cliente.getCuil() %></td>
-                    <td><%= cliente.getNombre() %></td>
-                    <td><%= cliente.getApellido() %></td>
-                    <td><%= cliente.getSexo().getDescripcion() %></td>
-                    <td><%= cliente.getNacionalidad().getNombre() %></td>
-                    <td><%= cliente.getFecha_nacimiento() %></td>
-                    <td class="editable"><span class="campo-valor"><%= cliente.getDireccion().getDireccion() %></span>
+            <tbody> 
+            	<tr style="color: white">
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            		<td> --- </td>
+            	</tr>
+            </tbody>
+        </table>
+        <%
+            Cliente cliente = (Cliente) request.getAttribute("cliente");
+            if (cliente != null) {
+        %>
+        <form action="SIClientes" method="POST">
+        	<input type="hidden" name="action" value="modificarEliminarCliente">
+            <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>"> <!-- Agrega el idCliente oculto -->
+            <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>">
+            <!-- Tabla para mostrar los datos de la cuenta -->
+			<!-- Tabla para mostrar los datos de la cuenta -->
+	        <table class="tabla-clientes" id="tablaCliente2" style="display: block;">
+	            <thead>
+	                <tr>
+	                    <th>DNI</th>
+						<th>CUIL</th>
+						<th>NOMBRE</th>
+						<th>APELLIDO</th>
+						<th>SEXO</th>  
+						<th>NACIONALIDAD</th>
+						<th>FECHA DE NACIMIENTO</th> 
+						<th>DIRECCION</th> 
+						<th>CORREO ELECTRONICO</th> 
+						<th>TELEFONO</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+		            <tr>
+			            <td><%= cliente.getDni() %></td>
+			            <td><%= cliente.getCuil() %></td>
+			            <td><%= cliente.getNombre() %></td>
+			            <td><%= cliente.getApellido() %></td>
+			            <td><%= cliente.getSexo().getDescripcion() %></td>
+			            <td><%= cliente.getNacionalidad().getNombre() %></td>
+			            <td><%= cliente.getFecha_nacimiento() %></td>
+			            <td class="editable"><span class="campo-valor"><%= cliente.getDireccion().getDireccion() %></span>
                             <input type="text" name="direccion" value="<%= cliente.getDireccion().getDireccion() %>" style="display: none;">
                         </td>
                         <td class="editable"><span class="campo-valor"><%= cliente.getCorreo_electronico() %></span>
@@ -68,30 +104,22 @@
                         <td class="editable"><span class="campo-valor"><%= cliente.getTelefono() %></span>
                             <input type="text" name="telefono" value="<%= cliente.getTelefono() %>" style="display: none;">
                         </td>
-                </tr>
-                <%
-                }
-                %>
-            </tbody>
-        </table>
-        <%
-        if (cliente != null) {
-        %>
-        <form action="SIClientes" method="POST">
-            <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>"> <!-- Agrega el idCliente oculto -->
-            <input type="hidden" name="dniCliente" value="<%= cliente.getDni() %>">
-            <!-- Botones para modificar o eliminar cuenta -->
-            <div class="botones-modificar-eliminar">
-        		<input type="hidden" name="action" value="modificarEliminarCliente">
+		        	</tr>
+	            </tbody>
+	        </table>
+	        
+	        <!-- Botones para modificar o eliminar cuenta -->
+	        <div class="botones-modificar-eliminar">
                 <button class="botonModificar" id="btnModificar" name="btnModificar" type="button">Modificar</button>
                 <button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button">Eliminar</button>
                 <input type="submit" value="Guardar" name="btnGuardar" style="display: none;"> <!-- Botón Guardar oculto -->
                 <input type="submit" value="Cancelar" id="btnCancelar" name="btnCancelar" style="display: none;"> <!-- Botón Cancelar oculto -->
-                <input type="submit" value="Eliminar" id= "btnEliminarSubmit" name="btnEliminarSubmit" style="display: none;"> <!-- Botón Guardar oculto -->
+            	<input type="submit" value="Eliminar" id= "btnEliminarSubmit" name="btnEliminarSubmit" style="display: none;"> <!-- Botón Guardar oculto -->
+                
             </div>
         </form>
-        <%
-        }
+         <%
+            }
         %>
     </div>
     <script defer src="js/clientes.js"></script>
