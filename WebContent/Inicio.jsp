@@ -41,8 +41,6 @@
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
 	rel="stylesheet" />
 
-<!-- Normalize.css -->
-<link rel="stylesheet" href="normalize.css" />
 <!-- Estilo Local -->
 <link rel="stylesheet" href="./css/estiloInicioUs.css" />
 <link rel="stylesheet" href="./css/normalize.css" />
