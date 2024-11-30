@@ -8,11 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Normalize.css -->
-<link rel="stylesheet" href="normalize.css">
-<!-- Estilo local -->
-<link rel="stylesheet" href="css/estilos.css">
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="./css/estilos.css">
+<link rel="stylesheet" href="./css/normalize.css" />
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Iniciar Sesion | Banco Liberacion</title>
 
 <link

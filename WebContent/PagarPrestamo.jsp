@@ -39,9 +39,10 @@
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
 	rel="stylesheet" />
 <!-- Normalize.css -->
-<link rel="stylesheet" href="normalize.css" />
-<link rel="stylesheet" href="css/estiloPagoPrestamo.css" />
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="./css/estiloPagoPrestamo.css" />
+<link rel="stylesheet" href="./css/normalize.css" />
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Pagar Prestamo | Banco Liberacion</title>
 </head>
 <body class="bodyPrestamo">
