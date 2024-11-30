@@ -9,7 +9,7 @@
 <title>Registro de Usuario | Banco Liberación</title>
 <link rel="StyleSheet" href="./css/EstiloClientes.css">
 <link rel="stylesheet" href="./css/normalize.css" />
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 </head>
 <body class="bodyInicio">
 

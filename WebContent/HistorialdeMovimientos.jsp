@@ -11,8 +11,9 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="normalize.css" />
 <!-- Estilo Local -->
-<link rel="stylesheet" href="css/estiloHistorial.css" />
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="./css/estiloHistorial.css" />
+<link rel="stylesheet" href="./css/normalize.css" />
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Historial de Movimientos</title>
 </head>
 
