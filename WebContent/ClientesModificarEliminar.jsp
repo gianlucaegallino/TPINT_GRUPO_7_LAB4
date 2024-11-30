@@ -31,36 +31,7 @@
             <input type="submit" value="Buscar DNI" name="btnBuscarDNI">
         </form>
         <hr>
-        <table class="tabla-clientes" id="tablaCliente1" style="display: block;">
-        	<thead>
-                <tr>
-                    <th>DNI</th>
-                    <th>CUIL</th>
-                    <th>NOMBRE</th>
-                    <th>APELLIDO</th>
-                    <th>SEXO</th>  
-                    <th>NACIONALIDAD</th>
-                    <th>FECHA DE NACIMIENTO</th> 
-                    <th>DIRECCION</th> 
-                    <th>CORREO ELECTRONICO</th> 
-                    <th>TELEFONO</th>
-                </tr>
-            </thead>
-            <tbody> 
-            	<tr>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            		<td></td>
-            	</tr>
-            </tbody>
-        </table>
+
         <%
             Cliente cliente = (Cliente) request.getAttribute("cliente");
             if (cliente != null) {

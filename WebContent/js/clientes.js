@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var btnEliminarSubmit = document.getElementById('btnEliminarSubmit'); 
     var camposEditables = document.querySelectorAll('.editable input');
     var btnBuscarDNI = document.querySelector('input[name="btnBuscarDNI"]'); // Obtén el botón Buscar DNI
-    var tablaCliente1 = document.getElementById('tablaCliente1'); // Obtén la tabla 1
-    var tablaCliente2 = document.getElementById('tablaCliente2'); // Obtén la tabla 2
+
+
 
 
     // Botón Modificar
+    if (btnModificar != null){
     btnModificar.addEventListener('click', function() {
         camposEditables.forEach(function(input) {
             input.style.display = 'block';
@@ -32,47 +33,51 @@ document.addEventListener('DOMContentLoaded', function() {
         btnCancelar.style.display = 'block';
         btnEliminar.style.display = 'none';
     });
+    }
 
     // Botón Cancelar
-    btnCancelar.addEventListener('click', function() {
-        camposEditables.forEach(function(input) {
-            input.style.display = 'none';
-            input.previousElementSibling.style.display = 'block';
-        });
-        btnGuardar.style.display = 'none';
-        btnModificar.style.display = 'block';
-        btnCancelar.style.display = 'none';
-        btnEliminar.style.display = 'block';
-    });
+    if (btnCancelar != null){ 
+	    btnCancelar.addEventListener('click', function() {
+	        camposEditables.forEach(function(input) {
+	            input.style.display = 'none';
+	            input.previousElementSibling.style.display = 'block';
+	        });
+	        btnGuardar.style.display = 'none';
+	        btnModificar.style.display = 'block';
+	        btnCancelar.style.display = 'none';
+	        btnEliminar.style.display = 'block';
+	    });
+    }
+
 
     // Botón Eliminar
+    
+    if (btnEliminar != null){ 
     btnEliminar.addEventListener('click', function() {
     	// Deshabilitar los campos editables
         camposEditables.forEach(function(input) {
             input.disabled = true; // Deshabilitar el campo de entrada
             input.style.backgroundColor = '#ddd'; // Cambiar el fondo a gris (opcional)
         });
-
         // Mostrar el botón "Eliminar" y ocultar los demás
-        btnEliminarSubmit.style.display = 'block'; 
         btnModificar.style.display = 'none';
         btnEliminar.style.display = 'none';
         btnCancelar.style.display = 'block'; 
+        btnEliminarSubmit.style.display = 'block'; 
     });
+    }
     
-    // Botón Buscar DNI
-    btnBuscarDNI.addEventListener('click', () => {
-    	event.preventDefault();
-    	// Oculta la tabla 1
-        tablaCliente1.style.display = 'none';
-        console.log("trigger1");
-        // Oculta la tabla 2
-        tablaCliente2.style.display = 'none';
-        console.log("trigger2");
-        // Muestra la tabla 2
-        tablaCliente2.style.display = 'block';
-        console.log("trigger3");
-    });
+
+    
+ 
+
+
+    
+
+    
+
+
+
 });
 
 function cargarLocalidades(provId) {
