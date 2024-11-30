@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-
-<link rel="stylesheet" href="/css/EstiloTrasferir.css" />
-<link rel="stylesheet" href="/css/normalize.css" />
+<!-- Normalize.css -->
+<link rel="stylesheet" href="normalize.css" />
+<!-- Estilo Local -->
+<link rel="stylesheet" href="css/EstiloTrasferir.css" />
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <title>Transferencia entre cuentas</title>
 </head>

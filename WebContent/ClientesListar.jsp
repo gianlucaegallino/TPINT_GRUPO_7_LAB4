@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="StyleSheet" href="/css/EstiloClientes.css">
-<link rel="stylesheet" href="/css/normalize.css" />
+<link rel="StyleSheet" href="./css/EstiloClientes.css">
+<link rel="stylesheet" href="./css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <title>Gestión de Clientes | Banco Liberación</title>
 </head>

@@ -10,9 +10,8 @@
 <html>
 
 <head>
-
-<link rel="stylesheet" href="/css/EstiloInformacion.css"/>
-<link rel="stylesheet" href="/css/normalize.css" />
+<link rel="stylesheet" href="normalize.css" />
+<link rel="stylesheet" href="EstiloInformacion.css"/>
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
 <style>
