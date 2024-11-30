@@ -92,23 +92,23 @@ function cargarLocalidades(provId) {
 	  let inputDni = document.createElement('input');
 	  inputDni.type = 'hidden';
 	  inputDni.name = 'DniCliente';
-	  inputDni.value = document.querySelector("#DniCliente").textContent;
+	  inputDni.value = document.querySelector("#DniCliente").value;
 	  form.appendChild(inputDni);
-	  console.log(document.querySelector("#DniCliente").textContent);
+	  console.log(document.getElementById("#DniCliente"));
 	  
 	  let inputCuil = document.createElement('input');
 	  inputCuil.type = 'hidden';
 	  inputCuil.name = 'CUILCliente2';
-	  inputCuil.value = document.querySelector("#CUILCliente").textContent;
+	  inputCuil.value = document.querySelector("#CUILCliente").value;
 	  form.appendChild(inputCuil);
-	  console.log(document.querySelector("#CUILCliente").textContent);
+	  console.log(document.getElementById("#CUILCliente"));
 	  
 	  let inputNombre = document.createElement('input');
 	  inputNombre.type = 'hidden';
 	  inputNombre.name = 'nombreCliente';
-	  inputNombre.value = document.querySelector("#nombreCliente").textContent;
+	  inputNombre.value = document.querySelector("#nombreCliente").value;
 	  form.appendChild(inputNombre);
-	  console.log(inputNombre);
+	  console.log(document.getElementById("#nombreCliente"));
 	  
 	  let inputApe = document.createElement('input');
 	  inputApe.type = 'hidden';
