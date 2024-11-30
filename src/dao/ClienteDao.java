@@ -79,9 +79,9 @@ public class ClienteDao {
 			cn = DriverManager.getConnection(host + dbName, user, pass);
 
 			// Consulta solo para la tabla clientes
-			String query = "SELECT * FROM clientes WHERE estado = true";
+			String query = "SELECT * FROM clientes WHERE estado = 1";
 
-			Statement st = cn.createStatement();
+			PreparedStatement st = cn.prepareStatement(query);
 			ResultSet rs = st.executeQuery(query);
 
 			while (rs.next()) {

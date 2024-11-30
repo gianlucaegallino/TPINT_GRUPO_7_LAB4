@@ -31,7 +31,7 @@ public class SvFlitrosCliente extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
-		String filtro = request.getParameter("filtro");
+		String filtro = request.getParameter("action");
 		
 		if("mostrarClientes".equals(filtro)) {
 			mostrarClientes(request, response);
@@ -40,30 +40,37 @@ public class SvFlitrosCliente extends HttpServlet {
 
 
 	private void mostrarClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtener la lista de clientes
+		System.out.print("ENTRAMOS AL MOSTRAR");        
+        // Obtener la lista de clientes
         ArrayList<Cliente> listaClientes = negCliente.obtenerTodosLosClientes();
-        
+
         // Construir el HTML de la tabla
         StringBuilder htmlTabla = new StringBuilder();
-        for (Cliente cliente : listaClientes) {
-            htmlTabla.append("<tr>");
-	            htmlTabla.append("<td>").append(cliente.getDni()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getCuil()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getNombre()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getApellido()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getSexo().getDescripcion()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getNacionalidad().getNombre()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getFecha_nacimiento()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getDireccion().getDireccion()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getCorreo_electronico()).append("</td>");
-	            htmlTabla.append("<td>").append(cliente.getTelefono()).append("</td>");
-            htmlTabla.append("</tr>");
+        if (listaClientes != null && !listaClientes.isEmpty()) {
+            for (Cliente cliente : listaClientes) {
+                htmlTabla.append("<tr>");
+                htmlTabla.append("<td>" + cliente.getDni() + "</td>");
+                htmlTabla.append("<td>" + cliente.getCuil() + "</td>");
+                htmlTabla.append("<td>" + cliente.getNombre() + "</td>");
+                htmlTabla.append("<td>" + cliente.getApellido() + "</td>");
+                htmlTabla.append("<td>" + cliente.getSexo().getDescripcion() + "</td>");
+                htmlTabla.append("<td>" + cliente.getNacionalidad().getNombre() + "</td>");
+                htmlTabla.append("<td>" + cliente.getFecha_nacimiento() + "</td>");
+                htmlTabla.append("<td>" + cliente.getDireccion().getDireccion() + "</td>");
+                htmlTabla.append("<td>" + cliente.getCorreo_electronico() + "</td>");
+                htmlTabla.append("<td>" + cliente.getTelefono() + "</td>");
+                htmlTabla.append("</tr>");
+            }
+        } else {
+            htmlTabla.append("<tr><td colspan='10'>No hay clientes disponibles.</td></tr>");
         }
-
+        
+        System.out.print("TABLAHTML: " + htmlTabla.toString());
         // Pasar el HTML de la tabla a la JSP
         request.setAttribute("tablaHTML", htmlTabla.toString());
 
         // Redirigir a la JSP de listado de clientes
+        System.out.print("SALIMOS DEL MOSTRAR CLIENTES");
         RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
         rd.forward(request, response);
 	}
