@@ -13,6 +13,7 @@
 <meta charset="ISO-8859-1">
 <title>Autorizar Préstamos | Banco Liberación</title>
 <link rel="stylesheet" href="css/estiloAutorizarPrestamos.css">
+<link rel="stylesheet" href="/css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 <body class="bodyAutorizar">

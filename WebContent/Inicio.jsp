@@ -44,8 +44,9 @@
 <!-- Normalize.css -->
 <link rel="stylesheet" href="normalize.css" />
 <!-- Estilo Local -->
-<link rel="stylesheet" href="./css/estiloInicioUs.css" />
-<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<link rel="stylesheet" href="/css/estiloInicioUs.css" />
+<link rel="stylesheet" href="/css/normalize.css" />
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <title>Inicio | Banco Liberacion</title>
 </head>
 
