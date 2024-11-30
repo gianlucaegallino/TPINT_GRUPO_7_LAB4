@@ -15,56 +15,81 @@
 <body class="bodyInicio">
 	<div class="formulario-listar-cliente" id="formListarCliente" style="display: block;">
 		<h2>Listar Cliente</h2>
-		<form method="post" action="SIClientes">
-			<input type="hidden" name="action" value="mostrarClientes">
-			<input type="text" id="numDNICliente" name="numDNIBuscar" placeholder="Ingrese un DNI">
-			<input type="submit" id="filtrarClientes"value="Filtrar" name="btnFiltrar">
-			<input type="submit" id="mostrarTodosClientes" value="Mostrar todos los clientes" name="btnMostrarCliente">
-		</form>
-		
-		<% 
-			ArrayList<Cliente> listaClientes = null;
-			if(request.getAttribute("listaC")!=null)
-				{	
-					listaClientes = (ArrayList<Cliente>) request.getAttribute("listaC");
-					
-				}
-		%>
-		<table class="tabla-clientes" id="tableCliente" style="display: block;">
-			<thead>
-				<tr>
-					<th>DNI</th>
-					<th>CUIL</th>
-					<th>NOMBRE</th>
-					<th>APELLIDO</th>
-					<th>SEXO</th>
-					<th>NACIONALIDAD</th>
-					<th>FECHA DE NACIMIENTO</th>
-					<th>DIRECCION</th>
-					<th>CORREO ELECTRONICO</th>
-					<th>TELEFONO</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% if(listaClientes != null)
-				for(Cliente cli : listaClientes)
-					{
-				%>
-				<tr>
-					<td><%=cli.getDni()%></td>
-					<td><%=cli.getCuil() %></td>
-					<td><%=cli.getNombre() %></td>
-					<td><%=cli.getApellido() %></td>
-					<td><%=cli.getSexo().getDescripcion() %></td>
-					<td><%=cli.getNacionalidad().getNombre() %></td>
-					<td><%=cli.getFecha_nacimiento() %></td>
-					<td><%=cli.getDireccion().getDireccion() %></td>
-					<td><%=cli.getCorreo_electronico() %></td>
-					<td><%=cli.getTelefono() %></td>
-				</tr>
-				<% } %>
-			</tbody>
-		</table>
+			<div class="form-container">
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por DNI" name="btnFiltrarXdni">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por CUIL" name="btnFiltrarXcuil">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por NOMBRE" name="btnFiltrarXnombre">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por APELLIDO" name="btnFiltrarXapellido">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por GENERO" name="btnFiltrarXgenero">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="text">
+						<input type="submit" value="Filtrar por NACIONALIDAD" name="btnFiltrarXnacionalidad">
+					</div>
+				</div>
+				<div class="fila">
+					<div class="form-element">
+						<input type="date">
+						<input type="date">
+						<input type="submit" value="Filtrar por RANGO DE FECHAS" name="btnFiltrarXfechas">
+					</div>
+				</div>
+				<form action="SvFiltrosCliente" method="POST">
+					<div class="fila">
+						<div class="form-element">
+							<input type="hidden" name="filtro" value="mostrarClientes"/>
+							<input type="submit" id="mostrarTodosClientes" value="Mostrar todos los clientes" name="btnMostrarCliente">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div>
+				<table>
+					<thead>
+						<tr>	
+							<th>DNI</th>
+							<th>CUIL</th>
+							<th>NOMBRE</th>
+							<th>APELLIDO</th>
+							<th>SEXO</th>  
+							<th>NACIONALIDAD</th>
+							<th>FECHA DE NACIMIENTO</th> 
+							<th>DIRECCION</th> 
+							<th>CORREO ELECTRONICO</th> 
+							<th>TELEFONO</th>
+						</tr>
+					</thead>
+					<% 
+			            String tablaHTML = (String) request.getAttribute("tablaHTML");
+			            out.println(tablaHTML);
+			        %>
+				</table>
+			</div>
 	</div>
 	<script defer src="js/clientes.js"></script>
 </body>
