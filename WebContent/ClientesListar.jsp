@@ -60,35 +60,39 @@
 					</div>
 				</div>
 				<form action="SvFiltrosCliente" method="POST">
+					<input type="hidden" name="filtro" value="mostrarClientes"/>
 					<div class="fila">
 						<div class="form-element">
-							<input type="hidden" name="filtro" value="mostrarClientes"/>
 							<input type="submit" id="mostrarTodosClientes" value="Mostrar todos los clientes" name="btnMostrarCliente">
 						</div>
 					</div>
 				</form>
 			</div>
 			<div>
-				<table>
-					<thead>
-						<tr>	
-							<th>DNI</th>
-							<th>CUIL</th>
-							<th>NOMBRE</th>
-							<th>APELLIDO</th>
-							<th>SEXO</th>  
-							<th>NACIONALIDAD</th>
-							<th>FECHA DE NACIMIENTO</th> 
-							<th>DIRECCION</th> 
-							<th>CORREO ELECTRONICO</th> 
-							<th>TELEFONO</th>
-						</tr>
-					</thead>
-					<% 
-			            String tablaHTML = (String) request.getAttribute("tablaHTML");
-			            out.println(tablaHTML);
-			        %>
-				</table>
+				<form action="SvFiltrosCliente" method="POST">
+					<table class="tabla-clientes" id="tablaCliente2" style="display: block;">
+						<thead>
+							<tr>	
+								<th>DNI</th>
+								<th>CUIL</th>
+								<th>NOMBRE</th>
+								<th>APELLIDO</th>
+								<th>SEXO</th>  
+								<th>NACIONALIDAD</th>
+								<th>FECHA DE NACIMIENTO</th> 
+								<th>DIRECCION</th> 
+								<th>CORREO ELECTRONICO</th> 
+								<th>TELEFONO</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% 
+					            String tablaHTML = (String) request.getAttribute("tablaHTML");
+					            out.println(tablaHTML);
+					        %>
+				        </tbody>
+					</table>
+				</form>
 			</div>
 	</div>
 	<script defer src="js/clientes.js"></script>

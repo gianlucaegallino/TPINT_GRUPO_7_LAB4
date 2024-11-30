@@ -30,8 +30,7 @@ public class SvFlitrosCliente extends HttpServlet {
 	}
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// DECLARAMOS LA VARIABLE 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		String filtro = request.getParameter("filtro");
 		
 		if("mostrarClientes".equals(filtro)) {
@@ -46,7 +45,6 @@ public class SvFlitrosCliente extends HttpServlet {
         
         // Construir el HTML de la tabla
         StringBuilder htmlTabla = new StringBuilder();
-        htmlTabla.append("<tbody>");
         for (Cliente cliente : listaClientes) {
             htmlTabla.append("<tr>");
 	            htmlTabla.append("<td>").append(cliente.getDni()).append("</td>");
@@ -61,7 +59,6 @@ public class SvFlitrosCliente extends HttpServlet {
 	            htmlTabla.append("<td>").append(cliente.getTelefono()).append("</td>");
             htmlTabla.append("</tr>");
         }
-        htmlTabla.append("</tbody>");
 
         // Pasar el HTML de la tabla a la JSP
         request.setAttribute("tablaHTML", htmlTabla.toString());
