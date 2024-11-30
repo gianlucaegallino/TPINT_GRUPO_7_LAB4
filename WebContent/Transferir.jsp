@@ -20,9 +20,8 @@
 		<h2>Transferencias</h2>
 
 		<!-- Seleccion de la cuenta -->
-		<label for="cuenta">Selecciona una cuenta</label>
-	
-		<select id="cuenta" name="cuenta" required>
+		<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
+			name="cuenta" required>
 			<% 
 			
               ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
@@ -30,34 +29,34 @@
               if (cuentas != null) {
               	for (Cuenta cuenta : cuentas) { %>
 
-					<option value="<%= cuenta.getSaldo() %>" data-cbu="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
+			<option value="<%= cuenta.getSaldo() %>"
+				data-cbu="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
 
-			 <% }
+			<% }
               } else { %>
-              
-					<option value="" disabled selected>No hay cuentas disponibles</option>
-		   <% } %>
+
+			<option value="" disabled selected>No hay cuentas
+				disponibles</option>
+			<% } %>
 		</select>
 
 		<!-- Mostrar saldo actual -->
 		<div class="balance-display" id="saldo">
-		<script defer>
+			<script defer>
 
 			let selectCuenta = document.querySelector("#cuenta");
-			let contadorSaldo = document.querySelector("#saldo");
-			console.log(selectCuenta);
-			console.log(contadorSaldo);
-			
-			if (selectCuenta.value != ""){
+			let contadorSaldo = document.querySelector("#saldo");		
+
+			if (selectCuenta.value != "") {
 				contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
 			} else {
-				contadorSaldo.textContent = "Saldo: $0.00";
+				contadorSaldo.textCsontent = "Saldo: $0.00";
 			}
 			
-			selectCuenta.addEventListener("change", function(){
+			selectCuenta.addEventListener("change", function() {
 				if (selectCuenta.value != ""){
 					contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
-				}else {
+				} else {
 					contadorSaldo.textContent = "Saldo: $0.00";
 				}
 			});
@@ -74,7 +73,8 @@
 			id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
 
 		<!-- Boton de transferencia -->
-		<button type="button" id="btnRealizarTransferencia">Realizar Transferencia</button>
+		<button type="button" id="btnRealizarTransferencia">Realizar
+			Transferencia</button>
 	</div>
 
 </body>
