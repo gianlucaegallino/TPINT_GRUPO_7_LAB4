@@ -2,431 +2,429 @@
 
 /* Estilo para el formulario de mensaje */
 .formulario-mensaje {
-    display: block !important; /* Siempre visible */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 2px solid #646464;
-    border-radius: 10px;
-    padding: 20px;
-    width: 400px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    z-index: 1000;
+	display: block !important; /* Siempre visible */
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border: 2px solid #646464;
+	border-radius: 10px;
+	padding: 20px;
+	width: 400px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	z-index: 1000;
 }
 
 .formulario-mensaje label {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #4CAF50;
-    display: block;
-    margin: 0;
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: #4CAF50;
+	display: block;
+	margin: 0;
 }
 
 /* Estilo para el formulario de listar cuentas */
 .formulario-listar {
-    display: block !important; /* Siempre visible */
-    position: absolute;
-    top: 550px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 2px solid #646464;
-    border-radius: 10px;
-    padding: 20px;
-    width: 700px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	display: block !important; /* Siempre visible */
+	position: absolute;
+	top: 550px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border: 2px solid #646464;
+	border-radius: 10px;
+	padding: 20px;
+	width: 700px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .formulario-listar h2 {
-    text-align: center;
-    margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .formulario-listar label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
 }
 
 .formulario-listar input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+	width: 100%;
+	padding: 12px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
 }
 
 .formulario-listar input[type="submit"] {
-    background-color: #646464;
-    color: #fff;
-    cursor: pointer;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-    margin-bottom: 15px;
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	width: 100%;
+	transition: background-color 0.3s ease;
+	margin-bottom: 15px;
 }
 
 .formulario-listar input[type="submit"]:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
 /* Estilo para la tabla */
 .tabla-cuentas {
-    display: block !important; /* Siempre visible */
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+	display: block !important; /* Siempre visible */
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
 .tabla-cuentas th, .tabla-cuentas td {
-    padding: 12px;
-    border: 1px solid #ccc;
-    text-align: left;
+	padding: 12px;
+	border: 1px solid #ccc;
+	text-align: left;
 }
 
 .tabla-cuentas th {
-    background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 /* Estilos para los botones de gestión */
 .menu-gestiones {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 10px;
-    gap: 20px;
-    z-index: 999;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 10px;
+	gap: 20px;
+	z-index: 999;
 }
 
 .botonGestion {
-    background-color: #646464;
-    border: 2px solid #646464;
-    color: #ffffff;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-    box-sizing: content-box;
-    margin: 10px 0;
-    transition: background-color 0.3s ease;
-    width: 100%;
+	background-color: #646464;
+	border: 2px solid #646464;
+	color: #ffffff;
+	padding: 1rem 3rem;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: center;
+	box-sizing: content-box;
+	margin: 10px 0;
+	transition: background-color 0.3s ease;
+	width: 100%;
 }
 
 .botonGestion:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
 /* Estilos para dispositivos móviles */
-@media (max-width: 1200px) {
-    .menu-gestiones {
-        position: static;
-        margin: 20px;
-        gap: 15px;
-    }
-
-    .botonGestion {
-        width: 100%;
-        margin-bottom: 10px;
-    }
+@media ( max-width : 1200px) {
+	.menu-gestiones {
+		position: static;
+		margin: 20px;
+		gap: 15px;
+	}
+	.botonGestion {
+		width: 100%;
+		margin-bottom: 10px;
+	}
 }
 
 /* Estilos para el formulario de editar y eliminar */
 .formulario-editar-eliminar {
-  display: block !important; /* Siempre visible */
-  position: absolute;
-  top: 300px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;
-  border: 1px solid #ccc; /* Borde más sutil */
-  border-radius: 10px;
-  padding: 20px;
-  width: 700px; /* Ajusta el ancho aquí */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  overflow: auto; /* Agregar desplazamiento si el contenido es más grande que el área visible */
+	display: block !important; /* Siempre visible */
+	position: absolute;
+	top: 300px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #fff;
+	border: 1px solid #ccc; /* Borde más sutil */
+	border-radius: 10px;
+	padding: 20px;
+	width: 700px; /* Ajusta el ancho aquí */
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+	overflow: auto;
+	/* Agregar desplazamiento si el contenido es más grande que el área visible */
 }
 
 .formulario-editar-eliminar h2 {
-  text-align: center;
-  margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .formulario-editar-eliminar label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
 }
 
-.formulario-editar-eliminar input,
-.formulario-editar-eliminar select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+.formulario-editar-eliminar input, .formulario-editar-eliminar select {
+	width: 100%;
+	padding: 12px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
 }
 
 .formulario-editar-eliminar input[type="submit"] {
-  background-color: #007bff; /* Color azul */
-  color: #fff;
-  cursor: pointer;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  transition: background-color 0.3s ease; /* Efecto hover */
+	background-color: #007bff; /* Color azul */
+	color: #fff;
+	cursor: pointer;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+	transition: background-color 0.3s ease; /* Efecto hover */
 }
 
 .formulario-editar-eliminar input[type="submit"]:hover {
-  background-color: #0056b3; /* Color azul más oscuro */
+	background-color: #0056b3; /* Color azul más oscuro */
 }
 
 /* Estilos para la tabla */
 .tabla-cuentas {
-  display: block !important; /* Siempre visible */
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+	display: block !important; /* Siempre visible */
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
-.tabla-cuentas th,
-.tabla-cuentas td {
-  padding: 12px;
-  border: 1px solid #ccc;
-  text-align: left;
+.tabla-cuentas th, .tabla-cuentas td {
+	padding: 12px;
+	border: 1px solid #ccc;
+	text-align: left;
 }
 
 .tabla-cuentas th {
-  background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 /* Estilos para los botones de gestión */
 .menu-gestiones {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 10px;
-  gap: 20px;
-  z-index: 999;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 10px;
+	gap: 20px;
+	z-index: 999;
 }
 
 .botonGestion {
-  background-color: #007bff; /* Color azul */
-  border: 2px solid #007bff; /* Borde azul */
-  color: #ffffff;
-  padding: 1rem 3rem;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  text-align: center;
-  box-sizing: content-box;
-  margin: 10px 0;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-decoration: none; /* Quita el subrayado del enlace */
-  display: inline-block; /* Asegura que se comporte como un bloque */
+	background-color: #007bff; /* Color azul */
+	border: 2px solid #007bff; /* Borde azul */
+	color: #ffffff;
+	padding: 1rem 3rem;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: center;
+	box-sizing: content-box;
+	margin: 10px 0;
+	transition: background-color 0.3s ease;
+	width: 100%;
+	text-decoration: none; /* Quita el subrayado del enlace */
+	display: inline-block; /* Asegura que se comporte como un bloque */
 }
 
 .botonGestion:hover {
-  background-color: #0056b3; /* Color azul más oscuro */
+	background-color: #0056b3; /* Color azul más oscuro */
 }
 
 /* Estilos para dispositivos móviles */
-@media (max-width: 1200px) {
-  .menu-gestiones {
-    position: static;
-    margin: 20px;
-    gap: 15px;
-  }
-
-  .botonGestion {
-    width: 100%;
-    margin-bottom: 10px;
-  }
+@media ( max-width : 1200px) {
+	.menu-gestiones {
+		position: static;
+		margin: 20px;
+		gap: 15px;
+	}
+	.botonGestion {
+		width: 100%;
+		margin-bottom: 10px;
+	}
 }
 /* Estilos para el formulario de agregar */
 .formulario-agregar {
-    display: block !important; /* Siempre visible */
-    position: absolute;
-    top: 650px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    border: 2px solid #646464;
-    border-radius: 10px;
-    padding: 20px;
-    width: 400px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+	display: block !important; /* Siempre visible */
+	position: absolute;
+	top: 650px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	border: 2px solid #646464;
+	border-radius: 10px;
+	padding: 20px;
+	width: 400px;
+	box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .formulario-agregar h2 {
-    text-align: center;
-    margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .formulario-agregar label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
 }
 
-.formulario-agregar input,
-.formulario-agregar select {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+.formulario-agregar input, .formulario-agregar select {
+	width: 100%;
+	padding: 12px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
 }
 
 .formulario-agregar input[type="submit"] {
-    background-color: #646464;
-    color: #fff;
-    cursor: pointer;
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
 }
 
 .formulario-agregar input[type="submit"]:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
-.btnSubmit{
-    background-color: #646464;
-    color: #fff;
-    cursor: pointer;
+.btnSubmit {
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
 }
 
 .btnSubmit:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
-.formulario-agregar.btnSubmit{
-    background-color: #646464;
-    color: #fff;
-    cursor: pointer;
+
+.formulario-agregar.btnSubmit {
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
 }
 
 .formulario-agregar.btnSubmit:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
 .botonCerrar {
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    display: block;
-    margin: 10px auto;
+	background-color: #ff6347;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	display: block;
+	margin: 10px auto;
 }
 
 .formulario-listar {
-    z-index: 10;
+	z-index: 10;
 }
 
 .botonCerrar:hover {
-    background-color: #ff4d35;
+	background-color: #ff4d35;
 }
 
 /* Estilo para los botones de Modificar y Eliminar (alineados horizontalmente) */
 .botones-modificar-eliminar {
-    display: flex; /* Alinea los botones en una fila */
-    gap: 10px;     /* Espacio entre los botones */
-    justify-content: center; /* Centra los botones */
-    width: 100%;   /* Asegura que el contenedor de botones ocupe todo el ancho disponible */
-    margin-top: 20px; /* Margen superior si es necesario */
+	display: flex; /* Alinea los botones en una fila */
+	gap: 10px; /* Espacio entre los botones */
+	justify-content: center; /* Centra los botones */
+	width: 100%;
+	/* Asegura que el contenedor de botones ocupe todo el ancho disponible */
+	margin-top: 20px; /* Margen superior si es necesario */
 }
 
 .botones-modificar-eliminar input[type="submit"] {
-    background-color: #646464;
-    color: #fff;
-    cursor: pointer;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    width: auto; /* Asegura que los botones tengan solo el tamaño necesario */
-    transition: background-color 0.3s ease;
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	width: auto;
+	/* Asegura que los botones tengan solo el tamaño necesario */
+	transition: background-color 0.3s ease;
 }
 
 .botones-modificar-eliminar input[type="submit"]:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
 /* Estilo para el enlace que se vea como un botón */
 a.botonGestion {
-    background-color: #646464;
-    border: 2px solid #646464;
-    color: #ffffff;
-    padding: 1rem 3rem;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-    box-sizing: content-box;
-    margin: 10px 0;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    text-decoration: none; /* Quita el subrayado del enlace */
-    display: inline-block; /* Asegura que se comporte como un bloque */
+	background-color: #646464;
+	border: 2px solid #646464;
+	color: #ffffff;
+	padding: 1rem 3rem;
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: center;
+	box-sizing: content-box;
+	margin: 10px 0;
+	transition: background-color 0.3s ease;
+	width: 100%;
+	text-decoration: none; /* Quita el subrayado del enlace */
+	display: inline-block; /* Asegura que se comporte como un bloque */
 }
 
 a.botonGestion:hover {
-    background-color: #663647;
+	background-color: #663647;
 }
 
 /* Estilo general para los campos de entrada */
 .formulario-listar-input {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 /* Estilo para el contenedor del select dentro del formulario listar cuentas */
 .formulario-listar-input {
-    display: flex;
-  
-    margin-bottom: 20px; /* Espacio inferior entre los elementos */
+	display: flex;
+	margin-bottom: 20px; /* Espacio inferior entre los elementos */
 }
 
 /* Estilo para el select dentro del formulario listar cuentas */
 .formulario-listar-input select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px; /* Espacio entre el label y el select */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-   
+	width: 100%;
+	padding: 12px;
+	margin-top: 8px; /* Espacio entre el label y el select */
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	background-color: #fff;
+	color: #333;
+	cursor: pointer;
 }
 
 /* Estilo para el select cuando se hace foco */
 .formulario-listar-input select:focus {
-    border-color: #663647; /* Cambia el borde cuando se selecciona */
-    outline: none; /* Elimina el borde del enfoque predeterminado */
-    box-shadow: 0 0 5px rgba(102, 54, 71, 0.6); /* Agrega un pequeño resplandor */
+	border-color: #663647; /* Cambia el borde cuando se selecciona */
+	outline: none; /* Elimina el borde del enfoque predeterminado */
+	box-shadow: 0 0 5px rgba(102, 54, 71, 0.6);
+	/* Agrega un pequeño resplandor */
 }
