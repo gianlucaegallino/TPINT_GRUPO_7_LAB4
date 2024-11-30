@@ -23,7 +23,6 @@
 		<label for="cuenta">Selecciona una cuenta</label>
 	
 		<select id="cuenta" name="cuenta" required>
-			<option value="" disabled selected>Seleccione el sexo</option>
 			<% 
 			
               ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
@@ -31,19 +30,38 @@
               if (cuentas != null) {
               	for (Cuenta cuenta : cuentas) { %>
 
-					<option value="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
+					<option value="<%= cuenta.getSaldo() %>" data-cbu="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
 
 			 <% }
               } else { %>
               
-					<option value="" disabled>No hay datos disponibles</option>
+					<option value="" disabled selected>No hay cuentas disponibles</option>
 		   <% } %>
 		</select>
 
 		<!-- Mostrar saldo actual -->
 		<div class="balance-display" id="saldo">
-			Saldo: $0.00
-			<!-- Este valor cambiara dependiendo de la cuenta seleccionada -->
+		<script defer>
+
+			let selectCuenta = document.querySelector("#cuenta");
+			let contadorSaldo = document.querySelector("#saldo");
+			console.log(selectCuenta);
+			console.log(contadorSaldo);
+			
+			if (selectCuenta.value != ""){
+				contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
+			} else {
+				contadorSaldo.textContent = "Saldo: $0.00";
+			}
+			
+			selectCuenta.addEventListener("change", function(){
+				if (selectCuenta.value != ""){
+					contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
+				}else {
+					contadorSaldo.textContent = "Saldo: $0.00";
+				}
+			});
+		</script>
 		</div>
 
 		<!-- CBU del destinatario -->
@@ -56,8 +74,8 @@
 			id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
 
 		<!-- Boton de transferencia -->
-		<button type="button">Realizar Transferencia</button>
+		<button type="button" id="btnRealizarTransferencia">Realizar Transferencia</button>
 	</div>
-	<script defer src="./js/mostrarSaldo"></script>
+
 </body>
 </html>
