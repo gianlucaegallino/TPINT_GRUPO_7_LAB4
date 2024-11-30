@@ -1,128 +1,137 @@
 /* estiloInicio.css */
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
 }
+
 
 .namecard {
-	display: grid;
-	grid-template-rows: 1fr 1fr;
-	grid-template-columns: 5rem 1fr;
-	gap: 5px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 5rem 1fr;
+  gap: 5px;
 }
 
-#cierre {
-	color: white;
+#cierre{
+	color:white;
 	text-decoration: none;
 }
-
 .pfp {
-	height: 4rem;
-	width: 4rem;
-	border-radius: 50%;
-	grid-row: 1/3;
-	grid-column: 1/2;
-	place-self: center;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  grid-row: 1/3;
+  grid-column: 1/2;
+  place-self: center;
 }
 
 .line1 {
-	grid-row: 1/2;
-	align-self: end;
-	font-weight: 700;
-	font-size: 1.2rem;
-	color: white;
+  grid-row: 1/2;
+  
+    align-self: end;
+  font-weight: 700;
+  font-size: 1.2rem;
+   color: white;
+
 }
 
 .line2 {
-	grid-row: 2/3;
-	align-self: start;
-	font-weight: 500;
-	font-size: 0.9rem;
-	color: white;
+  grid-row: 2/3;
+    align-self: start;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: white;
+
 }
 
-.line1, .line2 {
-	grid-column: 2/3;
-	margin-top: 0px;
-	margin-bottom: 0px;
+.line1,
+.line2 {
+  grid-column: 2/3;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .headerInicio {
-	background-color: #9f3647;
-	height: 8vh;
-	padding: 50px;
-	display: flex; /* Activamos Flexbox */
-	align-items: center; /* Centramos verticalmente */
-	justify-content: space-between; /* Espacio entre elementos */
+    background-color: #9f3647;
+    height: 8vh;
+    padding: 50px;
+    display: flex; /* Activamos Flexbox */
+    align-items: center; /* Centramos verticalmente */
+    justify-content: space-between; /* Espacio entre elementos */
 }
 
 .bodyInicio {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .icon {
-	width: 80px;
-	height: auto;
-	margin-right: auto;
+    width: 80px; 
+    height: auto; 
+    margin-right: auto;
 }
 
 .IniciarSesion a {
-	color: #fff;
-	text-align: end;
-	text-decoration: none;
-	font-size: 20px;
+    color: #fff;
+    text-align: end;
+    text-decoration: none;
+    font-size: 20px;
 }
 
 .menus {
-	display: flex; /* Activamos Flexbox */
-	margin: 20px;
-	justify-content: space-evenly;
+    display: flex; /* Activamos Flexbox */
+    margin: 20px;
+    justify-content: space-evenly;
 }
 
 .botonInicio {
-	width: fit-content;
-	box-sizing: content-box;
-	background-color: #646464;
-	border: 2px solid #646464;
-	color: #ffffff;
-	padding: 1rem 3.6rem;
-	border-radius: 5px;
-	font-size: 1rem;
-	font-weight: 500;
+    width: fit-content;
+   	box-sizing: content-box;
+    background-color:#646464;
+    border: 2px solid #646464;
+    color: #ffffff;
+    padding: 1rem 3.6rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .botonInicio:hover {
-	background-color: #663647;
+    background-color: #663647;
 }
 
-hr {
+hr{
 	padding: 5px;
 	background-color: #9f3647;
 	height: 20px;
 	margin: 15px 0;
-	background: radial-gradient(rgba(114, 17, 17, 0.8), #9f3647);
+	background: radial-gradient(rgba(114, 17, 17, 0.8), #9f3647); 
 	/* Otro estilo
 	background: linear-gradient (to right, transparent, rgba(185, 185, 185, 0.8) , #646464);   */
 	border: none;
 }
 
+
+
 /* Media query para pantallas peque�as (celulares) */
-@media ( max-width : 1200px) {
-	.headerInicio {
-		flex-direction: column; /* Apilamos los elementos en columna */
-		padding: 20px; /* Reducimos el padding */
-	}
-	.icon {
-		margin-bottom: 10px; /* Agregamos margen inferior al logo */
-	}
-	.menus {
-		flex-direction: column; /* Apilamos los botones en columna */
-		margin: 10px; /* Reducimos el margen */
-	}
-	.botonInicio {
-		width: 100%; /* Ajustamos el ancho de los botones */
-		margin-bottom: 10px; /* Agregamos margen inferior a los botones */
-	}
+@media (max-width: 1200px) {
+    .headerInicio {
+        flex-direction: column; /* Apilamos los elementos en columna */
+        padding: 20px; /* Reducimos el padding */
+    }
+
+    .icon {
+        margin-bottom: 10px; /* Agregamos margen inferior al logo */
+    }
+
+    .menus {
+        flex-direction: column; /* Apilamos los botones en columna */
+        margin: 10px; /* Reducimos el margen */
+    }
+
+    .botonInicio {
+        width: 100%; /* Ajustamos el ancho de los botones */
+        margin-bottom: 10px; /* Agregamos margen inferior a los botones */
+    }
 }
