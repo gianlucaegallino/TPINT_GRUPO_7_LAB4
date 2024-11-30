@@ -74,7 +74,7 @@
         />
 
 
-        <input class="botonInicio" type="submit" value="Transferir" />
+        <input class="botonInicio" id="botonTransferir" type="submit" value="Transferir" onClick="window.location.href='Transferir.jsp'"/>
 
 
         <input
@@ -95,7 +95,7 @@
         />
 
 
-        <input class="botonInicio" type="submit" value="Informacion Personal" />
+        <input class="botonInicio" id="botonInformacionPersonal" type="submit" value="Informacion Personal" onClick="window.location.href='InformacionCliente.jsp'"/>
 
     </article>
     <hr />
