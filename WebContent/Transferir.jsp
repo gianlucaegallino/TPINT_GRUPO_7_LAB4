@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="Inicio.jsp"%>
+<%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList"%>
 
 <!-- Incluimos el inicio -->
 <!DOCTYPE html>
@@ -18,14 +20,24 @@
 		<h2>Transferencias</h2>
 
 		<!-- Seleccion de la cuenta -->
-		<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
-			name="cuenta">
-			<option value="caja_ahorro">Caja de Ahorro - CBU:
-				1234567890123456789012</option>
-			<option value="cuenta_corriente">Cuenta Corriente - CBU:
-				2345678901234567890123</option>
-			<option value="caja_ahorro2">Caja de Ahorro - CBU:
-				3456789012345678901234</option>
+		<label for="cuenta">Selecciona una cuenta</label>
+	
+		<select id="cuenta" name="cuenta" required>
+			<option value="" disabled selected>Seleccione el sexo</option>
+			<% 
+			
+              ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
+			
+              if (cuentas != null) {
+              	for (Cuenta cuenta : cuentas) { %>
+
+					<option value="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
+
+			 <% }
+              } else { %>
+              
+					<option value="" disabled>No hay datos disponibles</option>
+		   <% } %>
 		</select>
 
 		<!-- Mostrar saldo actual -->
