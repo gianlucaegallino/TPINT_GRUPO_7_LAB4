@@ -36,7 +36,6 @@ public class SIClientes extends HttpServlet {
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         cargarDescolgables(request);
-        System.out.println("Running doget");
 
         if (request.getParameter("ProvCliente") != null) {
         	 String dni = request.getParameter("DniCliente");
@@ -89,19 +88,26 @@ public class SIClientes extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if ("mostrarClientes".equals(action)) {
-            mostrarClientes(request, response);
-        } else if ("filtrarClientes".equals(action)) {
-            filtrarClientes(request, response);
-        } else if ("agregarCliente".equals(action)) {
-            agregarCliente(request, response);
-        } else if("buscarPorDNI".equals(action)){
+        
+        switch(action) {
+        
+        case "mostrarClientes":
+        	mostrarClientes(request, response);
+        	break;
+        case "filtrarClientes":
+        	filtrarClientes(request, response);
+        	break;
+        case "agregarCliente":
+        	agregarCliente(request, response);
+        	break;
+        case "buscarPorDNI":
         	buscarPorDNI(request,response);
-        } else if ("modificarEliminarCliente".equals(action)) {
-            modificarEliminarCliente(request, response);
-        }else {
-            // Manejar acción no válida
+        	break;
+        case "modificarEliminarCliente":
+        	modificarEliminarCliente(request, response);
+        	break;
         }
+
         
         if (request.getParameter("btnCancelar") != null) {
 
