@@ -23,6 +23,8 @@ public class NegCargarDescolgables {
 			return desc.obtenerSexos();
 		}
 		
+		
+		
 		public ArrayList<Nacionalidad> ObtenerLasNacionaliadades(){
 			return desc.obtenerNacionalidades();
 		}
@@ -38,9 +40,8 @@ public class NegCargarDescolgables {
 		}
 
 
-		public ArrayList<Cuenta> ObtenerLasCuentasBancarias() {
-			// TODO Auto-generated method stub
-			return null;
+		public ArrayList<Cuenta> ObtenerLasCuentasBancarias(int id) {
+			return desc.ObtenerLasCuentasBancarias(id);
 		}
 }
 

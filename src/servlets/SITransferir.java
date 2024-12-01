@@ -61,6 +61,8 @@ public class SITransferir extends HttpServlet {
 		  
 		  Integer id = null;
 		  
+		  ArrayList<Cuenta> cuentas = null;
+		  
 		if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
 			  for (int i = 0; i < cookies.length; i++) {
 				
@@ -69,16 +71,21 @@ public class SITransferir extends HttpServlet {
 			  	}
 
 			  }
+			  
+			  System.out.println("Im in");
+		        // Obtener la lista de provincias y pasarla al JSP
+		        cuentas = negDesc.ObtenerLasCuentasBancarias(id);
+			System.out.println("Im out");
+		        
 		  } else {
 
 			  request.setAttribute("mensajeError", "Este usuario no tiene un cliente asociado.");
 
 		  }
 
-        // Obtener la lista de provincias y pasarla al JSP
-        ArrayList<Cuenta> cuentas = negDesc.ObtenerLasCuentasBancarias();
+
         if (cuentas != null && !cuentas.isEmpty()) {
-            request.setAttribute("cuentas", cuentas); // Establecer el atributo "Provincia"
+            request.setAttribute("cuentas", cuentas); // Establecer el atributo "cuentas"
         } else {
             request.setAttribute("mensajeError", "No hay cuentas.");
         }
