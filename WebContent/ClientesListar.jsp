@@ -61,32 +61,28 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<select id="SexoCliente" name="SexoCliente" required>
+						<input type="hidden" name="action"
+							value="FiltrarXgeneroClientes" />
+						<select id="SexoCliente" name="SexoCliente">
 							<option value="" disabled selected>Seleccione el sexo</option>
-							<% 
-                    // Obtener el valor de generoCliente como String
-                    String generoCliente = (String) request.getAttribute("generoCliente");
-                        
-                    // Convertir generoCliente a int (si es posible)
-                    int generoClienteId = (generoCliente != null && !generoCliente.isEmpty()) ? Integer.parseInt(generoCliente) : -1;
-                        
-                    ArrayList<Sexo> sexos = (ArrayList<Sexo>) request.getAttribute("sexos");
-                    if (sexos != null) {
-                      for (Sexo sexo : sexos) {
-                        %>
-
-							<option value="<%= sexo.getId() %>"
-								<%= (sexo.getId() == generoClienteId) ? "selected" : "" %>><%= sexo.getDescripcion() %></option>
-
-							<% 
-                      }
-                    } else { 
-                      %>
+							<%
+								ArrayList<Sexo> sexos = (ArrayList<Sexo>) request.getAttribute("sexos");
+								if (sexos != null) {
+									for (Sexo sexo : sexos) {
+							%>
+							<option value="<%=sexo.getId()%>"
+								<%=sexo.getId() == Integer.parseInt((String) request.getAttribute("selectedSexId"))
+							? "selected"
+							: ""%>><%=sexo.getDescripcion()%></option>
+							<%
+								}
+								} else {
+							%>
 							<option value="" disabled>No hay datos disponibles</option>
-
-							<% } 
-                %>
-						</select> <input type="submit" value="Filtrar por GENERO"
+							<%
+								}
+							%>
+						</select><input type="submit" value="Filtrar por GENERO"
 							name="btnFiltrarXgenero">
 					</div>
 				</div>
@@ -142,6 +138,10 @@
 				%>
 			</tbody>
 		</table>
+		<%
+            out.println("Atributo 'sexos': " + request.getAttribute("sexos")); // Imprime el atributo 'sexos' en la consola
+            out.println("Atributo 'selectedSexId': " + request.getAttribute("selectedSexId")); // Imprime el atributo 'selectedSexId' en la consola
+        %>
 	</div>
 	<script defer src="js/clientes.js"></script>
 </body>

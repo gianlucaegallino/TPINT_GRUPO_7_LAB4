@@ -27,42 +27,67 @@ public class SvFlitrosCliente extends HttpServlet {
     public SvFlitrosCliente() {
         super();
         negCliente = new NegCliente();
+        negDesc = new NegCargarDescolgables();
     }
 
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		cargarDescolgables(request);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Entrando a doGet");
+        cargarDescolgables(request);
+    }
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Entrando a doPost");
+        String filtro = request.getParameter("action");
 
+        if ("mostrarClientes".equals(filtro)) {
+            System.out.println("Procesando acción: mostrarClientes");
+            mostrarClientes(request, response);
+        } else if ("FiltrarXdniClientes".equals(filtro)) {
+            System.out.println("Procesando acción: FiltrarXdniClientes");
+            filtrarXdniClientes(request, response);
+        } else if ("FiltrarXcuilClientes".equals(filtro)) {
+            System.out.println("Procesando acción: FiltrarXcuilClientes");
+            filtrarXcuilClientes(request, response);
+        } else if ("FiltrarXNombreClientes".equals(filtro)) {
+            System.out.println("Procesando acción: FiltrarXNombreClientes");
+            filtrarXNombreClientes(request, response);
+        } else if ("FiltrarXApellidoClientes".equals(filtro)) {
+            System.out.println("Procesando acción: FiltrarXApellidoClientes");
+            filtrarXApellidoClientes(request, response);
+        } else if ("FiltrarXgeneroClientes".equals(filtro)) { // Suponiendo que tienes un botón "Filtrar por GENERO"
+            System.out.println("Procesando acción: FiltrarXgeneroClientes");
+            String selectedSexId = request.getParameter("SexoCliente");
+            System.out.println("selectedSexId: " + selectedSexId);
+            if (selectedSexId != null && !selectedSexId.isEmpty()) {
+                // Filtrar por el sexo seleccionado
+                // ... (Implementa la lógica de filtrado)
+            } else {
+                // Mostrar mensaje de error al usuario
+                System.out.println("No se seleccionó un sexo");
+                request.setAttribute("mensajeError", "Por favor, selecciona un sexo.");
+                // Redirigir a la JSP de listado de clientes
+                RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
+                rd.forward(request, response);
+            }
+        }
 
+        // ... (resto del código del método doPost)
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
-		String filtro = request.getParameter("action");
-		
-		if("mostrarClientes".equals(filtro)) {
-			mostrarClientes(request, response);
-		}else if("FiltrarXdniClientes".equals(filtro)) {
-			filtrarXdniClientes(request, response);
-		}else if("FiltrarXcuilClientes".equals(filtro)) {
-			filtrarXcuilClientes(request,response);
-		}else if("FiltrarXNombreClientes".equals(filtro)) {
-			filtrarXNombreClientes(request,response);
-		}else if("FiltrarXApellidoClientes".equals(filtro)) {
-			filtrarXApellidoClientes(request,response);
-		}
-	}
-
-	private void cargarDescolgables(HttpServletRequest request) {
-		// Obtener la lista de sexos y pasarla al JSP
+    private void cargarDescolgables(HttpServletRequest request) {
+        System.out.println("Entrando a cargarDescolgables");
+        // Obtener la lista de sexos y pasarla al JSP
         ArrayList<Sexo> sexos = negDesc.obtenerLosSexos();
+        System.out.println("Lista de sexos: " + sexos);
         if (sexos != null && !sexos.isEmpty()) {
             request.setAttribute("sexos", sexos);
+            System.out.println("Se establecieron los sexos como atributo");
         } else {
+            System.out.println("Error al obtener la lista de sexos");
             request.setAttribute("mensajeError", "No se pudieron cargar los datos de sexo.");
         }
-		
-	}
+    }
 
 	private void filtrarXApellidoClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String apellido = request.getParameter("ApellidoAfiltrar");
