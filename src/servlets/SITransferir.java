@@ -72,8 +72,10 @@ public class SITransferir extends HttpServlet {
 
 			  }
 			  
+			  System.out.println("Im in");
 		        // Obtener la lista de provincias y pasarla al JSP
 		        cuentas = negDesc.ObtenerLasCuentasBancarias(id);
+			System.out.println("Im out");
 		        
 		  } else {
 
