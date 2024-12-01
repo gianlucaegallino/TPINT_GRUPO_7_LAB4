@@ -3,6 +3,7 @@ package Negocio;
 import java.util.ArrayList;
 
 import dao.CargarDescolgablesDao;
+import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
@@ -34,6 +35,11 @@ public class NegCargarDescolgables {
 		
 		public ArrayList<Localidad> ObtenerLasLocalidadesPorProvincia(int provinciaId) {
 		    return desc.obtenerLocalidadesPorProvincia(provinciaId);
+		}
+
+		public ArrayList<Cuenta> ObtenerLasCuentas() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 }
 
