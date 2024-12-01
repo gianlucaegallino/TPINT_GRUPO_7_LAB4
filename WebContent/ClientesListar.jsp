@@ -21,8 +21,8 @@
 				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXdniClientes" />
-						<input type="text" name="dniAfiltrar"> <input type="submit"
-							value="Filtrar por DNI" name="btnFiltrarXdni">
+						<input type="text" name="dniAfiltrar"> <input
+							type="submit" value="Filtrar por DNI" name="btnFiltrarXdni">
 					</div>
 				</div>
 			</form>
