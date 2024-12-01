@@ -16,7 +16,7 @@
 <title>Gestión de Clientes | Banco Liberación</title>
 </head>
 <body class="bodyInicio">
-	<!-- Form de agregar cliente -->
+	<!-- Form de cargar listas -->
 	<form action="SIClientes" method="GET" style="display: none"
 		id="formCargarListas"></form>
 
@@ -31,7 +31,7 @@
 	<% 
       }
      %>
-
+	<!-- Form de agregar cliente -->
 	<div class="formulario-agregar" id="formularioAgregarCliente"
 		style="display: block">
 		<h2>Agregar Cliente</h2>
