@@ -17,6 +17,17 @@
 </head>
 <body>
 	<div class="transfer-container">
+		<form action="SITransferir" method="GET" style="display: none"
+			id="formCargarListas"></form>
+
+		<% if (request.getAttribute("mensajeCarga")!="Cargadas"){ %>
+
+		<script type="text/javascript">
+	            document.getElementById('formCargarListas').submit();
+	          	</script>
+
+		<% } %>
+
 		<h2>Transferencias</h2>
 
 		<!-- Seleccion de la cuenta -->
