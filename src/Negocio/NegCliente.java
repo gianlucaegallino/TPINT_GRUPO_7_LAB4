@@ -65,10 +65,6 @@ public class NegCliente {
     public ArrayList<Cliente> ARRAYbuscarClientesPorAPELLIDO(String apellido) {
         return clienteDao.ARRAYbuscarClientesPorAPELLIDO(apellido);
     }
-
-    public ArrayList<Cliente> ARRAYbuscarClientesPorAPELLIDO(String apellido, String nombre) {
-        return clienteDao.ARRAYbuscarClientesPorAPELLIDO(apellido, nombre);
-    }
     
     public boolean modificarCliente(Cliente cliente) {
         return clienteDao.modificarCliente(cliente);
