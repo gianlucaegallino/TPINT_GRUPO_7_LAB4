@@ -71,21 +71,23 @@ public class SvFlitrosCliente extends HttpServlet {
 
         // Si hay un filtro de nombre activo, filtra por apellido solo en esos registros
         if (nombreFiltro != null) {
-            ArrayList<Cliente> listaClientesApellido = negCliente.ARRAYbuscarClientesPorAPELLIDO(apellido, nombreFiltro);
+            ArrayList<Cliente> listaClientesApellido = negCliente.ARRAYbuscarClientesPorAPELLIDO(apellido);
             if (listaClientesApellido != null && !listaClientesApellido.isEmpty()) {
                 for (Cliente cliente : listaClientesApellido) {
-                    htmlTabla.append("<tr>");
-                    htmlTabla.append("<td>" + cliente.getDni() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getCuil() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getNombre() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getApellido() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getSexo().getDescripcion() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getNacionalidad().getNombre() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getFecha_nacimiento() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getDireccion().getDireccion() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getCorreo_electronico() + "</td>");
-                    htmlTabla.append("<td>" + cliente.getTelefono() + "</td>");
-                    htmlTabla.append("</tr>");
+                	if(cliente.getNombre().equals(nombreFiltro)) {
+                		htmlTabla.append("<tr>");
+                		htmlTabla.append("<td>" + cliente.getDni() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getCuil() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getNombre() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getApellido() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getSexo().getDescripcion() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getNacionalidad().getNombre() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getFecha_nacimiento() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getDireccion().getDireccion() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getCorreo_electronico() + "</td>");
+                		htmlTabla.append("<td>" + cliente.getTelefono() + "</td>");
+                		htmlTabla.append("</tr>");
+                	}
                 }
             } else {
                 htmlTabla.append("<tr><td colspan='10'>No hay clientes disponibles.</td></tr>");
