@@ -37,7 +37,8 @@ public class NegCargarDescolgables {
 		    return desc.obtenerLocalidadesPorProvincia(provinciaId);
 		}
 
-		public ArrayList<Cuenta> ObtenerLasCuentas() {
+
+		public ArrayList<Cuenta> ObtenerLasCuentasBancarias() {
 			// TODO Auto-generated method stub
 			return null;
 		}
