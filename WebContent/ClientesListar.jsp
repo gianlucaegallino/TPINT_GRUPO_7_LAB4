@@ -29,7 +29,8 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
+						<input type="hidden" name="action" value="FiltrarXcuilClientes" />
+						<input type="text" name="cuilAfiltrar"> <input type="submit"
 							value="Filtrar por CUIL" name="btnFiltrarXcuil">
 					</div>
 				</div>
@@ -37,15 +38,18 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
+						<input type="hidden" name="action" value="FiltrarXNombreClientes" />
+						<input type="text" name="NombreAfiltrar"> <input type="submit"
 							value="Filtrar por NOMBRE" name="btnFiltrarXnombre">
+						<input type="hidden" name="nombreFiltro" value=""> <!-- Campo oculto para guardar nombreFiltro -->
 					</div>
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
+						<input type="hidden" name="action" value="FiltrarXApellidoClientes" />
+						<input type="text" name="ApellidoAfiltrar"> <input type="submit"
 							value="Filtrar por APELLIDO" name="btnFiltrarXapellido">
 					</div>
 				</div>

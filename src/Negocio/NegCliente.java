@@ -54,6 +54,22 @@ public class NegCliente {
         return clienteDao.ARRAYbuscarClientesPorDNI(dni);
     }
     
+    public ArrayList<Cliente> ARRAYbuscarClientesPorCUIL(String cuil) {
+        return clienteDao.ARRAYbuscarClientesPorCUIL(cuil);
+    }
+    
+    public ArrayList<Cliente> ARRAYbuscarClientesPorNOMBRE(String nombre) {
+        return clienteDao.ARRAYbuscarClientesPorNombre(nombre);
+    }
+    
+    public ArrayList<Cliente> ARRAYbuscarClientesPorAPELLIDO(String apellido) {
+        return clienteDao.ARRAYbuscarClientesPorAPELLIDO(apellido);
+    }
+
+    public ArrayList<Cliente> ARRAYbuscarClientesPorAPELLIDO(String apellido, String nombre) {
+        return clienteDao.ARRAYbuscarClientesPorAPELLIDO(apellido, nombre);
+    }
+    
     public boolean modificarCliente(Cliente cliente) {
         return clienteDao.modificarCliente(cliente);
     }
