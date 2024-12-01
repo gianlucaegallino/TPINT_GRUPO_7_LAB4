@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,9 +53,30 @@ public class SITransferir extends HttpServlet {
 	}
 	
 	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {
+		
+		//Agarrar el id de cliente de cookies
+		  Cookie[] cookies = null;
+		  
+		  cookies = request.getCookies();
+		  
+		  Integer id = null;
+		  
+		if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
+			  for (int i = 0; i < cookies.length; i++) {
+				
+			  	if (cookies[i].getName().equals("IdPersona")){
+			  		id = Integer.parseInt(cookies[i].getValue());
+			  	}
+
+			  }
+		  } else {
+
+			  request.setAttribute("mensajeError", "Este usuario no tiene un cliente asociado.");
+
+		  }
 
         // Obtener la lista de provincias y pasarla al JSP
-        ArrayList<Cuenta> cuentas = negDesc.ObtenerLasCuentas();
+        ArrayList<Cuenta> cuentas = negDesc.ObtenerLasCuentasBancarias();
         if (cuentas != null && !cuentas.isEmpty()) {
             request.setAttribute("cuentas", cuentas); // Establecer el atributo "Provincia"
         } else {

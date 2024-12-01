@@ -77,20 +77,23 @@ public class SIniciarSesion extends HttpServlet {
 					Cookie ckNombre;
 					Cookie ckNombrePersona;
 					Cookie ckApellidoPersona;
+					Cookie ckIDPersona;
 					
 					ckNombre = new Cookie("NombreUsuario", usuario.getUsuario());
 					
 					if (tipoUsuario == 2) { // Si es administraor
 						ckNombrePersona = new Cookie("NombrePersona", "Administrador");
 						ckApellidoPersona = new Cookie("ApellidoPersona", "Banco");
+						ckIDPersona = new Cookie("IDPersona", null);
 					} else {
 						if (cli.getNombre() == null) { //Si la busqueda no devolvio un cliente
 							ckNombrePersona = new Cookie("NombrePersona", "Sin");
 							ckApellidoPersona = new Cookie("ApellidoPersona", "Asignar");
+							ckIDPersona = new Cookie("IDPersona", null);
 						} else { // Si la busqueda devolvio un cliente
 							ckNombrePersona = new Cookie("NombrePersona", cli.getNombre());
 							ckApellidoPersona = new Cookie("ApellidoPersona", cli.getApellido());
-							System.out.println(cli);
+							ckIDPersona = new Cookie("IDPersona", String.valueOf(cli.getIdCliente()));
 						}
 					}
 
@@ -98,9 +101,9 @@ public class SIniciarSesion extends HttpServlet {
 					response.addCookie(ckNombre);
 					response.addCookie(ckNombrePersona);
 					response.addCookie(ckApellidoPersona);
+					response.addCookie(ckIDPersona);
 					
-					
-					request.setAttribute("NombrePersona", ckNombrePersona.getValue());
+					// Guarda atributos en la request  como un fallback
 					request.setAttribute("NombrePersona", ckNombrePersona.getValue());
 					request.setAttribute("ApellidoPersona", ckApellidoPersona.getValue());
 

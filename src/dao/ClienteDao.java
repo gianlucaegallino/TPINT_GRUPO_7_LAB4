@@ -577,6 +577,7 @@ public class ClienteDao {
 				cliente = new Cliente();
 				cliente.setNombre(rs.getString("nombre"));
 				cliente.setApellido(rs.getString("apellido"));
+				cliente.setIdCliente(rs.getInt("id_cliente"));
 				// ****PONER EL RESTO DE ATRIBUTOS SI SON NECESARIOS*****
 			}else {
 				cliente = null; // para saber que es un empty result set
