@@ -49,7 +49,11 @@ public class NegCliente {
     public Cliente conseguirClientePorDni(String clienteDNI) {
         return clienteDao.buscarClientePorDNI(clienteDNI);
     }
-
+    
+    public ArrayList<Cliente> ARRAYbuscarClientesPorDNI(String dni) {
+        return clienteDao.ARRAYbuscarClientesPorDNI(dni);
+    }
+    
     public boolean modificarCliente(Cliente cliente) {
         return clienteDao.modificarCliente(cliente);
     }

@@ -18,15 +18,16 @@
 		<h2>Listar Cliente</h2>
 		<div class="form-container">
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
+						<input type="hidden" name="action" value="FiltrarXdniClientes" />
+						<input type="text" name="dniAfiltrar"> <input type="submit"
 							value="Filtrar por DNI" name="btnFiltrarXdni">
 					</div>
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="text"> <input type="submit"
 							value="Filtrar por CUIL" name="btnFiltrarXcuil">
@@ -34,7 +35,7 @@
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="text"> <input type="submit"
 							value="Filtrar por NOMBRE" name="btnFiltrarXnombre">
@@ -42,7 +43,7 @@
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="text"> <input type="submit"
 							value="Filtrar por APELLIDO" name="btnFiltrarXapellido">
@@ -50,7 +51,7 @@
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="text"> <input type="submit"
 							value="Filtrar por GENERO" name="btnFiltrarXgenero">
@@ -58,7 +59,7 @@
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="text"> <input type="submit"
 							value="Filtrar por NACIONALIDAD" name="btnFiltrarXnacionalidad">
@@ -66,7 +67,7 @@
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="date"> <input type="date"> <input
 							type="submit" value="Filtrar por RANGO DE FECHAS"
@@ -74,9 +75,8 @@
 					</div>
 				</div>
 			</form>
-			<hr>
 			<form action="SvFlitrosCliente" method="POST">
-				<div class="fila" style="border: 1px solid black">
+				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="mostrarClientes" /> <input
 							type="submit" id="mostrarTodosClientes"
@@ -84,6 +84,7 @@
 					</div>
 				</div>
 			</form>
+			<hr>
 		</div>
 		<table class="tabla-clientes" id="tablaCliente2"
 			style="display: block;">

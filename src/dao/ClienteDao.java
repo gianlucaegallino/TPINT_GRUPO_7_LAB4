@@ -124,6 +124,48 @@ public class ClienteDao {
 		}
 		return LCliente;
 	}
+	
+	public ArrayList<Cliente> ARRAYbuscarClientesPorDNI(String dni) {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement sentence = connect
+                    .prepareStatement("SELECT * FROM clientes WHERE dni LIKE ? AND estado = 1");
+            sentence.setString(1, "%" + dni + "%");
+            ResultSet rs = sentence.executeQuery();
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setDni(rs.getString("dni"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setCuil(rs.getString("cuil"));
+
+                int sexoId = rs.getInt("sexo_id");
+                Sexo sexo = new Sexo(BuscarSexo(sexoId));
+                cliente.setSexo(sexo);
+
+                int nacioID = rs.getInt("nacionalidad_id");
+                Nacionalidad nacio = new Nacionalidad(BuscarNacionalidad(nacioID));
+                cliente.setNacionalidad(nacio);
+
+                cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
+
+                String direccion = rs.getString("direccion_id");
+                Direccion direc = new Direccion(direccion);
+                cliente.setDireccion(direc);
+
+                cliente.setCorreo_electronico(rs.getString("correo_electronico"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setIdCliente(rs.getInt("id_cliente"));
+
+                clientes.add(cliente);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clientes;
+    }
 
 	public Cliente buscarClientePorDNI(String dni) {
 		try {
@@ -137,7 +179,7 @@ public class ClienteDao {
 
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
-			PreparedStatement sentence = connect.prepareStatement("SELECT * FROM clientes WHERE dni = ?");
+			PreparedStatement sentence = connect.prepareStatement("SELECT * FROM clientes WHERE dni = ? AND estado = 1");
 			sentence.setString(1, dni);
 			ResultSet rs = sentence.executeQuery();
 			if (rs.next()) {

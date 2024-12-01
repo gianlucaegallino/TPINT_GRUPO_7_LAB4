@@ -35,7 +35,45 @@ public class SvFlitrosCliente extends HttpServlet {
 		
 		if("mostrarClientes".equals(filtro)) {
 			mostrarClientes(request, response);
+		}else if("FiltrarXdniClientes".equals(filtro)) {
+			filtrarXdniClientes(request, response);
 		}
+	}
+
+
+	private void filtrarXdniClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String dni = request.getParameter("dniAfiltrar");
+		
+		ArrayList<Cliente> listaClientesDNI = negCliente.ARRAYbuscarClientesPorDNI(dni);
+		
+		StringBuilder htmlTabla = new StringBuilder();
+		if (listaClientesDNI != null && !listaClientesDNI.isEmpty()) {
+			for (Cliente cliente : listaClientesDNI) {
+				htmlTabla.append("<tr>");
+				htmlTabla.append("<td>" + cliente.getDni() + "</td>");
+				htmlTabla.append("<td>" + cliente.getCuil() + "</td>");
+				htmlTabla.append("<td>" + cliente.getNombre() + "</td>");
+				htmlTabla.append("<td>" + cliente.getApellido() + "</td>");
+				htmlTabla.append("<td>" + cliente.getSexo().getDescripcion() + "</td>");
+				htmlTabla.append("<td>" + cliente.getNacionalidad().getNombre() + "</td>");
+				htmlTabla.append("<td>" + cliente.getFecha_nacimiento() + "</td>");
+				htmlTabla.append("<td>" + cliente.getDireccion().getDireccion() + "</td>");
+				htmlTabla.append("<td>" + cliente.getCorreo_electronico() + "</td>");
+				htmlTabla.append("<td>" + cliente.getTelefono() + "</td>");
+				htmlTabla.append("</tr>");
+			}
+		}else {
+            htmlTabla.append("<tr><td colspan='10'>No hay clientes disponibles.</td></tr>");
+        }
+		
+		System.out.print("TABLAHTML: " + htmlTabla.toString());
+        // Pasar el HTML de la tabla a la JSP
+        request.setAttribute("tablaHTML", htmlTabla.toString());
+
+        // Redirigir a la JSP de listado de clientes
+        System.out.print("SALIMOS DEL MOSTRAR CLIENTES");
+        RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
+        rd.forward(request, response);
 	}
 
 

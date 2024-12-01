@@ -16,6 +16,12 @@ public class Sexo {
 	}
 
 
+	public Sexo(String descripcion) {
+		super();
+		this.descripcion = descripcion;
+	}
+
+
 	public Sexo() {
 		super();
 		// TODO Auto-generated constructor stub

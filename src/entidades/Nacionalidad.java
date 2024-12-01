@@ -14,6 +14,11 @@ public class Nacionalidad {
 		this.id = id;
 	}
 
+	public Nacionalidad(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
+
 	public int getId() {
         return id;
     }
