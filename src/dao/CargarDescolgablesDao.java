@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+
+import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
@@ -103,7 +105,8 @@ public class CargarDescolgablesDao {
         }
 
         ArrayList < Localidad > listaLocalidades = new ArrayList < > ();
-        try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
+        try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
+        		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
         		"SELECT l.id, l.nombre, p.id AS provincia_id, p.nombre AS provincia_nombre " +
                         "FROM localidad l JOIN provincia p ON l.provincia_id = p.id " +
                         "WHERE l.provincia_id = ?")) {
@@ -128,4 +131,37 @@ public class CargarDescolgablesDao {
         }
         return listaLocalidades;
     }
+
+	public ArrayList<Cuenta> ObtenerLasCuentasBancarias(int id) {
+		try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList < Cuenta > cuentas = new ArrayList < > ();
+        try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
+        		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
+        		"SELECT * FROM cuentas WHERE cliente_id = ?"
+        				)) {
+        	stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+				Cuenta c = new Cuenta();
+				//c.setCliente_id(rs.getInt("cliente_id"));
+				c.setFecha_creacion(rs.getDate("fecha_creacion"));
+				//c.setTipo_cuenta_id(rs.getInt("tipo_cuenta_id"));
+				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
+				c.setCbu(rs.getString("cbu"));
+				c.setSaldo(rs.getDouble("saldo"));
+
+				cuentas.add(c);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cuentas;
+	}
 }
