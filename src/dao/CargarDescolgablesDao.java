@@ -142,7 +142,7 @@ public class CargarDescolgablesDao {
         ArrayList < Cuenta > cuentas = new ArrayList < > ();
         try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
         		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
-        		"SELECT * FROM cuentas WHERE cliente_id = ?"
+        		"SELECT * FROM cuentas WHERE cliente_id = ? AND estado = 1"
         				)) {
         	stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -155,7 +155,6 @@ public class CargarDescolgablesDao {
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));
-
 				cuentas.add(c);
             }
 

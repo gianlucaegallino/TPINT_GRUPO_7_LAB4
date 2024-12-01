@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -42,14 +43,15 @@ public class SITransferir extends HttpServlet {
 
 
         cargarDescolgablesCuentaBanco(request);
+        RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
+        rd.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 	
 	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {
@@ -66,8 +68,10 @@ public class SITransferir extends HttpServlet {
 		if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
 			  for (int i = 0; i < cookies.length; i++) {
 				
-			  	if (cookies[i].getName().equals("IdPersona")){
+			  	if (cookies[i].getName().equals("IDPersona")){
 			  		id = Integer.parseInt(cookies[i].getValue());
+			  		System.out.println(id);
+			  		System.out.println("boob");
 			  	}
 
 			  }
