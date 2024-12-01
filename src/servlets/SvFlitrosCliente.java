@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Negocio.NegCargarDescolgables;
 import Negocio.NegCliente;
 import entidades.Cliente;
+import entidades.Sexo;
 
 
 @WebServlet("/SvFlitrosCliente")
@@ -19,6 +21,7 @@ public class SvFlitrosCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private NegCliente negCliente;
+	private NegCargarDescolgables negDesc;
 	private String nombreFiltro = null; // Variable para almacenar el nombre del filtro
 
     public SvFlitrosCliente() {
@@ -28,7 +31,10 @@ public class SvFlitrosCliente extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		cargarDescolgables(request);
 	}
+
+
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
@@ -47,6 +53,16 @@ public class SvFlitrosCliente extends HttpServlet {
 		}
 	}
 
+	private void cargarDescolgables(HttpServletRequest request) {
+		// Obtener la lista de sexos y pasarla al JSP
+        ArrayList<Sexo> sexos = negDesc.obtenerLosSexos();
+        if (sexos != null && !sexos.isEmpty()) {
+            request.setAttribute("sexos", sexos);
+        } else {
+            request.setAttribute("mensajeError", "No se pudieron cargar los datos de sexo.");
+        }
+		
+	}
 
 	private void filtrarXApellidoClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String apellido = request.getParameter("ApellidoAfiltrar");
@@ -74,6 +90,7 @@ public class SvFlitrosCliente extends HttpServlet {
             } else {
                 htmlTabla.append("<tr><td colspan='10'>No hay clientes disponibles.</td></tr>");
             }
+            nombreFiltro = null;
         } else { // Si no hay filtro de nombre activo, filtra por apellido en todos los registros
             ArrayList<Cliente> listaClientesApellido = negCliente.ARRAYbuscarClientesPorAPELLIDO(apellido);
             if (listaClientesApellido != null && !listaClientesApellido.isEmpty()) {
@@ -90,13 +107,13 @@ public class SvFlitrosCliente extends HttpServlet {
                     htmlTabla.append("<td>" + cliente.getCorreo_electronico() + "</td>");
                     htmlTabla.append("<td>" + cliente.getTelefono() + "</td>");
                     htmlTabla.append("</tr>");
+                    System.out.print("TABLAHTML: " + htmlTabla.toString());
                 }
             } else {
                 htmlTabla.append("<tr><td colspan='10'>No hay clientes disponibles.</td></tr>");
             }
         }
         
-        System.out.print("TABLAHTML: " + htmlTabla.toString());
         // Pasar el HTML de la tabla a la JSP
         request.setAttribute("tablaHTML", htmlTabla.toString());
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.Sexo"%>
+<%@ page import="entidades.Nacionalidad"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ include file="Clientes.jsp"%>
 <!DOCTYPE html>
@@ -57,7 +59,34 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
+						<select id="SexoCliente"
+							name="SexoCliente" required>
+							<option value="" disabled selected>Seleccione el sexo</option>
+							<% 
+                    // Obtener el valor de generoCliente como String
+                    String generoCliente = (String) request.getAttribute("generoCliente");
+                        
+                    // Convertir generoCliente a int (si es posible)
+                    int generoClienteId = (generoCliente != null && !generoCliente.isEmpty()) ? Integer.parseInt(generoCliente) : -1;
+                        
+                    ArrayList<Sexo> sexos = (ArrayList<Sexo>) request.getAttribute("sexos");
+                    if (sexos != null) {
+                      for (Sexo sexo : sexos) {
+                        %>
+
+							<option value="<%= sexo.getId() %>"
+								<%= (sexo.getId() == generoClienteId) ? "selected" : "" %>><%= sexo.getDescripcion() %></option>
+
+							<% 
+                      }
+                    } else { 
+                      %>
+							<option value="" disabled>No hay datos disponibles</option>
+
+							<% } 
+                %>
+						</select>
+						<input type="submit"
 							value="Filtrar por GENERO" name="btnFiltrarXgenero">
 					</div>
 				</div>
