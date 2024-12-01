@@ -61,8 +61,7 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="hidden" name="action"
-							value="FiltrarXgeneroClientes" />
+						<input type="hidden" name="action" value="FiltrarXgeneroClientes" />
 						<select id="SexoCliente" name="SexoCliente">
 							<option value="" disabled selected>Seleccione el sexo</option>
 							<%
