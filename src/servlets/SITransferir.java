@@ -84,7 +84,7 @@ public class SITransferir extends HttpServlet {
         		
         if (cta != null) {
 
-            negTransf.realizarTransferencia(monto, cbuInicio, cbuDestinatario);
+            negTransf.realizarTransferencia(montoATransferir, cbuUsu, cbuDest);
 
             // vvrificar si la transferencia salio bien.
             

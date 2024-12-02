@@ -63,7 +63,7 @@
 
 			<!-- Mostrar saldo actual -->
 			<div class="balance-display" id="saldo">
-				<script defer>
+				 <script defer>
 					let selectCuenta = document.querySelector("#cuenta");
 					let contadorSaldo = document.querySelector("#saldo");
 
