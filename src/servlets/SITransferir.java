@@ -70,16 +70,15 @@ public class SITransferir extends HttpServlet {
 				
 			  	if (cookies[i].getName().equals("IDPersona")){
 			  		id = Integer.parseInt(cookies[i].getValue());
-			  		System.out.println(id);
-			  		System.out.println("boob");
+
 			  	}
 
 			  }
 			  
-			  System.out.println("Im in");
+
 		        // Obtener la lista de provincias y pasarla al JSP
 		        cuentas = negDesc.ObtenerLasCuentasBancarias(id);
-			System.out.println("Im out");
+
 		        
 		  } else {
 

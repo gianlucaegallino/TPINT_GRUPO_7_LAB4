@@ -38,10 +38,13 @@
               ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
 			
               if (cuentas != null) {
-              	for (Cuenta cuenta : cuentas) { %>
+              	for (Cuenta cuenta : cuentas) { 
+              	
+              		String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
+              	%>
 
 			<option value="<%= cuenta.getSaldo() %>"
-				data-cbu="<%= cuenta.getCbu() %>"><%= cuenta.toString() %></option>
+				data-cbu="<%= cuenta.getCbu() %>"><%= tipo + " - CBU: " + cuenta.getCbu() %></option>
 
 			<% }
               } else { %>

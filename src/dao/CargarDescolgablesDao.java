@@ -13,6 +13,7 @@ import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Sexo;
+import entidades.TipoCuenta;
 
 public class CargarDescolgablesDao {
     private String host = "jdbc:mysql://localhost:3306/";
@@ -151,7 +152,7 @@ public class CargarDescolgablesDao {
 				Cuenta c = new Cuenta();
 				//c.setCliente_id(rs.getInt("cliente_id"));
 				c.setFecha_creacion(rs.getDate("fecha_creacion"));
-				//c.setTipo_cuenta_id(rs.getInt("tipo_cuenta_id"));
+				c.setCuenta(new TipoCuenta(rs.getInt("tipo_cuenta_id"),""));
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));
