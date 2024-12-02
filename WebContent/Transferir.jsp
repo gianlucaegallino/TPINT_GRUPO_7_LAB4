@@ -46,8 +46,8 @@
 							String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
 				%>
 
-				<option value="<%=cuenta.getSaldo()%>"
-					data-cbu="<%=cuenta.getCbu()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
+				<option value="<%=cuenta.getCbu()%>"
+					data-saldo="<%=cuenta.getSaldo()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
 
 				<%
 					}
@@ -62,28 +62,30 @@
 			</select>
 
 			<!-- Mostrar saldo actual -->
-			<div class="balance-display" id="saldo">
+			<label for="saldo">Saldo:</label> 
+			<input disabled class="balance-display" id="saldo">
 				 <script defer>
 					let selectCuenta = document.querySelector("#cuenta");
 					let contadorSaldo = document.querySelector("#saldo");
 
-					if (selectCuenta.value != "") {
-						contadorSaldo.textContent = "Saldo: "
-								+ selectCuenta.value;
+					let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
+
+					if (saldo != "") {
+						contadorSaldo.value = saldo;
 					} else {
-						contadorSaldo.textCsontent = "Saldo: $0.00";
+						contadorSaldo.value = null;
 					}
 
 					selectCuenta.addEventListener("change", function() {
-						if (selectCuenta.value != "") {
-							contadorSaldo.textContent = "Saldo: "
-									+ selectCuenta.value;
+						let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
+						
+						if (saldo != "") {
+							contadorSaldo.value = saldo;
 						} else {
-							contadorSaldo.textContent = "Saldo: $0.00";
+							contadorSaldo.value = null;
 						}
 					});
 				</script>
-			</div>
 
 			<!-- CBU del destinatario -->
 			<label for="cbu_destinatario">CBU del destinatario</label> <input

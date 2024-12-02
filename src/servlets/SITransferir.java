@@ -69,10 +69,10 @@ public class SITransferir extends HttpServlet {
 	private void realizarTransferencia(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtener los datos del formulario
-		String cbuUsu = request.getParameter("cbu");//FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+		String cbuUsu =request.getParameter("cuenta");//FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
         String cbuDest = request.getParameter("cbu_destinatario");
-        float montoATransferir = request.getParameter("monto");
-        float montoActual = request.getParameter("saldo"); //FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+        float montoATransferir = Float.parseFloat(request.getParameter("monto"));
+        float montoActual = Float.parseFloat(request.getParameter("saldo")); //FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
         
 
         if (montoATransferir > montoActual) {
