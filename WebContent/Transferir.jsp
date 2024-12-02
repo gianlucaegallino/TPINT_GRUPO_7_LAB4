@@ -72,7 +72,7 @@
 
 					if (saldo != "") {
 						contadorSaldo.value = saldo;
-						console.log(contadorSaldo.value);
+
 					} else {
 						contadorSaldo.value = null;
 					}
@@ -82,7 +82,7 @@
 						
 						if (saldo != "") {
 							contadorSaldo.value = saldo;
-							console.log(contadorSaldo.value);
+
 						} else {
 							contadorSaldo.value = null;
 							

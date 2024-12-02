@@ -40,7 +40,7 @@
 <body class="bodyRegistrarse">
 	<header class="headerlogin">
 		<img src="images/logo.png" alt="Logo" class="icon"> <a
-			href="Inicio.jsp" style="color: #fff; text-decoration: none;"> <span>Banco
+			href="Login.jsp" style="color: #fff; text-decoration: none;"> <span>Banco
 				Liberacion</span>
 		</a>
 	</header>
