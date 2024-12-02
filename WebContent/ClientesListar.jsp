@@ -3,6 +3,7 @@
 <%@ page import="entidades.Cliente"%>
 <%@ page import="entidades.Sexo"%>
 <%@ page import="entidades.Nacionalidad"%>
+<%@ page import="dao.CargarDescolgablesDao" %>
 <%@ page import="java.util.ArrayList"%>
 <%@ include file="Clientes.jsp"%>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@
 				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXgeneroClientes" />
-						<select id="SexoCliente" name="SexoCliente">
+						<select id="SexoCliente" name="SexoCliente" required>
 							<option value="" disabled selected>Seleccione el sexo</option>
 							<option value="1">Masculino</option>
 							<option value="2">Femenino</option>
@@ -74,17 +75,37 @@
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="text"> <input type="submit"
-							value="Filtrar por NACIONALIDAD" name="btnFiltrarXnacionalidad">
+						<input type="hidden" name="action" value="FiltrarXNacionalidadClientes" />
+						<%
+						    // Instancia el DAO
+						    CargarDescolgablesDao dao = new CargarDescolgablesDao();
+						    // Obtiene la lista de items del desplegable
+						    ArrayList<Nacionalidad> items = dao.obtenerNacionalidades();
+						%>
+						<select id="NacioCliente" name="NacioCliente" required>
+							<option value="" disabled selected>Seleccione la Nacionalidad</option>
+							<%
+						        // Itera sobre la lista de items
+						        for (Nacionalidad nacio : items) {
+						    %>
+						        <option value="<%= nacio.getId() %>"><%= nacio.getNombre() %></option>
+						    <%
+						        }
+						    %>
+						</select>
+						<input type="submit" value="Filtrar por NACIONALIDAD" name="btnFiltrarXnacionalidad">
 					</div>
 				</div>
 			</form>
 			<form action="SvFlitrosCliente" method="POST">
 				<div class="fila">
 					<div class="form-element">
-						<input type="date"> <input type="date"> <input
-							type="submit" value="Filtrar por RANGO DE FECHAS"
-							name="btnFiltrarXfechas">
+					<input type="hidden" name="action" value="FiltrarXFechasClientes" />
+					<label for="PrimerFecha">Desde: </label>
+						<input type="date" id="fechaInicial" name="fechaInicial"> 
+					<label for="SegundaFecha">Hasta: </label>
+						<input type="date" id="fechaFinal" name="fechaFinal"> 
+					<input type="submit" value="Filtrar por RANGO DE FECHAS" name="btnFiltrarXfechas">
 					</div>
 				</div>
 			</form>

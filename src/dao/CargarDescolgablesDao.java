@@ -63,6 +63,7 @@ public class CargarDescolgablesDao {
                     listaNacionalidades.add(new Nacionalidad(id, nombre));
                 }
             }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
