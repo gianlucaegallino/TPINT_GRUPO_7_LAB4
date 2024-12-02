@@ -64,25 +64,10 @@
 						<input type="hidden" name="action" value="FiltrarXgeneroClientes" />
 						<select id="SexoCliente" name="SexoCliente">
 							<option value="" disabled selected>Seleccione el sexo</option>
-							<%
-								ArrayList<Sexo> sexos = (ArrayList<Sexo>) request.getAttribute("sexos");
-								if (sexos != null) {
-									for (Sexo sexo : sexos) {
-							%>
-							<option value="<%=sexo.getId()%>"
-								<%=sexo.getId() == Integer.parseInt((String) request.getAttribute("selectedSexId"))
-							? "selected"
-							: ""%>><%=sexo.getDescripcion()%></option>
-							<%
-								}
-								} else {
-							%>
-							<option value="" disabled>No hay datos disponibles</option>
-							<%
-								}
-							%>
-						</select><input type="submit" value="Filtrar por GENERO"
-							name="btnFiltrarXgenero">
+							<option value="1">Masculino</option>
+							<option value="2">Femenino</option>
+						</select>
+						<input type="submit" value="Filtrar por GENERO" name="btnFiltrarXgenero">
 					</div>
 				</div>
 			</form>
@@ -137,10 +122,6 @@
 				%>
 			</tbody>
 		</table>
-		<%
-            out.println("Atributo 'sexos': " + request.getAttribute("sexos")); // Imprime el atributo 'sexos' en la consola
-            out.println("Atributo 'selectedSexId': " + request.getAttribute("selectedSexId")); // Imprime el atributo 'selectedSexId' en la consola
-        %>
 	</div>
 	<script defer src="js/clientes.js"></script>
 </body>
