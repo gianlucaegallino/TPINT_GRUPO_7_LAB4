@@ -17,6 +17,7 @@ import entidades.Cuenta;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Sexo;
+import entidades.Usuario;
 
 /**
  * Servlet implementation class SITransferir
@@ -51,23 +52,68 @@ public class SITransferir extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
 
+        if ("realizarTransferencia".equals(action)) {
+            realizarTransferencia(request, response);
+        } else {
+        	//Tirar excepcion!
+        }
 	}
+	
+	private void realizarTransferencia(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Obtener los datos del formulario
+		String cbuUsu = request.getParameter("cbu");//FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+        String cbuDest = request.getParameter("cbu_destinatario");
+        float montoATransferir = request.getParameter("monto");
+        float montoActual = request.getParameter("saldo"); //FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+        
+
+        if (montoATransferir > montoActual) {
+        	 request.setAttribute("mensajeError", "No tenes suficiente dinero.");
+        	 return;
+        }
+        
+        String msj = negCta.VerificarExistenciaCuenta(); //Implementar
+        		
+        if (msj == null) {
+        	
+            realizarTransferencia(monto, cbuInicio, cbuDestinatario);
+
+            // vvrificar si la transferencia salio bien.
+            
+            //imprimir mensajes 
+        	request.setAttribute("mensajeExito", msj);
+        	System.out.println(msj);
+            
+        } else {
+        	request.setAttribute("mensajeError", msj);
+        	System.out.println(msj);
+        }
+
+        
+
+        RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
+        rd.forward(request, response);
+    }
 	
 	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {
 		
-		//Agarrar el id de cliente de cookies
+		//Armamos un array para almacenar las cookies
 		  Cookie[] cookies = null;
 		  
+		  // Consigue las cookies almacenadas en el navegador
 		  cookies = request.getCookies();
 		  
+		  //Defino variables para almacenar el id y las cuentas
 		  Integer id = null;
-		  
 		  ArrayList<Cuenta> cuentas = null;
 		  
 		if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
+			
+			//Buscamos la cookie correspondiente en el array, en este caso la llamada idpersona
 			  for (int i = 0; i < cookies.length; i++) {
-				
 				  
 				  //Guardamos la cookie de idpersona
 			  	if (cookies[i].getName().equals("IDPersona")){
@@ -78,12 +124,13 @@ public class SITransferir extends HttpServlet {
 			  }
 			  
 
-		        // Obtener la lista de provincias y pasarla al JSP
+		        // Con el id, obtenemos las cuentas bancarias correspondientes
 		        cuentas = negDesc.ObtenerLasCuentasBancarias(id);
 
 		        
 		  } else {
 
+			  //No encontramos la cookie, todo mal :(
 			  request.setAttribute("mensajeError", "Este usuario no tiene un cliente asociado.");
 
 		  }
@@ -94,6 +141,8 @@ public class SITransferir extends HttpServlet {
         } else {
             request.setAttribute("mensajeError", "No hay cuentas.");
         }
+        
+        //Damos constancia de que esta funcion ya se corrio, sin importar si se devolvieron o no cuentas
         request.setAttribute("mensajeCarga", "Cargadas");
     }
 

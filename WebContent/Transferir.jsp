@@ -20,75 +20,85 @@
 		<form action="SITransferir" method="GET" style="display: none"
 			id="formCargarListas"></form>
 
-		<% if (request.getAttribute("mensajeCarga")!="Cargadas"){ %>
+		<%
+			if (request.getAttribute("mensajeCarga") != "Cargadas") {
+		%>
 
 		<script type="text/javascript">
-	            document.getElementById('formCargarListas').submit();
-	          	</script>
+			document.getElementById('formCargarListas').submit();
+		</script>
 
-		<% } %>
+		<%
+			}
+		%>
 
 		<h2>Transferencias</h2>
+		<form>
+			<!-- Seleccion de la cuenta -->
+			<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
+				name="cuenta" required>
+				<%
+					ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
 
-		<!-- Seleccion de la cuenta -->
-		<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
-			name="cuenta" required>
-			<% 
-			
-              ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
-			
-              if (cuentas != null) {
-              	for (Cuenta cuenta : cuentas) { 
-              	
-              		String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
-              	%>
+					if (cuentas != null) {
+						for (Cuenta cuenta : cuentas) {
 
-			<option value="<%= cuenta.getSaldo() %>"
-				data-cbu="<%= cuenta.getCbu() %>"><%= tipo + " - CBU: " + cuenta.getCbu() %></option>
+							String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
+				%>
 
-			<% }
-              } else { %>
+				<option value="<%=cuenta.getSaldo()%>"
+					data-cbu="<%=cuenta.getCbu()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
 
-			<option value="" disabled selected>No hay cuentas
-				disponibles</option>
-			<% } %>
-		</select>
+				<%
+					}
+					} else {
+				%>
 
-		<!-- Mostrar saldo actual -->
-		<div class="balance-display" id="saldo">
-			<script defer>
+				<option value="" disabled selected>No hay cuentas
+					disponibles</option>
+				<%
+					}
+				%>
+			</select>
 
-			let selectCuenta = document.querySelector("#cuenta");
-			let contadorSaldo = document.querySelector("#saldo");		
+			<!-- Mostrar saldo actual -->
+			<div class="balance-display" id="saldo">
+				<script defer>
+					let selectCuenta = document.querySelector("#cuenta");
+					let contadorSaldo = document.querySelector("#saldo");
 
-			if (selectCuenta.value != "") {
-				contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
-			} else {
-				contadorSaldo.textCsontent = "Saldo: $0.00";
-			}
-			
-			selectCuenta.addEventListener("change", function() {
-				if (selectCuenta.value != ""){
-					contadorSaldo.textContent = "Saldo: " + selectCuenta.value;
-				} else {
-					contadorSaldo.textContent = "Saldo: $0.00";
-				}
-			});
-		</script>
-		</div>
+					if (selectCuenta.value != "") {
+						contadorSaldo.textContent = "Saldo: "
+								+ selectCuenta.value;
+					} else {
+						contadorSaldo.textCsontent = "Saldo: $0.00";
+					}
 
-		<!-- CBU del destinatario -->
-		<label for="cbu_destinatario">CBU del destinatario</label> <input
-			type="text" id="cbu_destinatario" name="cbu_destinatario"
-			placeholder="Ingrese el CBU del destinatario" />
+					selectCuenta.addEventListener("change", function() {
+						if (selectCuenta.value != "") {
+							contadorSaldo.textContent = "Saldo: "
+									+ selectCuenta.value;
+						} else {
+							contadorSaldo.textContent = "Saldo: $0.00";
+						}
+					});
+				</script>
+			</div>
 
-		<!-- Cantidad a transferir -->
-		<label for="monto">Monto a transferir</label> <input type="number"
-			id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
+			<!-- CBU del destinatario -->
+			<label for="cbu_destinatario">CBU del destinatario</label> <input
+				type="text" id="cbu_destinatario" name="cbu_destinatario"
+				placeholder="Ingrese el CBU del destinatario" />
 
-		<!-- Boton de transferencia -->
-		<button type="button" id="btnRealizarTransferencia">Realizar
-			Transferencia</button>
+			<!-- Cantidad a transferir -->
+			<label for="monto">Monto a transferir</label> <input type="number"
+				id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
+
+			<!-- Boton de transferencia -->
+			<button type="button" id="btnRealizarTransferencia">Realizar
+				Transferencia</button>
+			<input type="hidden" name="action" value="realizarTransferencia">
+		</form>
 	</div>
 
 </body>
