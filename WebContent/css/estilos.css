@@ -8,33 +8,20 @@
 /*ESTILOS ESCRITORIO PARA PAGINA login */
 .bodyRegistrarse {
 	height: 100vh;
-	background: linear-gradient(to right top, #24242473, #24242473),
-		url("../assets/img/bg-register.jpg");
+	background: linear-gradient(to right top, #242424, #c1c1c1);
 	background-size: cover;
 	background-position: center;
 }
 
-.main { .seccionRegistrarse { background-color:rgb(42, 42, 42);
-	width: 30%;
-	margin: 0 auto;
-	border-radius: 5px;
-	padding: 40px 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 90vh;
-	font-size: 1.2rem; . tituloRegistrarse { font-size : 2.5rem;
+.tituloRegistrarse {
+	font-size: 2.5rem;
 	font-weight: 700;
 	margin-bottom: 20px;
 	color: #ffffff;
 }
-/*seleccionar todos los input menos el checkbox*/
-form {
+
+input:not(.check, .boton ), select {
 	width: 100%;
-	padding: 40px;
-	input: not(.check, .boton), select{
-                    width: 100%;
 	margin-bottom: 10px;
 	height: 40px;
 	padding: 0px 20px;
@@ -46,8 +33,48 @@ form {
 	color: rgb(255, 255, 255);
 }
 
-.error input:not (.check, .boton ), .error select {
+.error input:not(.check, .boton ), .error select {
 	border: 1px solid #ff0000;
+}
+
+form {
+	width: 100%;
+	padding: 40px;
+}
+
+.seccionRegistrarse {
+	background-color: rgb(42, 42, 42);
+	width: 30%;
+	margin: 0 auto;
+	border-radius: 5px;
+	padding: 40px 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 90vh;
+	font-size: 1.2rem;
+
+	/*seleccionar todos los input menos el checkbox*/
+}
+
+.ayuda {
+	margin-top: 40px;
+	font-size: 1rem;
+	text-decoration: none;
+	color: #787878;
+	font-weight: 400;
+}
+
+.textoCheck {
+	margin-left: 10px;
+}
+
+.terminos {
+	font-size: 0.8rem;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .error-text {
@@ -57,20 +84,6 @@ form {
 	margin-bottom: 10px;
 }
 
-.terminos {
-	font-size: 0.8rem;
-	display: flex;
-	align-items: center;
-	margin-bottom: 20px;
-	.
-	textoCheck
-	{
-	margin-left
-	:
-	10px;
-}
-
-}
 .boton {
 	width: 87%;
 	box-sizing: content-box;
@@ -83,70 +96,6 @@ form {
 	font-weight: 500;
 }
 
-.ayuda {
-	margin-top: 40px;
-	font-size: 1rem;
-	text-decoration: none;
-	color: #787878;
-	font-weight: 400;
-}
-
-}
-}
-}
-}
-
-/*media querys para mobile login */
-@media ( max-width : 1200px) {
-	.bodyRegistrarse { .headerRegistrarse { padding:20px; .anclaLogo {
-		font-size:1rem;
-		
-	}
-}
-
-.main { .seccionRegistrarse { width:95%;
-	padding: 10px 10px;
-	.
-	tituloRegistrarse
-	{
-	font-size
-	:
-	2rem;
-}
-
-form {
-	width: 100%;
-	text-align: center;
-	input: not(.check, .boton), select{
-                    width: 80%;
-	height: 35px;
-	font-size: 1rem;
-}
-
-.terminos {
-	width: 80%;
-	margin: 0 auto;
-	font-size: 0.7rem;
-}
-
-.boton {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	width: 70%;
-	padding: 0.8rem 0.8rem;
-	font-size: 0.8rem;
-}
-
-.ayuda {
-	text-align: left;
-	font-size: 0.8rem;
-}
-
-}
-}
-}
-}
-}
 .headerlogin {
 	color: #ffffff;
 	display: flex; /* Activamos Flexbox */
@@ -159,4 +108,46 @@ form {
 	width: 50px;
 	height: auto;
 	margin-right: 8px;
+}
+
+/*media querys para mobile login */
+@media ( max-width : 1200px) {
+	.anclaLogo {
+		font-size: 1rem;
+	}
+	.headerRegistrarse {
+		padding: 20px;
+	}
+	.tituloRegistrarse {
+		font-size: 2rem;
+	}
+	input:not(.check, .boton ), select {
+		width: 80%;
+		height: 35px;
+		font-size: 1rem;
+	}
+	.terminos {
+		width: 80%;
+		margin: 0 auto;
+		font-size: 0.7rem;
+	}
+	.boton {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		width: 70%;
+		padding: 0.8rem 0.8rem;
+		font-size: 0.8rem;
+	}
+	.ayuda {
+		text-align: left;
+		font-size: 0.8rem;
+	}
+	form {
+		width: 100%;
+		text-align: center;
+	}
+	.seccionRegistrarse {
+		width: 95%;
+		padding: 10px 10px;
+	}
 }
