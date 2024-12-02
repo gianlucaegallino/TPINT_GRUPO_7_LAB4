@@ -68,6 +68,8 @@ public class SITransferir extends HttpServlet {
 		if(cookies != null && cookies.length > 1) { // si hay mas cookies que la JSESSIONID, que es seteada automaticamente
 			  for (int i = 0; i < cookies.length; i++) {
 				
+				  
+				  //Guardamos la cookie de idpersona
 			  	if (cookies[i].getName().equals("IDPersona")){
 			  		id = Integer.parseInt(cookies[i].getValue());
 
