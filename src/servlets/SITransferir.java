@@ -64,20 +64,33 @@ public class SITransferir extends HttpServlet {
         } else {
         	//Tirar excepcion!
         }
+        
+
+        RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
+        rd.forward(request, response);
 	}
 	
 	private void realizarTransferencia(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Obtener los datos del formulario
-		String cbuUsu =request.getParameter("cuenta");//FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+
+		String cbuUsu = request.getParameter("cuenta");
+		
         String cbuDest = request.getParameter("cbu_destinatario");
+    	
         float montoATransferir = Float.parseFloat(request.getParameter("monto"));
-        float montoActual = Float.parseFloat(request.getParameter("saldo")); //FALTA SACAR EL PARAMETRO DE UNA FROMA VALIDA
+
+        float montoActual = Float.parseFloat(request.getParameter("saldo")); 
         
 
         if (montoATransferir > montoActual) {
         	 request.setAttribute("mensajeError", "No tenes suficiente dinero.");
         	 return;
+        }
+        
+        if (cbuUsu.equals(cbuDest)) {
+       	 request.setAttribute("mensajeError", "No puede autotransferirse dinero.");
+       	 return;
         }
         
         Cuenta cta = negCta.ObtenerCuentaCbu(cbuDest).get(0); 
@@ -95,10 +108,7 @@ public class SITransferir extends HttpServlet {
         	request.setAttribute("mensajeError", "Cbu invalido o inexistente");
         }
 
-        
 
-        RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
-        rd.forward(request, response);
     }
 	
 	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {

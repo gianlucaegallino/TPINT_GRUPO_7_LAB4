@@ -21,6 +21,10 @@ public class Cliente {
 	public Cliente() {
 		super();
 	}
+	public Cliente(int idCliente) {
+		super();
+		this.idCliente = idCliente;
+	}
 	public Cliente(int idCliente, String nombre, String apellido, String dni, String cuil, Sexo sexo,
 			Nacionalidad nacionalidad, Date fecha_nacimiento, Direccion direccion, String correo_electronico,
 			String telefono, String estado, int idUsuario) {

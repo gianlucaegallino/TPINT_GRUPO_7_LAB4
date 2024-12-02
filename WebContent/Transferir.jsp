@@ -33,7 +33,7 @@
 		%>
 
 		<h2>Transferencias</h2>
-		<form>
+		<form action="SITransferir" method="POST">
 			<!-- Seleccion de la cuenta -->
 			<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
 				name="cuenta" required>
@@ -62,9 +62,9 @@
 			</select>
 
 			<!-- Mostrar saldo actual -->
-			<label for="saldo">Saldo:</label> 
-			<input disabled class="balance-display" id="saldo">
-				 <script defer>
+			<label for="saldo">Saldo:</label> <input class="balance-display"
+				id="saldo" name="saldo" readonly>
+			<script defer>
 					let selectCuenta = document.querySelector("#cuenta");
 					let contadorSaldo = document.querySelector("#saldo");
 
@@ -72,6 +72,7 @@
 
 					if (saldo != "") {
 						contadorSaldo.value = saldo;
+						console.log(contadorSaldo.value);
 					} else {
 						contadorSaldo.value = null;
 					}
@@ -81,8 +82,10 @@
 						
 						if (saldo != "") {
 							contadorSaldo.value = saldo;
+							console.log(contadorSaldo.value);
 						} else {
 							contadorSaldo.value = null;
+							
 						}
 					});
 				</script>
@@ -97,7 +100,7 @@
 				id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
 
 			<!-- Boton de transferencia -->
-			<button type="button" id="btnRealizarTransferencia">Realizar
+			<button type="submit" id="btnRealizarTransferencia">Realizar
 				Transferencia</button>
 			<input type="hidden" name="action" value="realizarTransferencia">
 		</form>

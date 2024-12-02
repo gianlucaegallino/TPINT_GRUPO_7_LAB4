@@ -15,6 +15,11 @@ public class TipoCuenta {
 		this.nombre = nombre;
 	}
 	
+	public TipoCuenta(int id) {
+		super();
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
