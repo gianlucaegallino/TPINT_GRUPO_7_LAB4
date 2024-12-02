@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Negocio.NegCargarDescolgables;
 import Negocio.NegCuentas;
+import Negocio.NegTransferencia;
 import entidades.Cuenta;
 import entidades.Nacionalidad;
 import entidades.Provincia;
@@ -29,12 +30,16 @@ public class SITransferir extends HttpServlet {
 
 
     private NegCargarDescolgables negDesc;
+    private NegCuentas negCta;
+    private NegTransferencia negTransf;
 
 	
     public SITransferir() {
         super();
 
         negDesc = new NegCargarDescolgables();
+        negCta = new NegCuentas();
+        negTransf = new NegTransferencia();
     }
 
 	/**
@@ -75,21 +80,19 @@ public class SITransferir extends HttpServlet {
         	 return;
         }
         
-        String msj = negCta.VerificarExistenciaCuenta(); //Implementar
+        Cuenta cta = negCta.ObtenerCuentaCbu(cbuDest).get(0); 
         		
-        if (msj == null) {
-        	
-            realizarTransferencia(monto, cbuInicio, cbuDestinatario);
+        if (cta != null) {
+
+            negTransf.realizarTransferencia(monto, cbuInicio, cbuDestinatario);
 
             // vvrificar si la transferencia salio bien.
             
             //imprimir mensajes 
-        	request.setAttribute("mensajeExito", msj);
-        	System.out.println(msj);
+        	request.setAttribute("mensajeExito", "Transferencia Realizada Correctamente");
             
         } else {
-        	request.setAttribute("mensajeError", msj);
-        	System.out.println(msj);
+        	request.setAttribute("mensajeError", "Cbu invalido o inexistente");
         }
 
         

@@ -32,6 +32,8 @@ public class NegCuentas {
 	public ArrayList<Cuenta> ObtenerCuentaCbu(String cbu) {
 		return cnt.obtenerCuentaCbu(cbu);
 	}
+	
+	
 
 	/*
 	 * public ArrayList<Cuenta> ObtenerCuentasDeUnClinte(int numCuenta, int

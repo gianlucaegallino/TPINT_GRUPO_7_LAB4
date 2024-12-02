@@ -235,6 +235,64 @@ public class CuentaDao {
 		}
 		return filasAfectadas;
 	}
+	
+	public int AgregarMonto(String cbuCuenta, float monto) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Connection connect = null;
+		int filasAfectadas = 0;
+		try {
+			connect = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement sentence = connect.prepareStatement("UPDATE cuentas SET saldo = saldo + ? WHERE cbu = ?");
+			sentence.setFloat(1, monto);
+			sentence.setString(2, cbuCuenta);
+
+			filasAfectadas = sentence.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connect != null) {
+					connect.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return filasAfectadas;
+	}
+	
+	public int RemoverMonto(String cbuCuenta, float monto) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Connection connect = null;
+		int filasAfectadas = 0;
+		try {
+			connect = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement sentence = connect.prepareStatement("UPDATE cuentas SET saldo = saldo - ? WHERE cbu = ?");
+			sentence.setFloat(1, monto);
+			sentence.setString(2, cbuCuenta);
+
+			filasAfectadas = sentence.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connect != null) {
+					connect.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return filasAfectadas;
+	}
 
 	public boolean modificarCuenta(Cuenta cuenta) {
 		try {
