@@ -24,7 +24,7 @@
 				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXdniClientes" />
-						<input type="text" name="dniAfiltrar"> <input
+						<input type="text" name="dniAfiltrar" required> <input
 							type="submit" value="Filtrar por DNI" name="btnFiltrarXdni">
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXcuilClientes" />
-						<input type="text" name="cuilAfiltrar"> <input
+						<input type="text" name="cuilAfiltrar" required> <input
 							type="submit" value="Filtrar por CUIL" name="btnFiltrarXcuil">
 					</div>
 				</div>
@@ -42,7 +42,7 @@
 				<div class="fila">
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXNombreClientes" />
-						<input type="text" name="NombreAfiltrar"> <input
+						<input type="text" name="NombreAfiltrar" required> <input
 							type="submit" value="Filtrar por NOMBRE" name="btnFiltrarXnombre">
 						<input type="hidden" name="nombreFiltro" value="">
 						<!-- Campo oculto para guardar nombreFiltro -->
@@ -54,7 +54,7 @@
 					<div class="form-element">
 						<input type="hidden" name="action"
 							value="FiltrarXApellidoClientes" /> <input type="text"
-							name="ApellidoAfiltrar"> <input type="submit"
+							name="ApellidoAfiltrar" required> <input type="submit"
 							value="Filtrar por APELLIDO" name="btnFiltrarXapellido">
 					</div>
 				</div>
@@ -102,9 +102,9 @@
 					<div class="form-element">
 					<input type="hidden" name="action" value="FiltrarXFechasClientes" />
 					<label for="PrimerFecha">Desde: </label>
-						<input type="date" id="fechaInicial" name="fechaInicial"> 
+						<input type="date" id="fechaInicial" name="fechaInicial" required> 
 					<label for="SegundaFecha">Hasta: </label>
-						<input type="date" id="fechaFinal" name="fechaFinal"> 
+						<input type="date" id="fechaFinal" name="fechaFinal" required> 
 					<input type="submit" value="Filtrar por RANGO DE FECHAS" name="btnFiltrarXfechas">
 					</div>
 				</div>
@@ -139,8 +139,10 @@
 			<tbody>
 				<%
 					String tablaHTML = (String) request.getAttribute("tablaHTML");
-					out.println(tablaHTML);
 				%>
+				<% if (tablaHTML != null && !tablaHTML.isEmpty()) { %>
+			        <%= tablaHTML %>
+			    <% } %>
 			</tbody>
 		</table>
 	</div>
