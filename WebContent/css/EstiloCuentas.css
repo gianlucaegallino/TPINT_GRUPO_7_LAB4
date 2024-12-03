@@ -1,5 +1,9 @@
 @charset "ISO-8859-1";
 
+td {
+	white-space: nowrap; /* Evita que el texto se rompa */
+}
+
 /* Estilo para el formulario de mensaje */
 .formulario-mensaje {
 	display: block !important; /* Siempre visible */

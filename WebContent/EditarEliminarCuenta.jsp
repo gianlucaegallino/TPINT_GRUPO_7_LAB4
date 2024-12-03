@@ -27,11 +27,12 @@
 	<div class="formulario-editar-eliminar" id="formularioEditarEliminar"
 		style="display: none">
 		<h2>Editar/Eliminar Cuenta</h2>
-		<form action="SlCuentas" method="post">
-			<label for="cbuBuscar">CBU de Cuenta:</label> <input type="text"
-				id="cbuBuscar" name="cbuBuscar"
-				placeholder="Ingrese N° de CBU para buscar" required> <input
-				type="submit" value="Buscar Cuenta" name="btnBuscar2" />
+		<form action="SlCuentas" method="POST">
+			<input type="hidden" name="action" value="BuscarCuentas" />
+			<label for="cbuBuscar">CBU de Cuenta:</label> 
+			<input type="text" id="cbuBuscar" name="cbuBuscar"
+				placeholder="Ingrese N° de CBU para buscar" required> 
+			<input type="submit" value="Buscar Cuenta" name="btnBuscar2" />
 		</form>
 
 		<%
@@ -62,9 +63,9 @@
                     for (Cuenta cuenta : listaC) {
                 %>
 				<tr>
-					<td><%=cuenta.getCliente_id()%></td>
+					<td><%=cuenta.getIDcliente().getIdCliente()%></td>
 					<td><%=cuenta.getFecha_creacion()%></td>
-					<td><%=cuenta.getTipo_cuenta_id()%></td>
+					<td><%=cuenta.getCuenta().getNombre()%></td>
 					<td><%=cuenta.getNumero_cuenta()%></td>
 					<td><%=cuenta.getCbu()%></td>
 					<td><%=cuenta.getSaldo()%></td>
