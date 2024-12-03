@@ -3,6 +3,8 @@ package dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import entidades.Cuenta;
 import entidades.Prestamo;
 
 public class PrestamoDao {
@@ -20,6 +22,54 @@ public class PrestamoDao {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
         }
     }
+    
+    public int AgregarPrestamo(Prestamo prestamo) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement miSentencia = con.prepareStatement(
+					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual)VALUES(?,?,?,?,?,?,?,?)");
+			// Establecer los valores de los parámetros utilizando el objeto 'cuenta'
+			miSentencia.setInt(1, prestamo.getCliente().getIdCliente());
+			miSentencia.setDate(2, prestamo.getFecha());
+			miSentencia.setDouble(3, prestamo.getImportePedido());
+			miSentencia.setString(4, "pendiente");
+			miSentencia.setDouble(5, prestamo.getInteresAnual());
+			miSentencia.setDouble(6, prestamo.getImporteConIntereses());
+			miSentencia.setInt(7, prestamo.getPlazoMeses());
+			miSentencia.setDouble(6, prestamo.getMontoMensual());
+
+			// Ejecutar la consulta
+			int filasAfectadas = miSentencia.executeUpdate(); // Usamos 'executeUpdate' ya que no esperamos un
+																// resultado, solo la inserción.
+
+			if (filasAfectadas > 0) {
+				System.out.println("Cuenta insertada correctamente.");
+				return filasAfectadas;
+			} else {
+				System.out.println("No se inserto ninguna cuenta.");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); // Mostrar el error si ocurre algún problema
+		} finally {
+			try {
+				if (con != null) {
+					con.close(); // Cerrar la conexión
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+
+	}
 
     public List<Prestamo> listarPrestamosPendientes() {
         List<Prestamo> prestamos = new ArrayList<>();

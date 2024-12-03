@@ -1,11 +1,11 @@
 package entidades;
 
-import dao.ClienteDao;
+import java.sql.Date;
 
 public class Prestamo {
-    private int id; // Cambiado de numeroPrestamo a id para coincidir con la BD
-    private int clienteId;
-    private String fecha;
+    private int id; 
+
+    private Date fecha;
     private double importePedido;
     private double importeConIntereses;
     private int plazoMeses;
@@ -16,9 +16,9 @@ public class Prestamo {
     private Cliente cliente; // Nuevo campo para el cliente asociado al préstamo
 
     // Constructor
-    public Prestamo(int id, int clienteId, String fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual) {
+    public Prestamo(int id,  Date fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual, Cliente cliente) {
         this.id = id;
-        this.clienteId = clienteId;
+
         this.fecha = fecha;
         this.importePedido = importePedido;
         this.importeConIntereses = importeConIntereses;
@@ -26,12 +26,16 @@ public class Prestamo {
         this.montoMensual = montoMensual;
         this.estado = estado;
         this.interesAnual = interesAnual; // Asignación de interesAnual
+        
+        this.cliente = cliente;
     }
     
+    public void setCliente(Cliente cli) {
+
+        this.cliente = cli; 
+}
     public Cliente getCliente() {
-        if (this.cliente == null) {
-            this.cliente = ClienteDao.obtenerClientePorId(this.clienteId); // Suponiendo que tienes un DAO que obtiene el cliente
-        }
+
         return this.cliente;
     }
 
@@ -44,19 +48,11 @@ public class Prestamo {
         this.id = id;
     }
 
-    public int getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(int clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

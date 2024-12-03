@@ -464,25 +464,62 @@ public class ClienteDao {
 	 * filasAfectadas; }
 	 */
 
-	/*
-	 * public static Cliente obtenerClientePorId(int clienteId) { Cliente cliente =
-	 * null; String sql = "SELECT * FROM clientes WHERE id = ?";
-	 * 
-	 * // Establecer la conexi�n a la base de datos try (Connection connection =
-	 * DriverManager.getConnection("jdbc:mysql://localhost:3306/bdbancoliberacion",
-	 * "root", "root"); PreparedStatement pstmt = connection.prepareStatement(sql))
-	 * {
-	 * 
-	 * pstmt.setInt(1, clienteId); ResultSet rs = pstmt.executeQuery();
-	 * 
-	 * if (rs.next()) { cliente = new Cliente( rs.getInt("id"),
-	 * rs.getString("nombre"), rs.getString("apellido"), rs.getString("dni"),
-	 * rs.getString("cuil"), rs.getInt("sexo_id"), rs.getInt("nacionalidad_id"),
-	 * rs.getDate("fecha_nacimiento"), rs.getString("direccion_id"),
-	 * rs.getString("correo_electronico"), rs.getString("telefono"),
-	 * rs.getString("estado"), rs.getString("idUsuario") ); } } catch (SQLException
-	 * e) { e.printStackTrace(); } return cliente; }
-	 */
+	
+	  public int obtenerClientePorId(int clienteId) { 
+		  try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			Connection connect = null;
+			Cliente cliente = new Cliente();
+
+			try {
+				connect = DriverManager.getConnection(host + dbName, user, pass);
+				PreparedStatement sentence = connect.prepareStatement("SELECT * FROM clientes WHERE id_cliente = ? AND estado = 1");
+				sentence.setInt(1, clienteId);
+				ResultSet rs = sentence.executeQuery();
+				if (rs.next()) {
+					cliente = new Cliente();
+					cliente.setDni(rs.getString("dni"));
+					cliente.setNombre(rs.getString("nombre"));
+					cliente.setApellido(rs.getString("apellido"));
+					cliente.setCuil(rs.getString("cuil"));
+					
+					int sexoId = rs.getInt("sexo_id");
+		            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
+		            cliente.setSexo(sexo);
+		            
+		            int nacioID = rs.getInt("nacionalidad_id");
+		            Nacionalidad nacio = new Nacionalidad(nacioID);
+		            cliente.setNacionalidad(nacio);
+		            
+					cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
+					
+					String direccion = rs.getString("direccion_id");
+					Direccion direc = new Direccion(direccion);
+					cliente.setDireccion(direc);
+					
+					cliente.setCorreo_electronico(rs.getString("correo_electronico"));
+					cliente.setTelefono(rs.getString("telefono"));
+					cliente.setIdCliente(rs.getInt("id_cliente"));
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (connect != null) {
+						connect.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return cliente;
+	  }
+	 
 
 	public int EliminarCliente(int idCliente) {
 		try {

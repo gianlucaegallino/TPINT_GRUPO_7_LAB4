@@ -1,10 +1,13 @@
 package Negocio;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dao.PrestamoDao;
+import entidades.Cliente;
+import entidades.Cuenta;
 import entidades.Prestamo;
 
 public class NegPrestamo {
@@ -45,20 +48,21 @@ public class NegPrestamo {
 		request.setAttribute("TASA_INTERES", TASA_INTERES);
 		request.setAttribute("monto", monto);
 		request.setAttribute("cuotas", cuotas);
-		
 
-		
 		return;
 	}
 
-	public void solicitarPrestamo(double monto, int cuotas, double TASA_INTERES, HttpServletRequest request) {
+	public void solicitarPrestamo(double monto, int cuotas, double TASA_INTERES, HttpServletRequest request, int idCliente) {
 		// Calculo del interes total en porcentaje
 		double interesTotal = realizarCalculointeresTotal(cuotas, TASA_INTERES);
 		double totalConInteres = realizarCalculototalConInteres(monto, interesTotal);
 		double cuotaMensual = realizarCalculocuotaMensual(cuotas, totalConInteres);
 
-		//Solicitado Prestamo
 		
+		
+		Prestamo prestamo = new Prestamo(1, new Date(), monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idcliente));
+		//Solicitado Prestamo
+		prestamoDao.AgregarPrestamo(prestamo);
 	}
 	
 	private double realizarCalculointeresTotal(int cuotas, double TASA_INTERES){
