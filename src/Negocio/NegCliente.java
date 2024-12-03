@@ -81,4 +81,8 @@ public class NegCliente {
 	public Cliente conseguirClienteporUsuario(Usuario usuario) {
 		return clienteDao.conseguirClienteporUsuario(usuario);
 	}
+	
+	public Cliente conseguirClienteporId(Integer id) {
+		return clienteDao.obtenerClientePorId(id);
+	}
 }

@@ -465,7 +465,7 @@ public class ClienteDao {
 	 */
 
 	
-	  public int obtenerClientePorId(int clienteId) { 
+	  public Cliente obtenerClientePorId(int clienteId) { 
 		  try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
