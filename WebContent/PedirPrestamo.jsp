@@ -2,20 +2,15 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ include file="Inicio.jsp"%>
-<%
 
-
-    // Variables para el calculo
-    double monto = request.getParameter("monto") != null ? Double.parseDouble(request.getParameter("monto")) : 0;
-    int cuotas = request.getParameter("cuotas") != null ? Integer.parseInt(request.getParameter("cuotas")) : 0;
-    double tasaInteres = 0.50; // Tasa de interes anual, constante
-
-    // Calculo del interes total en porcentaje
-    double interesTotal = (tasaInteres * (cuotas / 12.0)) * 100; // Interes total acumulado en porcentaje
-
-    double totalConInteres = monto * (1 + (interesTotal / 100)); // Calculo del monto total a pagar
-    double cuotaMensual = (cuotas > 0) ? totalConInteres / cuotas : 0; // Evitar division por cero
-%>
+		<%
+		double interesTotal = (double) request.getAttribute("interesTotal");
+		double totalConInteres = (double) request.getAttribute("totalConInteres");
+		double cuotaMensual = (double) request.getAttribute("cuotaMensual");
+		double TASA_INTERES = (double) request.getAttribute("TASA_INTERES");
+		double monto = (double) request.getAttribute("monto");
+		Integer cuotas = (Integer) request.getAttribute("cuotas");
+		%>
 
 <!-- MAIN -->
 
@@ -37,12 +32,24 @@
 <body class="bodyPrestamo">
 	<div class="containerPrestamo">
 	
-			
+		<form action="SIPedirPrestamo" method="GET" style="display: none"id="formCargarListas"></form>
+
+		<%
+			if (request.getAttribute("mensajeCarga") != "Cargadas") {
+		%>
+
+		<script type="text/javascript">
+			document.getElementById('formCargarListas').submit();
+		</script>
+
+		<%
+			}
+		%>
 		
 		<h2>Pedir Prestamo</h2>
 
 
-		<form action="PedirPrestamo.jsp" method="post">
+		<form action="SIPedirPrestamo" method="POST">
 			<label for="monto">Monto:</label> 
 			<input type="number" id="monto" name="monto" required> 
 			<label for="cuotas">Cantidad de Cuotas:</label> 
@@ -53,21 +60,30 @@
 				<option value="cuenta_corriente">Cuenta Corriente</option>
 			</select>
 
-			<button type="submit">Calcular Cuota</button>
+			<button type="submit" name="submit" value="calcular">Calcular Cuota</button>
+			<button type="submit" name="submit" value="solicitar">Solicitar Prestamo</button>
 		</form>
 
-		<h3>Intereses para $<%= monto %> en <%= cuotas %> cuotas:</h3>
+
+		<div class="formulario-mensaje"
+			style="<%= request.getAttribute("interesTotal") != null && !request.getAttribute("interesTotal").toString().isEmpty() ? "display: block;" : "display: none;" %>">
+		<h3>Intereses para $<%= request.getAttribute("monto") %> en <%= request.getAttribute("cuotas") %> cuotas:</h3>
 		<p>
 			Interes Anual:
-			<%= (tasaInteres * 100) + "%" %></p>
+			<%= (request.getAttribute("TASA_INTERES") * 100) + "%" %></p>
 		<p>
 			Interes Total:
-			<%= new DecimalFormat("#.##").format(interesTotal) + "%" %></p>
+			<%= new DecimalFormat("#.##").format(request.getAttribute("interesTotal")) + "%" %></p>
 		<p>
 			Cuota Mensual:
-			<%= new DecimalFormat("#.##").format(cuotaMensual) %></p>
+			<%= new DecimalFormat("#.##").format(request.getAttribute("cuotaMensual")) %></p>
+		</div>
+		
+		
+		
 
-		<button type="submit">Solicitar Prestamo</button>
+
+		
 	</div>
 </body>
 </html>
