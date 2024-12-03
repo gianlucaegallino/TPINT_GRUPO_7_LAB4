@@ -24,14 +24,29 @@
 
 		<!--   </form>-->
 	</article>
-
-
-
+	
 	<!-- Formulario para agregar cuenta -->
 	<div class="formulario-agregar" id="formularioAgregar"
 		style="display: none;">
 		<h2>Agregar Cuenta</h2>
-		<form action="SlCuentas" method=get name=formCuentas>
+		<% 
+		    String mensaje = (String) request.getAttribute("mensaje");
+		    String mensajeError = (String) request.getAttribute("mensajeError");
+		
+		    if (mensaje != null && !mensaje.isEmpty()) {
+		%>
+		    <p style="color: green;">${mensaje}</p>
+		<% 
+		    }
+		
+		    if (mensajeError != null && !mensajeError.isEmpty()) {
+		%>
+		    <p style="color: red;">${mensajeError}</p>
+		<% 
+		    }
+		%>
+		<form action="SlCuentas" method="POST" name=formCuentas>
+			<input type="hidden" name="action" value="AgregarCuentas" />
 			<label for="DNICliente">DNI Cliente:</label> <input type="number"
 				id="DNICliente" name="DNICliente" placeholder="Ingrese DNI" required />
 
@@ -57,29 +72,7 @@
 			    }
 			</script>
 		</form>
-		<% if(request.getAttribute("cantFilas")=="1")
-					{
-				%>
-		Se ha agregado Correctamente.
-		<%} %>
-		<% if(request.getAttribute("cantFilas")=="0")
-					{
-				%>
-		Hubo un problema al agregar.
-		<%} %>
 	</div>
-
-
-
-
-
-
 	<script defer src="./js/goToPage.js"></script>
-
-
-
-
-
-
 </body>
 </html>

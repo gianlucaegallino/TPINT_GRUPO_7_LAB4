@@ -1,7 +1,9 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Negocio.NegCliente;
 import Negocio.NegCuentas;
+import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.TipoCuenta;
 
 /**
  * Servlet implementation class SlCuentas
@@ -20,22 +25,14 @@ import entidades.Cuenta;
 public class SlCuentas extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SlCuentas() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int filas = 0;
+        /*
+    	int filas = 0;
 
         // Al presionar el boton guardar
         if (request.getParameter("btnGuardar") != null) {
@@ -68,17 +65,18 @@ public class SlCuentas extends HttpServlet {
             rd.forward(request, response);
 
         }
+        */
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        NegCuentas cnt = new NegCuentas();
-        RequestDispatcher rd = null;
-
+    		System.out.println("Entrando a doPost");
+    		String action = request.getParameter("action");
+    		
+    		if ("AgregarCuentas".equals(action)) {
+    			AgregarCuentas(request, response);
+    		}
+        /*
         if (request.getParameter("btnBuscar1") != null) {
             String cbu = request.getParameter("cbuBuscar");
             String tipoCuentaStr = request.getParameter("tipoCuenta");
@@ -142,7 +140,90 @@ public class SlCuentas extends HttpServlet {
             }
         }
         rd.forward(request, response);
-
+		*/
+    }
+    
+    
+    private void AgregarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.print("ENTRANDO AL AGREGARCUENTAS \n");
+    	
+    	// Sacamos los parametros, y los enviamos al negocio.
+        String clienteDNI = request.getParameter("DNICliente");
+        String Fecha = request.getParameter("fechaCreacion");
+        String tipoCuentaStr = request.getParameter("tipoCuenta");
+        String cbu = request.getParameter("cbu");
+        String saldoInicial = "10000";
+        
+        System.out.print("PARAMETROS DEL JSP: " + clienteDNI + " | " + Fecha + " | " + tipoCuentaStr + " | " + cbu + " |\n");
+        
+        // CREAR INSTANCIA CLIENTE Y CONSIGUE EL CLIENTE PARA SACAR SU ID
+        Cliente cliente = new Cliente();
+        NegCliente negCli = new NegCliente();
+        cliente = negCli.conseguirClientePorDni(clienteDNI);
+        
+        System.out.print("Cliente: " + cliente + "\n");
+        
+        // almacena el "id"
+        Cuenta cuenta = new Cuenta();
+        cuenta.setIDcliente(cliente);
+        System.out.print("ID EN CUENTA: " + cuenta.getIDcliente().getIdCliente() + "\n");
+        
+        // almacena la fecha
+        Date Fecha_Creacion = convertirFecha(Fecha);
+        System.out.print("FECHA DEL CONVERTIR: " + Fecha_Creacion + "\n");
+        cuenta.setFecha_creacion(Fecha_Creacion);
+        System.out.print("FECHA EN CUENTA: " + cuenta.getFecha_creacion() + "\n");
+        
+        // almacena el tipo de cuenta
+        TipoCuenta tipodecuenta = new TipoCuenta();
+        int Tcuenta = Integer.parseInt(tipoCuentaStr);
+        tipodecuenta.setId(Tcuenta);
+        cuenta.setCuenta(tipodecuenta);
+        
+        System.out.print("TIPO CUENTA EN CUENTA: " + cuenta.getCuenta().getId() + "\n");
+        
+        // almacena el cbu
+        cuenta.setCbu(cbu);
+        System.out.print("CBU EN CUENTA: " + cuenta.getCbu() + "\n");
+        
+        //
+        double saldo_Inicial = Double.parseDouble(saldoInicial);
+        cuenta.setSaldo(saldo_Inicial);
+        System.out.print("SALDO EN CUENTA: " + cuenta.getSaldo() + "\n");
+        
+        NegCuentas negcuenta = new NegCuentas();
+        int cantidadCuentas = negcuenta.obtenerCantidadCuentas(cliente.getIdCliente());
+        if (cantidadCuentas >= 3) {
+        	
+        	request.setAttribute("mensajeError", "El cliente ya tiene 3 cuentas asociadas."); 
+            RequestDispatcher rd = request.getRequestDispatcher("/Cuentas.jsp");
+            rd.forward(request, response);
+        } else {
+            // ... (Código para crear la cuenta y insertarla) ...
+        	negcuenta.AgregarCuenta(cuenta);
+            request.setAttribute("mensaje", "Cuenta agregada correctamente.");
+            RequestDispatcher rd = request.getRequestDispatcher("/Cuentas.jsp");
+            rd.forward(request, response);
+            return; // Salir de la función
+        }
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/Cuentas.jsp");
+        rd.forward(request, response);
+    }
+    
+    private Date convertirFecha(String fechaString) {
+    	Date fecha = null;
+        if (fechaString != null && !fechaString.isEmpty()) {
+            try {
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd"); // Formato de la fecha del input
+                java.util.Date fechaUtil = formatoFecha.parse(fechaString);
+                fecha = new java.sql.Date(fechaUtil.getTime()); // Crea un nuevo objeto java.sql.Date
+            } catch (ParseException e) {
+                // Manejar la excepción si la fecha no se puede convertir
+                e.printStackTrace();
+            }
+        }
+        return fecha;
     }
 
 }
