@@ -26,25 +26,25 @@ table {
 <body>
 
 
-		<form action="SIDatos" method="GET" style="display: none"
-			id="formCargarDatos"></form>
+	<form action="SIDatos" method="GET" style="display: none"
+		id="buscarDatos" name="buscarDatos"></form>
 
-		<%
-			if (request.getAttribute("DatosUsuario") == null) {
-		%>
+	<%
+		if (request.getAttribute("DatosUsuario") == null && request.getAttribute("mensajeError") == null) {
+	%>
 
-		<script type="text/javascript">
-			document.getElementById('formCargarDatos').submit();
-		</script>
+	<script type="text/javascript">
+		document.getElementById('buscarDatos').submit();
+	</script>
 
-		<%
-			}
-		%>
-<%
-	Cliente cl = new Cliente();
+	<%
+		}
 
-	if(request.getAttribute("DatosUsuario")!=null) { cl = (Cliente)
-	request.getAttribute("DatosUsuario"); }
+		Cliente cl = new Cliente();
+
+		if (request.getAttribute("DatosUsuario") != null) {
+			cl = (Cliente) request.getAttribute("DatosUsuario");
+		}
 	%>
 
 
@@ -61,57 +61,60 @@ table {
 
 		<tr>
 			<td>Nombre:</td>
-			<td>
-				<%
-					cl.getNombre();
-				%>
-			</td>
+			<td><%=cl.getNombre()%></td>
 		</tr>
 
 		<tr>
 			<td>Apellido:</td>
-			<td>
-				<%
-					cl.getApellido();
-				%>
-			</td>
+			<td><%=cl.getApellido()%></td>
+		</tr>
+
+		<tr>
+			<td>Dni:</td>
+			<td><%=cl.getDni()%></td>
+		</tr>
+
+		<tr>
+			<td>CUIL:</td>
+			<td><%=cl.getCuil()%></td>
+		</tr>
+
+		<tr>
+			<td>Sexo:</td>
+			<td><%=cl.getSexo().getDescripcion()%></td>
+		</tr>
+
+		<tr>
+			<td>Nacionalidad:</td>
+			<td><%=cl.getNacionalidad().getNombre()%></td>
 		</tr>
 
 		<tr>
 			<td>Fecha de nacimiento:</td>
-			<td>
-				<%
-					cl.getFecha_nacimiento();
-				%>
-			</td>
+			<td><%=cl.getFecha_nacimiento()%></td>
+		</tr>
+
+		<tr>
+			<td>Direccion:</td>
+			<td><%=cl.getDireccion().getDireccion()%></td>
+		</tr>
+
+		<tr>
+			<td>Localidad:</td>
+			<td><%=cl.getDireccion().getIdLocalidad()%></td>
 		</tr>
 
 		<tr>
 			<td>Correo electronico:</td>
-			<td>
-				<%
-					cl.getCorreo_electronico();
-				%>
-			</td>
+			<td><%=cl.getCorreo_electronico()%></td>
 		</tr>
 
 		<tr>
 			<td>Telefono:</td>
-			<td>
-				<%
-					cl.getTelefono();
-				%>
-			</td>
+			<td><%=cl.getTelefono()%></td>
 		</tr>
 
-		<tr>
-			<td>Estado de Cuenta:</td>
-			<td>
-				<%
-					cl.getEstado();
-				%>
-			</td>
-		</tr>
+
 	</table>
 	<%
 		}
