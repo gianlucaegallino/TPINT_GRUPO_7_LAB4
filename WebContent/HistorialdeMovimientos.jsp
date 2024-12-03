@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="Inicio.jsp"%>
+<%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList"%>
 
 <!-- HTML -->
 
@@ -19,16 +21,48 @@
 
 <body>
 	<div class="history-container" id="account-list">
+	
+	<form action="SIHistorial" method="GET" style="display: none"
+			id="formCargarListas"></form>
+
+		<%
+			if (request.getAttribute("mensajeCarga") != "Cargadas") {
+		%>
+
+		<script type="text/javascript">
+			document.getElementById('formCargarListas').submit();
+		</script>
+
+		<%
+			}
+		%>
+	
 		<h1>Historial de Movimientos</h1>
-		<label for="cuenta">Selecciona una cuenta:</label> <select
-			id="account-select">
-			<option value="CBU123456789012">Caja de Ahorro - CBU:
-				1234567890123456789012 - Saldo: $1000.00</option>
-			<option value="CBU234567890123">Cuenta Corriente - CBU:
-				2345678901234567890123 - Saldo: $2500.00</option>
-			<option value="CBU345678901234">Caja de Ahorro - CBU:
-				3456789012345678901234 - Saldo: $1500.00</option>
-		</select>
+		<<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
+				name="cuenta" required>
+				<%
+					ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
+
+					if (cuentas != null) {
+						for (Cuenta cuenta : cuentas) {
+
+							String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
+				%>
+
+				<option value="<%=cuenta.getCbu()%>"
+					data-saldo="<%=cuenta.getSaldo()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
+
+				<%
+					}
+					} else {
+				%>
+
+				<option value="" disabled selected>No hay cuentas
+					disponibles</option>
+				<%
+					}
+				%>
+			</select>
 	</div>
 
 	<!-- Contenedor del historial de movimientos -->
