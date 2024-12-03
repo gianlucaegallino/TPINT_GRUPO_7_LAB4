@@ -13,8 +13,13 @@ public class Cuenta {
 	private int estado; // Campo estado agregado
 	
 	// CONSTRUCTORS
+
 	public Cuenta() {
 		super();
+	}
+	public Cuenta(int numero_cuenta) {
+		super();
+		this.numero_cuenta = numero_cuenta;
 	}
 	public Cuenta(Cliente iDcliente, Date fecha_creacion, TipoCuenta cuenta, int numero_cuenta, String cbu,
 			double saldo, int estado) {
@@ -28,6 +33,7 @@ public class Cuenta {
 		this.estado = estado;
 	}
 	
+		
 	// GETTERS AND SETTERS
 	public Cliente getIDcliente() {
 		return IDcliente;

@@ -4,9 +4,16 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+import entidades.Cliente;
+import entidades.Cuenta;
+import entidades.Direccion;
 import entidades.Movimiento;
+import entidades.Nacionalidad;
+import entidades.Sexo;
 
 public class MovimientoDao {
 	private String host = "jdbc:mysql://localhost:3306/";
@@ -52,5 +59,31 @@ public class MovimientoDao {
 			}
 		}
 		return (filasAfectadas > 0);
+	}
+	
+	public ArrayList<Movimiento> TraerListaMovimiento(int id){
+		ArrayList<Movimiento> movs = new ArrayList<>();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement sentence = connect
+                    .prepareStatement("SELECT * FROM movimientos WHERE cuenta_id = ? AND estado = 1");
+            sentence.setInt(1, id);
+            ResultSet rs = sentence.executeQuery();
+            while (rs.next()) {
+            	Movimiento m = new Movimiento();
+            	m.setCuenta(new Cuenta(rs.getInt("cuenta_id")));
+                m.setFecha(rs.getDate("fecha"));
+                m.setDetalle(rs.getString("detalle"));
+                m.setImporte(rs.getDouble("importe"));
+                m.setTipo_movimiento(rs.getString("tipo_movimiento"));
+
+                movs.add(m);
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movs;
 	}
 }

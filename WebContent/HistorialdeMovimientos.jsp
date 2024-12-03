@@ -37,6 +37,7 @@
 		%>
 
 		<h1>Historial de Movimientos</h1>
+		<form action="SIHistorial" method="POST" id="formGrilla" name="formGrilla">
 		<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
 			name="cuenta" required>
 			<%
@@ -62,6 +63,12 @@
 				}
 			%>
 		</select>
+				<div class="button-container">
+				<input type="submit" value="buscarMovs"
+					name="buscarMovs" />
+			</div>
+		</form>
+		
 	</div>
 
 	<!-- Contenedor del historial de movimientos -->
