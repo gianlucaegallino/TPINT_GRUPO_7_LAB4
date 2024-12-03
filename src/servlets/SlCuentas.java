@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -24,9 +25,13 @@ import entidades.TipoCuenta;
 @WebServlet("/SlCuentas")
 public class SlCuentas extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    private NegCuentas negCuenta = new NegCuentas();
+    
 
     public SlCuentas() {
         super();
+        negCuenta = new NegCuentas();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -75,6 +80,8 @@ public class SlCuentas extends HttpServlet {
     		
     		if ("AgregarCuentas".equals(action)) {
     			AgregarCuentas(request, response);
+    		} else if("BuscarCuentas".equals(action)) {
+    			BuscarCuentas(request,response);
     		}
         /*
         if (request.getParameter("btnBuscar1") != null) {
@@ -144,7 +151,18 @@ public class SlCuentas extends HttpServlet {
     }
     
     
-    private void AgregarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void BuscarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		System.out.print("Entrando al BuscarCuenta \n");
+    		String CbuBuscar = request.getParameter("cbuBuscar");
+    		ArrayList<Cuenta> listacuentas = negCuenta.ObtenerCuentaCbu(CbuBuscar);
+    		if(listacuentas != null && !listacuentas.isEmpty()) {
+    			request.setAttribute("listaCuenta", listacuentas);
+    			RequestDispatcher rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
+                rd.forward(request, response);
+    		}
+	}
+
+	private void AgregarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.print("ENTRANDO AL AGREGARCUENTAS \n");
     	
     	// Sacamos los parametros, y los enviamos al negocio.

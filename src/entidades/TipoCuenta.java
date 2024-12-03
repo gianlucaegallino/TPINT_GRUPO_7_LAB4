@@ -20,6 +20,10 @@ public class TipoCuenta {
 		this.id = id;
 	}
 	
+	public TipoCuenta(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
 	public int getId() {
 		return id;
 	}
