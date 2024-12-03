@@ -214,6 +214,12 @@ public class CuentaDao {
 				c.setIDcliente(new Cliente(rs.getInt("cliente_id")));
 				c.setFecha_creacion(rs.getDate("fecha_creacion"));
 				c.setCuenta(new TipoCuenta(rs.getInt("tipo_cuenta_id")));
+				
+				int tipocuenta = rs.getInt("tipo_cuenta_id");
+				String tipoCuentaStr = BuscarTipoC(tipocuenta);
+				TipoCuenta cuent = new TipoCuenta(tipoCuentaStr);
+				c.setCuenta(cuent);
+				
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));
@@ -226,6 +232,7 @@ public class CuentaDao {
 		return listCuenta;
 	}
 	
+
 	public int obtenerNumCuentaConCbu(String cbu) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -259,6 +266,23 @@ public class CuentaDao {
 
 		return numCuenta;
 	}
+
+	public String BuscarTipoC(int tipocuent) {
+        // Realiza la consulta a la base de datos para obtener la descripción del sexo
+        String TIPOcuenta = null;
+        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT nombre FROM tipo_cuenta WHERE id = ?")) {
+            stmt.setInt(1, tipocuent);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	TIPOcuenta = rs.getString("nombre");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return TIPOcuenta;
+    }
 
 	public int EliminarCuentaCbu(String cbuCuenta) {
 		try {
