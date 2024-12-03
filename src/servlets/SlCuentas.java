@@ -82,7 +82,7 @@ public class SlCuentas extends HttpServlet {
     			AgregarCuentas(request, response);
     		} else if("BuscarCuentas".equals(action)) {
     			BuscarCuentas(request,response);
-    		}
+    		} 
         /*
         if (request.getParameter("btnBuscar1") != null) {
             String cbu = request.getParameter("cbuBuscar");

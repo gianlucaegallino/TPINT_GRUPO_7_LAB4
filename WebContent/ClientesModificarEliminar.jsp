@@ -102,8 +102,6 @@
 				<!-- Botón Cancelar oculto -->
 				<input type="submit" value="Eliminar" id="btnEliminarSubmit"
 					name="btnEliminarSubmit" style="display: none;">
-				<!-- Botón Guardar oculto -->
-
 			</div>
 		</form>
 		<%

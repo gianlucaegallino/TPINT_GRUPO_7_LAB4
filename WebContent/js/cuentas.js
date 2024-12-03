@@ -1,31 +1,55 @@
-// Función para mostrar y ocultar formularios
-function mostrarFormulario(formularioId) {
-    // Ocultar todos los formularios
-    document.getElementById('formularioAgregar').style.display = 'none';
-    document.getElementById('formularioEditarEliminar').style.display = 'none';
-    document.getElementById('formularioListar').style.display = 'none';
-    document.getElementById('tablaCuentas').style.display = 'none'; // Ocultar tabla al cambiar formularios
+document.addEventListener('DOMContentLoaded', function(){
+	let btnModificar = document.getElementById('btnModificar');
+	let btnGuardar = document.querySelector('input[name="btnGuardar"]');
+	let btnEliminar = document.getElementById('btnEliminar');
+	let btnCancelar = document.getElementById('btnCancelar');
+	let EliminarSubmit = document.getElementById('Eliminar');
+	let camposEditables = document.querySelectorAll('.editable input');
+	
+	
+	// BOTON MODIFICAR
+	if(btnModificar != null){
+		btnModificar.addEventListener('click', function(){
+			camposEditables.forEach(function(input){
+				input.style.display = 'block';
+				input.previousElementSibiling.style.display = 'none';
+			});
+			btnGuardar.style.display = 'block';
+			btnModificar.style.display = 'none';
+	        btnCancelar.style.display = 'block';
+	        btnEliminar.style.display = 'none';
+		});
+	}
+	
+	// Botón Cancelar
+    if (btnCancelar != null){ 
+	    btnCancelar.addEventListener('click', function() {
+	        camposEditables.forEach(function(input) {
+	            input.style.display = 'none';
+	            input.previousElementSibling.style.display = 'block';
+	        });
+	        btnGuardar.style.display = 'none';
+	        btnModificar.style.display = 'block';
+	        btnCancelar.style.display = 'none';
+	        btnEliminar.style.display = 'block';
+	    });
+    }
     
-    // Ocultar el formulario de mensaje
-    document.querySelector('.formulario-mensaje').style.display = 'none';
-
-    // Mostrar el formulario correspondiente
-    document.getElementById(formularioId).style.display = 'block';
-}
-
-// Mostrar el formulario de listar cuentas cuando se hace clic en el botón "Listar"
-document.getElementById('botonListar').addEventListener('click', function() {
-    mostrarFormulario('formularioListar');
-    document.getElementById('tablaCuentas').style.display = 'table'; // Mostrar la tabla con las cuentas
+// Botón Eliminar
+    
+    if (btnEliminar != null){ 
+    btnEliminar.addEventListener('click', function() {
+    	// Deshabilitar los campos editables
+        camposEditables.forEach(function(input) {
+            input.disabled = true; // Deshabilitar el campo de entrada
+            input.style.backgroundColor = '#ddd'; // Cambiar el fondo a gris (opcional)
+        });
+        // Mostrar el botón "Eliminar" y ocultar los demás
+        btnModificar.style.display = 'none';
+        btnEliminar.style.display = 'none';
+        btnCancelar.style.display = 'block'; 
+        EliminarSubmit.style.display = 'block'; 
+    });
+    }
 });
 
-// Mostrar el formulario de editar/eliminar cuando se hace clic en el botón "Editar/Eliminar"
-document.getElementById('botonEditarEliminar').addEventListener('click', function() {
-    mostrarFormulario('formularioEditarEliminar');
-    document.getElementById('tablaCuentasEditarEliminar').style.display = 'table'; // Mostrar la tabla
-});
-
-// Mostrar el formulario de agregar cuenta cuando se hace clic en el botón "Agregar"
-document.getElementById('botonAgregar').addEventListener('click', function() {
-    mostrarFormulario('formularioAgregar');
-});

@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 
-td {
+td, th {
 	white-space: nowrap; /* Evita que el texto se rompa */
 }
 

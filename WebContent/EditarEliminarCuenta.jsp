@@ -42,6 +42,10 @@
         }
         %>
 
+		<%
+          if (listaC != null) {
+              for (Cuenta cuenta : listaC) {
+        %>
 		<!-- Tabla para mostrar los datos de la cuenta -->
 		<table class="tabla-cuentas" id="tablaCuentas">
 			<thead>
@@ -52,52 +56,37 @@
 					<th>N° Cuenta</th>
 					<th>CBU</th>
 					<th>Saldo</th>
-					<th>Acciones</th>
-					<!-- Nueva columna para acciones -->
 				</tr>
 			</thead>
 			<tbody>
-
-				<%
-                if (listaC != null) {
-                    for (Cuenta cuenta : listaC) {
-                %>
 				<tr>
 					<td><%=cuenta.getIDcliente().getIdCliente()%></td>
 					<td><%=cuenta.getFecha_creacion()%></td>
 					<td><%=cuenta.getCuenta().getNombre()%></td>
 					<td><%=cuenta.getNumero_cuenta()%></td>
-					<td><%=cuenta.getCbu()%></td>
-					<td><%=cuenta.getSaldo()%></td>
-					<td>
-						<!-- Formulario para cada cuenta con acciones -->
-
-						<form action="SlCuentas" method="post">
-							<input type="hidden" name="idCuenta"
-								value="<%=cuenta.getNumero_cuenta()%>" /> <input type="hidden"
-								name="cbu" value="<%=cuenta.getCbu()%>" />
-
-							<!-- Campos para modificar CBU y saldo -->
-							<input type="text" name="cbuModificar"
-								value="<%=cuenta.getCbu()%>" placeholder="Nuevo CBU"> <input
-								type="text" name="saldoModificar" value="<%=cuenta.getSaldo()%>"
-								placeholder="Nuevo Saldo"> <input type="submit"
-								value="Modificar" name="botonModificar" onClick="confirmar()">
-						</form> <!-- Formulario para eliminar la cuenta -->
-						<form action="SlCuentas" method="post">
-							<input type="hidden" name="cbu" value="<%=cuenta.getCbu()%>" />
-							<input type="submit" value="Eliminar" name="Eliminar"
-								onClick="confirmar()">
-						</form>
-
-					</td>
+					<td class="editable"><span class="campo-valor"><%= cuenta.getCbu() %></span>
+						<input type="text" name="cbu" value="<%= cuenta.getCbu() %>" placeholder="Nuevo CBU" style="display: none;"></td>
+					<td class="editable"><span class="campo-valor"><%= cuenta.getSaldo() %></span>
+						<input type="text" name="saldo" value="<%= cuenta.getSaldo() %>" placeholder="Nuevo Saldo" style="display: none;"></td>
 				</tr>
-				<%
-                    }
-                }
-                %>
 			</tbody>
 		</table>
+		<br>
+		<form>
+			<div class="botones-modificar-eliminar">
+				<button class="botonModificar" id="btnModificar" name="btnModificar" type="button">Modificar</button>
+				<button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button">Eliminar</button>
+					<input type="submit" value="Guardar" name="btnGuardar" onClick="confirmar()" style="display: none;">
+					<!-- Botón Guardar oculto -->
+					<input type="submit" value="Cancelar" id="btnCancelar" name="btnCancelar" style="display: none;">
+					<!-- Botón Cancelar oculto -->
+					<input type="submit" value="Eliminar" onClick="confirmar()" name="Eliminar" style="display: none;">
+			</div>
+		</form>
+		<%
+            }
+        }
+        %>
 
 		<!-- Mostrar mensaje de éxito o error -->
 		<%
@@ -110,7 +99,7 @@
         %>
 
 	</div>
-	<script defer src="./js/goToPage.js"></script>
+	<script defer src="js/cuentas.js"></script>
 	<script type="text/javascript">
         function confirmar() {
             let response = confirm("Esta seguro que quiere continuar?");
