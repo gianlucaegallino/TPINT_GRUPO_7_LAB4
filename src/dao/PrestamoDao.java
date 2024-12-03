@@ -1,9 +1,12 @@
 package dao;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Prestamo;
 
@@ -35,9 +38,10 @@ public class PrestamoDao {
 			con = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement miSentencia = con.prepareStatement(
 					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual)VALUES(?,?,?,?,?,?,?,?)");
-			// Establecer los valores de los parÃ¡metros utilizando el objeto 'cuenta'
+
+
 			miSentencia.setInt(1, prestamo.getCliente().getIdCliente());
-			miSentencia.setDate(2, prestamo.getFecha());
+			miSentencia.setDate(2, (Date) prestamo.getFecha());
 			miSentencia.setDouble(3, prestamo.getImportePedido());
 			miSentencia.setString(4, "pendiente");
 			miSentencia.setDouble(5, prestamo.getInteresAnual());
@@ -81,15 +85,15 @@ public class PrestamoDao {
             while (rs.next()) {
                 Prestamo prestamo = new Prestamo(
                     rs.getInt("id"),
-                    rs.getInt("cliente_id"),
-                    rs.getString("fecha"),
+                    rs.getDate("fecha"),
                     rs.getDouble("importe_pedido"),
                     rs.getDouble("importe_con_intereses"),
                     rs.getInt("plazo_meses"),
                     rs.getDouble("monto_mensual"),
                     rs.getString("estado"),
-                    rs.getDouble("interes_anual") // Nuevo campo para el interés anual
-                );
+                    rs.getDouble("interes_anual"),
+                    new Cliente(rs.getInt("cliente_id")));
+            
                 prestamos.add(prestamo);
             }
         } catch (SQLException e) {
@@ -109,14 +113,14 @@ public class PrestamoDao {
             if (rs.next()) {
                 prestamo = new Prestamo(
                     rs.getInt("id"),
-                    rs.getInt("cliente_id"),
-                    rs.getString("fecha"),
+                    rs.getDate("fecha"),
                     rs.getDouble("importe_pedido"),
                     rs.getDouble("importe_con_intereses"),
                     rs.getInt("plazo_meses"),
                     rs.getDouble("monto_mensual"),
                     rs.getString("estado"),
-                    rs.getDouble("interes_anual") // Nuevo campo para el interés anual
+                    rs.getDouble("interes_anual"), // Nuevo campo para el interés anual
+                    new Cliente(rs.getInt("cliente_id"))
                 );
             }
         } catch (SQLException e) {

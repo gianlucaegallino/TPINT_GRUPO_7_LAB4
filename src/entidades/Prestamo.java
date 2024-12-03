@@ -4,16 +4,16 @@ import java.sql.Date;
 
 public class Prestamo {
     private int id; 
-
+    private Cliente cliente;
     private Date fecha;
     private double importePedido;
     private double importeConIntereses;
     private int plazoMeses;
     private double montoMensual;
     private String estado;
-    private double interesAnual; // Nuevo campo para el interés anual
+    private double interesAnual;
     
-    private Cliente cliente; // Nuevo campo para el cliente asociado al préstamo
+
 
     // Constructor
     public Prestamo(int id,  Date fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual, Cliente cliente) {
@@ -38,6 +38,14 @@ public class Prestamo {
 
         return this.cliente;
     }
+    
+    public int getIdCliente() {
+    	return this.cliente.getIdCliente();
+    }
+    public void setIdCliente(int id) {
+    	this.cliente.setIdCliente(id);
+    }
+
 
     // Getters y Setters
     public int getId() {
