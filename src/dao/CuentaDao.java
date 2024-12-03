@@ -225,6 +225,40 @@ public class CuentaDao {
 
 		return listCuenta;
 	}
+	
+	public int obtenerNumCuentaConCbu(String cbu) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		Integer numCuenta = null;
+		Connection cn = null;
+
+		try {
+			cn = DriverManager.getConnection(host + dbName, user, pass);
+
+			// Construir consulta din�mica
+			String query = "SELECT * FROM cuentas WHERE estado = 1";
+			if (cbu != null && !cbu.isEmpty()) {
+				query += " AND cbu = '" + cbu + "'";
+			}
+
+			// Ejecutar consulta
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+
+			// Procesar resultados
+			while (rs.next()) {
+				numCuenta = rs.getInt("numero_cuenta");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return numCuenta;
+	}
 
 	public int EliminarCuentaCbu(String cbuCuenta) {
 		try {
@@ -254,7 +288,7 @@ public class CuentaDao {
 		return filasAfectadas;
 	}
 	
-	public int AgregarMonto(String cbuCuenta, float monto) {
+	public int AgregarMonto(String cbuCuenta, double monto) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -265,7 +299,7 @@ public class CuentaDao {
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement("UPDATE cuentas SET saldo = saldo + ? WHERE cbu = ?");
-			sentence.setFloat(1, monto);
+			sentence.setDouble(1, monto);
 			sentence.setString(2, cbuCuenta);
 
 			filasAfectadas = sentence.executeUpdate();
@@ -283,7 +317,7 @@ public class CuentaDao {
 		return filasAfectadas;
 	}
 	
-	public int RemoverMonto(String cbuCuenta, float monto) {
+	public int RemoverMonto(String cbuCuenta, double monto) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -294,7 +328,7 @@ public class CuentaDao {
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement sentence = connect.prepareStatement("UPDATE cuentas SET saldo = saldo - ? WHERE cbu = ?");
-			sentence.setFloat(1, monto);
+			sentence.setDouble(1, monto);
 			sentence.setString(2, cbuCuenta);
 
 			filasAfectadas = sentence.executeUpdate();

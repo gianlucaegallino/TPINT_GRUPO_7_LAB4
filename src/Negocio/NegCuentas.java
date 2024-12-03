@@ -2,22 +2,40 @@ package Negocio;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.CuentaDao;
+import dao.MovimientoDao;
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Movimiento;
 
 public class NegCuentas {
 
 	CuentaDao cnt;
+	MovimientoDao movdao;
 
 	// Constructor para inicializar cnt
 	public NegCuentas() {
-		this.cnt = new CuentaDao(); // Inicializa cnt aquí
+		this.cnt = new CuentaDao(); // Inicializa cnt 
+		this.movdao = new MovimientoDao();
 	}
 
 	public int AgregarCuenta(Cuenta cuenta) {
-		return cnt.AgregarCuenta(cuenta);
+		
+		if (cnt.AgregarCuenta(cuenta)>0) {
+			long normaldate = new Date().getTime();
+			java.sql.Date sqlDate = new java.sql.Date(normaldate);
+			
+			//vamos a buscar la cuenta que acabamos de subir, ya que necesitamos el numero de cuenta, que lo asigna la db al subirlo.
+			Cuenta cuentaYaSubida = cnt.obtenerCuentaCbu(cuenta.getCbu()).get(0);
+			
+			Movimiento creacion = new Movimiento(cuentaYaSubida, sqlDate, "Alta de cuenta" + cuentaYaSubida.getNumero_cuenta(), 10000.00, "Alta de cuenta"); //Agregar parametros
+			
+			movdao.AgregarMovimiento(creacion);
+			return 1;
+		} else return 0;
+		
 	}
 
 	public ArrayList<Cuenta> ObtenerLasCuentas() {

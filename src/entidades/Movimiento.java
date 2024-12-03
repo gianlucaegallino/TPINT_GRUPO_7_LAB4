@@ -20,6 +20,16 @@ public class Movimiento {
 		this.importe = importe;
 		this.tipo_movimiento = tipo_movimiento;
 	}
+	public Movimiento(Cuenta cuenta, Date fecha, String detalle, Double importe, String tipo_movimiento) {
+		super();
+
+		this.cuenta = cuenta;
+		this.fecha = fecha;
+		this.detalle = detalle;
+		this.importe = importe;
+		this.tipo_movimiento = tipo_movimiento;
+	}
+
 
 	public Movimiento() {
 		super();

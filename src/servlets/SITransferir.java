@@ -78,9 +78,9 @@ public class SITransferir extends HttpServlet {
 		
         String cbuDest = request.getParameter("cbu_destinatario");
     	
-        float montoATransferir = Float.parseFloat(request.getParameter("monto"));
+        double montoATransferir = Double.parseDouble(request.getParameter("monto"));
 
-        float montoActual = Float.parseFloat(request.getParameter("saldo")); 
+        double montoActual = Double.parseDouble(request.getParameter("saldo")); 
         
 
         if (montoATransferir > montoActual) {

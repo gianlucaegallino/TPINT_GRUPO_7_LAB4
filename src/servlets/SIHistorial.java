@@ -53,6 +53,14 @@ public class SIHistorial extends HttpServlet {
 		doGet(request, response);
 	}
 	
+	
+	// TODO alta de cuentas y alta de prestamo
+	// TODO alta de cuentas y alta de prestamo
+	// TODO alta de cuentas y alta de prestamo que emitan movimientos
+	// TODO alta de cuentas y alta de prestamo
+	// TODO alta de cuentas y alta de prestamo
+	// TODO alta de cuentas y alta de prestamo
+	
 private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {
 		
 		//Armamos un array para almacenar las cookies
