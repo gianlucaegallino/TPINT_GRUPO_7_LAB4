@@ -1,6 +1,10 @@
 package Negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import dao.CuentaDao;
 import dao.MovimientoDao;
@@ -32,6 +36,14 @@ public class NegTransferencia {
 			e.printStackTrace();
 			return false;
 		} 
+	}
+
+	public void traerDatos(HttpServletRequest request, HttpServletResponse response, String cBU) {
+		System.out.println("traerdatos negt");
+		int id = dao.obtenerCuentaCbu(cBU).get(0).getNumero_cuenta();
+		ArrayList<Movimiento> lista = movdao.TraerListaMovimiento(id);
+		request.setAttribute("movimientos", lista);
+		return;
 	}
 
 }

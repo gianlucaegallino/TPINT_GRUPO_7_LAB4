@@ -25,14 +25,12 @@ public class SIHistorial extends HttpServlet {
        
 
     private NegCargarDescolgables negDesc;
-    private NegCuentas negCta;
     private NegTransferencia negTransf;
     
     public SIHistorial() {
         super();
 
         negDesc = new NegCargarDescolgables();
-        negCta = new NegCuentas();
         negTransf = new NegTransferencia();
     }
 
@@ -40,7 +38,8 @@ public class SIHistorial extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        cargarDescolgablesCuentaBanco(request);
+		System.out.println("get");
+		cargarDescolgablesCuentaBanco(request);
         RequestDispatcher rd = request.getRequestDispatcher("/HistorialdeMovimientos.jsp");
         rd.forward(request, response);
 	}
@@ -49,7 +48,9 @@ public class SIHistorial extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("post");
+		String CBU = request.getParameter("cuenta");
+		negTransf.traerDatos(request, response, CBU);
 		doGet(request, response);
 	}
 	
