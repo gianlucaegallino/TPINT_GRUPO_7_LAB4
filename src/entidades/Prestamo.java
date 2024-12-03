@@ -12,11 +12,12 @@ public class Prestamo {
     private double montoMensual;
     private String estado;
     private double interesAnual;
+    private String cbu_cuenta;
     
 
 
     // Constructor
-    public Prestamo(int id,  Date fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual, Cliente cliente) {
+    public Prestamo(int id,  Date fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual, Cliente cliente, String cbu_cuenta) {
         this.id = id;
 
         this.fecha = fecha;
@@ -28,9 +29,19 @@ public class Prestamo {
         this.interesAnual = interesAnual; // Asignación de interesAnual
         
         this.cliente = cliente;
+        this.cbu_cuenta = cbu_cuenta;
     }
-    
-    public void setCliente(Cliente cli) {
+
+    // Getters y Setters
+    public String getCbu_cuenta() {
+		return cbu_cuenta;
+	}
+
+	public void setCbu_cuenta(String cbu_cuenta) {
+		this.cbu_cuenta = cbu_cuenta;
+	}
+
+	public void setCliente(Cliente cli) {
 
         this.cliente = cli; 
 }
@@ -47,7 +58,6 @@ public class Prestamo {
     }
 
 
-    // Getters y Setters
     public int getId() {
         return id;
     }

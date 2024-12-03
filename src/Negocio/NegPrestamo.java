@@ -52,15 +52,16 @@ public class NegPrestamo {
 		return;
 	}
 
-	public void solicitarPrestamo(double monto, int cuotas, double TASA_INTERES, HttpServletRequest request, int idCliente) {
+	public void solicitarPrestamo(double monto, int cuotas, double TASA_INTERES, HttpServletRequest request, int idCliente, String cbu) {
 		// Calculo del interes total en porcentaje
 		double interesTotal = realizarCalculointeresTotal(cuotas, TASA_INTERES);
 		double totalConInteres = realizarCalculototalConInteres(monto, interesTotal);
 		double cuotaMensual = realizarCalculocuotaMensual(cuotas, totalConInteres);
 
-		
-		
-		Prestamo prestamo = new Prestamo(1, new Date(), monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idcliente));
+		//conseguimos una fecha normal y la volvemos una fecha sql
+		long normaldate = new Date().getTime();
+		java.sql.Date sqlDate = new java.sql.Date(normaldate);
+		Prestamo prestamo = new Prestamo(1, sqlDate, monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idCliente), cbu);
 		//Solicitado Prestamo
 		prestamoDao.AgregarPrestamo(prestamo);
 	}

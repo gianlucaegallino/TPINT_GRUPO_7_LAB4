@@ -1,13 +1,12 @@
 package dao;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Cliente;
-import entidades.Cuenta;
+
 import entidades.Prestamo;
 
 public class PrestamoDao {
@@ -37,7 +36,7 @@ public class PrestamoDao {
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement miSentencia = con.prepareStatement(
-					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual)VALUES(?,?,?,?,?,?,?,?)");
+					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual, cbu_cuenta)VALUES(?,?,?,?,?,?,?,?,?)");
 
 
 			miSentencia.setInt(1, prestamo.getCliente().getIdCliente());
@@ -47,7 +46,8 @@ public class PrestamoDao {
 			miSentencia.setDouble(5, prestamo.getInteresAnual());
 			miSentencia.setDouble(6, prestamo.getImporteConIntereses());
 			miSentencia.setInt(7, prestamo.getPlazoMeses());
-			miSentencia.setDouble(6, prestamo.getMontoMensual());
+			miSentencia.setDouble(8, prestamo.getMontoMensual());
+			miSentencia.setString(9, prestamo.getCbu_cuenta());
 
 			// Ejecutar la consulta
 			int filasAfectadas = miSentencia.executeUpdate(); // Usamos 'executeUpdate' ya que no esperamos un
@@ -92,7 +92,8 @@ public class PrestamoDao {
                     rs.getDouble("monto_mensual"),
                     rs.getString("estado"),
                     rs.getDouble("interes_anual"),
-                    new Cliente(rs.getInt("cliente_id")));
+                    new Cliente(rs.getInt("cliente_id")),
+                    rs.getString("cbu_cuenta"));
             
                 prestamos.add(prestamo);
             }
@@ -120,8 +121,8 @@ public class PrestamoDao {
                     rs.getDouble("monto_mensual"),
                     rs.getString("estado"),
                     rs.getDouble("interes_anual"), // Nuevo campo para el interés anual
-                    new Cliente(rs.getInt("cliente_id"))
-                );
+                    new Cliente(rs.getInt("cliente_id")),
+                    rs.getString("cbu_cuenta"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
