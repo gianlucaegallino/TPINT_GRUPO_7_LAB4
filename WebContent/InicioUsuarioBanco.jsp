@@ -73,7 +73,6 @@
 		<input class="botonInicio" id="botonAutorizar" type="submit"
 			value="Autorizar Prestamos"
 			onClick="window.location.href='AutorizarPrestamos.jsp'" /> <input
-			class="botonInicio" type="submit" value="Informacion Cliente" /> <input
 			class="botonInicio" id="botonABMLCliente" type="submit"
 			value="Cliente" onClick="window.location.href='Clientes.jsp'" /> <input
 			class="botonInicio" id="botonABMLCuenta" type="submit"

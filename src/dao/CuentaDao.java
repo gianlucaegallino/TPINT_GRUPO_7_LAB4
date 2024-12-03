@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,14 +30,14 @@ public class CuentaDao {
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement miSentencia = con.prepareStatement(
-					"INSERT INTO Cuentas (cliente_id, fecha_creacion, tipo_cuenta_id, cbu, saldo, estado)VALUES(?,?,?,?,?,?)");
+					"INSERT INTO cuentas (cliente_id, fecha_creacion, tipo_cuenta_id, cbu, saldo, estado)VALUES(?,?,?,?,?,?)");
 			// Establecer los valores de los parÃ¡metros utilizando el objeto 'cuenta'
-			miSentencia.setInt(1, cuenta.getCliente_id());
-			miSentencia.setDate(2, cuenta.getFecha_creacion());
-			miSentencia.setInt(3, cuenta.getTipo_cuenta_id());
+			miSentencia.setInt(1, cuenta.getIDcliente().getIdCliente());
+			miSentencia.setDate(2, (Date) cuenta.getFecha_creacion());
+			miSentencia.setInt(3, cuenta.getCuenta().getId());
 			miSentencia.setString(4, cuenta.getCbu());
 			miSentencia.setDouble(5, cuenta.getSaldo());
-			miSentencia.setInt(6, cuenta.isEstado());
+			miSentencia.setInt(6, 1);
 
 			// Ejecutar la consulta
 			int filasAfectadas = miSentencia.executeUpdate(); // Usamos 'executeUpdate' ya que no esperamos un
@@ -62,6 +63,21 @@ public class CuentaDao {
 		}
 		return 0;
 
+	}
+	
+	public int obtenerCantidadCuentasCliente(int idCliente) {
+	    int cantidad = 0;
+	    try (Connection connection = DriverManager.getConnection(host + dbName, user, pass)) {
+	        PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM cuentas WHERE cliente_id = ?");
+	        stmt.setInt(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            cantidad = rs.getInt(1);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return cantidad;
 	}
 
 	public ArrayList<Cuenta> obtenerLasCuentas() {
@@ -108,7 +124,7 @@ public class CuentaDao {
 		try {
 			cn = DriverManager.getConnection(host + dbName, user, pass);
 
-			// Construir consulta dinámica
+			// Construir consulta dinï¿½mica
 			String query = "SELECT * FROM cuentas WHERE estado = 1";
 			if (cbu != null && !cbu.isEmpty()) {
 				query += " AND cbu = '" + cbu + "'";
@@ -182,7 +198,7 @@ public class CuentaDao {
 		try {
 			cn = DriverManager.getConnection(host + dbName, user, pass);
 
-			// Construir consulta dinámica
+			// Construir consulta dinï¿½mica
 			String query = "SELECT * FROM cuentas WHERE estado = 1";
 			if (cbu != null && !cbu.isEmpty()) {
 				query += " AND cbu = '" + cbu + "'";

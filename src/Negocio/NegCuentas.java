@@ -24,6 +24,9 @@ public class NegCuentas {
 		return cnt.obtenerLasCuentas();
 
 	}
+	public int obtenerCantidadCuentas(int IdCliente){
+		return cnt.obtenerCantidadCuentasCliente(IdCliente);
+	}
 
 	public ArrayList<Cuenta> ObtenerCuentasFiltradas(String cbu, Integer tipoCuenta) {
 		return cnt.obtenerCuentasFiltradas(cbu, tipoCuenta);
