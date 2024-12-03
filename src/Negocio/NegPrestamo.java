@@ -46,6 +46,8 @@ public class NegPrestamo {
 		request.setAttribute("monto", monto);
 		request.setAttribute("cuotas", cuotas);
 		
+
+		
 		return;
 	}
 
@@ -60,7 +62,7 @@ public class NegPrestamo {
 	}
 	
 	private double realizarCalculointeresTotal(int cuotas, double TASA_INTERES){
-		return (TASA_INTERES * (cuotas / 12.0)) * 100; // Interes total acumulado en porcentaje
+		return (TASA_INTERES * cuotas); // Interes total acumulado en porcentaje
 	}
 	
 	private double realizarCalculototalConInteres(double monto, double interesTotal){

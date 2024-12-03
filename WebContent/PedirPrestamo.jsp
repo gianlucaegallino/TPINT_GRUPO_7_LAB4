@@ -2,14 +2,27 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.text.DecimalFormat"%>
 <%@ include file="Inicio.jsp"%>
+<%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList"%>
 
 		<%
-		double interesTotal = (double) request.getAttribute("interesTotal");
-		double totalConInteres = (double) request.getAttribute("totalConInteres");
-		double cuotaMensual = (double) request.getAttribute("cuotaMensual");
-		double TASA_INTERES = (double) request.getAttribute("TASA_INTERES");
-		double monto = (double) request.getAttribute("monto");
-		Integer cuotas = (Integer) request.getAttribute("cuotas");
+		double interesTotal=0;
+		double totalConInteres=0;
+
+		double cuotaMensual=0;
+		double TASA_INTERES=0;
+		double monto = 0;
+		Integer cuotas = null;
+
+		if (request.getAttribute("cuotas") != null){
+			interesTotal = (double) request.getAttribute("interesTotal");
+			totalConInteres = (double) request.getAttribute("totalConInteres");
+			cuotaMensual = (double) request.getAttribute("cuotaMensual");
+			TASA_INTERES = (double) request.getAttribute("TASA_INTERES");
+			monto = (double) request.getAttribute("monto");
+			cuotas = (Integer) request.getAttribute("cuotas");
+		}
+
 		%>
 
 <!-- MAIN -->
@@ -54,10 +67,31 @@
 			<input type="number" id="monto" name="monto" required> 
 			<label for="cuotas">Cantidad de Cuotas:</label> 
 			<input type="number" id="cuotas" name="cuotas" required>
-			<label for="cuenta">Cuenta de Deposito:</label> 
-			<select id="cuenta" name="cuenta" required>
-				<option value="caja_ahorro">Caja de Ahorro</option>
-				<option value="cuenta_corriente">Cuenta Corriente</option>
+<!-- Seleccion de la cuenta -->
+			<label for="cuenta">Cuenta de Deposito:</label> <select id="cuenta"
+				name="cuenta" required>
+				<%
+					ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
+
+					if (cuentas != null) {
+						for (Cuenta cuenta : cuentas) {
+
+							String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
+				%>
+
+				<option value="<%=cuenta.getCbu()%>"
+					data-saldo="<%=cuenta.getSaldo()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
+
+				<%
+					}
+					} else {
+				%>
+
+				<option value="" disabled selected>No hay cuentas
+					disponibles</option>
+				<%
+					}
+				%>
 			</select>
 
 			<button type="submit" name="submit" value="calcular">Calcular Cuota</button>
@@ -65,22 +99,30 @@
 		</form>
 
 
-		<div class="formulario-mensaje"
-			style="<%= request.getAttribute("interesTotal") != null && !request.getAttribute("interesTotal").toString().isEmpty() ? "display: block;" : "display: none;" %>">
-		<h3>Intereses para $<%= request.getAttribute("monto") %> en <%= request.getAttribute("cuotas") %> cuotas:</h3>
-		<p>
-			Interes Anual:
-			<%= (request.getAttribute("TASA_INTERES") * 100) + "%" %></p>
-		<p>
-			Interes Total:
-			<%= new DecimalFormat("#.##").format(request.getAttribute("interesTotal")) + "%" %></p>
-		<p>
-			Cuota Mensual:
-			<%= new DecimalFormat("#.##").format(request.getAttribute("cuotaMensual")) %></p>
-		</div>
 		
-		
-		
+
+		<% if (cuotas != null) { %>
+			<div class="formulario-mensaje"
+				style="<%= cuotas != null ? "display: block;" : "display: none;" %>">
+			<h3>Intereses para $<%= monto %> en <%= cuotas %> cuotas:</h3>
+			<p>
+				Interes Anual:
+				<%= new DecimalFormat("#.##").format(TASA_INTERES*12) + "%" %></p>
+
+			<p>
+				Interes Total:
+				<%= new DecimalFormat("#.##").format(interesTotal) + "%" %></p>
+							<p>
+				Interes Mensual:
+				<%= new DecimalFormat("#.##").format(TASA_INTERES) + "%" %></p>
+			<p>
+				Total con interes:
+				<%= "$"+new DecimalFormat("#.##").format(totalConInteres) %></p>
+			<p>
+				Cuota Mensual:
+				<%= "$"+ new DecimalFormat("#.##").format(cuotaMensual) %></p>
+			</div>
+		<%} %>
 
 
 		
