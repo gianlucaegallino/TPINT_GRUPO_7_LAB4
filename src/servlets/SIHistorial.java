@@ -38,7 +38,8 @@ public class SIHistorial extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        cargarDescolgablesCuentaBanco(request);
+		System.out.println("get");
+		cargarDescolgablesCuentaBanco(request);
         RequestDispatcher rd = request.getRequestDispatcher("/HistorialdeMovimientos.jsp");
         rd.forward(request, response);
 	}
