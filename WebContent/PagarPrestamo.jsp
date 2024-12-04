@@ -129,14 +129,14 @@
 				}
 
 				if (cost != "") {
-					costocuota.value = cost;
+					costocuota.value = Number(cost).toFixed(2);
 
 				} else {
 					costocuota.value = null;
 				}
 
 				if (tot != "") {
-					totalsaldar.value = tot;
+					totalsaldar.value = Number(tot).toFixed(2);;
 
 				} else {
 					totalsaldar.value = null;
