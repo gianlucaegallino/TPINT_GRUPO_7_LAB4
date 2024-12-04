@@ -43,6 +43,7 @@ public class NegTransferencia {
 		int id = dao.obtenerCuentaCbu(cBU).get(0).getNumero_cuenta();
 		ArrayList<Movimiento> lista = movdao.TraerListaMovimiento(id);
 		request.setAttribute("movimientos", lista);
+		request.setAttribute("titulomovs", cBU);
 		return;
 	}
 
