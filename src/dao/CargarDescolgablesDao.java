@@ -1,14 +1,11 @@
 package dao;
 
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 import entidades.Prestamo;
+import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
@@ -21,6 +18,7 @@ public class CargarDescolgablesDao {
     private String user = "root";
     private String pass = "root";
     private String dbName = "bdbancoliberacion?useSSL=false";
+    private Connection connection;
 
     // Método para obtener los sexos desde la base de datos
     public ArrayList < Sexo > obtenerSexos() {
@@ -166,36 +164,47 @@ public class CargarDescolgablesDao {
         }
         return cuentas;
 	}
+	
+	
 
 	public ArrayList< Prestamo > ObtenerLosPrestamos(int id) {
-		try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+		ArrayList<Prestamo> prestamos = new ArrayList<>();
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = null;
+			try {
+				cn = DriverManager.getConnection(host + dbName, user, pass);
+				PreparedStatement st = cn.prepareStatement("SELECT * FROM prestamos WHERE cliente_id = ? AND pagos_restantes > 0 AND estado = 'aprobado'");
+				 st.setInt(1, id);
+				
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+					Prestamo prestamo = new Prestamo();
+					prestamo.setId(rs.getInt("id"));
 
-        ArrayList < Prestamo > prest = new ArrayList < > ();
-        try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
-        		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
-        		"SELECT * FROM prestamos WHERE cliente_id = ? AND pagos_restantes > 0 AND estado = 'aprobado'"
-        				)) {
-        	stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-				Prestamo p = new Prestamo();
-				//c.setCliente_id(rs.getInt("cliente_id"));
-				p.setFecha(rs.getDate("fecha"));
-				p.setImporteConIntereses(rs.getDouble("importe_con_intereses"));
-				p.setMontoMensual(rs.getDouble("monto_mensual"));
-				p.setCuotasRestantes(rs.getInt("pagos_restantes"));
-				// solo los datos necesarios
-				prest.add(p);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return prest;
+					Cliente cliente = new Cliente();
+					prestamo.setCliente(cliente);
+					prestamo.setImportePedido(rs.getDouble("importe_pedido"));
+					prestamo.setFecha(rs.getDate("fecha"));
+					prestamo.setEstado(rs.getString("estado"));
+					prestamo.setInteresAnual(rs.getDouble("interes_anual"));
+					prestamo.setImporteConIntereses(rs.getDouble("importe_con_intereses"));
+					prestamo.setPlazoMeses(rs.getInt("plazo_meses"));
+					prestamo.setMontoMensual(rs.getDouble("monto_mensual"));
+					prestamo.setCbu_cuenta(rs.getString("cbu_cuenta"));
+					prestamo.setPagos_restantes(rs.getString("pagos_restantes"));
+					
+					prestamos.add(prestamo);
+				}
+			}catch (Exception e) {
+				throw new RuntimeException("Error al obtener prestamos a pagar", e);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Error al cargar el driver JDBC", e);
+		}
+        return prestamos;
 	}
+	
+    
 }
