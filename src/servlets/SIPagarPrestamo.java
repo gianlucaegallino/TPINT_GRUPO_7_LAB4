@@ -41,7 +41,7 @@ public class SIPagarPrestamo extends HttpServlet {
 
 		// Devolver valores
 
-		RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/PagarPrestamo.jsp");
 		rd.forward(request, response);
 	}
 
@@ -98,6 +98,7 @@ public class SIPagarPrestamo extends HttpServlet {
 			request.setAttribute("mensajeError", "No hay cuentas.");
 		} 
 			
+
 		cargarDescolgablesPrestamos(request, id);
 		
 			
@@ -112,6 +113,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		ArrayList<Prestamo> prestamos = null;
 
 		prestamos = negDesc.ObtenerLosPrestamos(id);
+
 
 
 		if (prestamos != null && !prestamos.isEmpty()) {

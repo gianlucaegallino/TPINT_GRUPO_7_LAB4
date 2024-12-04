@@ -30,7 +30,7 @@
 </head>
 <body class="bodyPrestamo">
 	<div class="containerPrestamo">
-		<form action="SITransferir" method="GET" style="display: none"
+		<form action="SIPagarPrestamo" method="GET" style="display: none"
 			id="formCargarListas"></form>
 
 		<%
@@ -47,13 +47,13 @@
 
 
 		<h3>Deudas a Pagar</h3>
-		<form action="PagarPrestamo.jsp" method="post">
+		<form action="PagarPrestamo.jsp" method="get">
 			<label for="deudaSeleccionada">Seleccionar deuda a pagar:</label> <select
 				id="deudaSeleccionada" name="deudaSeleccionada" required>
 				<% 
 				
 				ArrayList<Prestamo> deudasPendientes = (ArrayList<Prestamo>) request.getAttribute("prestamos");
-
+				System.out.println(deudasPendientes);
 				
 				if (deudasPendientes != null) { for (Prestamo deuda : deudasPendientes) { 
 				 
@@ -72,8 +72,14 @@
 				
 				>[DEUDA]</option>
 				<% 		} 
-					}
-				%>
+					} else {
+						%>
+
+						<option value="" disabled selected>No hay prestamos a pagar</option>
+						<%
+							}
+						%>
+				
 			</select> 
 			<script defer>
 					let deudaSeleccionada = document.querySelector("#deudaSeleccionada");
