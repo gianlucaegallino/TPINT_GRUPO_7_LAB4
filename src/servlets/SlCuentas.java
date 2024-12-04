@@ -122,12 +122,24 @@ public class SlCuentas extends HttpServlet {
 
             if (resultado) {
                 request.setAttribute("mensaje", "¡La cuenta se modificó correctamente!");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-                rd.forward(request, response);
             } else {
                 request.setAttribute("mensaje", "Error al modificar la cuenta.");
+            }
+            request.getRequestDispatcher("/EditarEliminarCuenta.jsp").forward(request, response);
+            
+        } else if (request.getParameter("Eliminar") != null) {
+            String cbuCuenta = request.getParameter("cbu");
+            if (cbuCuenta != null && !cbuCuenta.isEmpty()) {
+                NegCuentas cnt1 = new NegCuentas();
+                int filas = cnt1.EliminarCuentaCbu(cbuCuenta);
+
+                request.setAttribute("cantfilas", filas);
                 rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-                rd.forward(request, response);
+            } else {
+                // Manejar el caso en que el valor es nulo o vacío
+                // Por ejemplo, mostrar un mensaje de error al usuario
+                request.setAttribute("mensaje", "Error: No se ha seleccionado ninguna cuenta.");
+                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
             }
         }
         if (rd != null) {
