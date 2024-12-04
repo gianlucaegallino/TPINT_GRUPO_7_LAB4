@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="entidades.Prestamo"%>
 <%@ page import="entidades.Cliente"%>
 <%@ include file="InicioUsuarioBanco.jsp"%>
-<%
-    List<Prestamo> prestamosPendientes = (List<Prestamo>) request.getAttribute("prestamosPendientes");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +17,9 @@
 	<div class="containerAutorizar">
 		<h2>Autorizar Solicitudes de Préstamos</h2>
 
+		<%
+		    ArrayList<Prestamo> prestamosPendientes = (ArrayList<Prestamo>) request.getAttribute("prestamosPendientes");
+		%>
 		<% if (prestamosPendientes != null && !prestamosPendientes.isEmpty()) { %>
 		<table class="tablaPrestamos">
 			<thead>

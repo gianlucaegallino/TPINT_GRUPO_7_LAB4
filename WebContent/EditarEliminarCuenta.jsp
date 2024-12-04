@@ -49,7 +49,7 @@
         <form action="SICuentas" method="POST">
         	<input type="hidden" name="action" value="modificarEliminarCuenta">
 			<!-- Tabla para mostrar los datos de la cuenta -->
-			<table class="tabla-cuentas" id="tablaCuentas">
+			<table class="tabla-cuentas" id="tablaCuentas" style="display: block;">
 				<thead>
 					<tr>
 						<th>ID Cliente</th>

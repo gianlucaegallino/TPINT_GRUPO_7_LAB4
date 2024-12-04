@@ -19,9 +19,6 @@ import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.TipoCuenta;
 
-/**
- * Servlet implementation class SlCuentas
- */
 @WebServlet("/SlCuentas")
 public class SlCuentas extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -136,8 +133,8 @@ public class SlCuentas extends HttpServlet {
     	if (request.getParameter("btnModificar") != null) {
             int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
             // UNICOS DOS CAMPOS A MODIFICA
-            String cbu = request.getParameter("cbuModificar");
-            double saldo = Double.parseDouble(request.getParameter("saldoModificar")); // Necesario agregar en el front
+            String cbu = request.getParameter("cbu");
+            double saldo = Double.parseDouble(request.getParameter("saldo")); // Necesario agregar en el front
 
             Cuenta cuenta = new Cuenta();
             cuenta.setNumero_cuenta(idCuenta);
