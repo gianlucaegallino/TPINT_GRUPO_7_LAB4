@@ -50,6 +50,7 @@ public class SITransferir extends HttpServlet {
 
         cargarDescolgablesCuentaBanco(request);
         RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
+
         rd.forward(request, response);
 	}
 
@@ -60,14 +61,16 @@ public class SITransferir extends HttpServlet {
 		String action = request.getParameter("action");
 
         if ("realizarTransferencia".equals(action)) {
+
             realizarTransferencia(request, response);
+
+            doGet(request,response);
         } else {
         	//Tirar excepcion!
         }
         
 
-        RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
-        rd.forward(request, response);
+        
 	}
 	
 	private void realizarTransferencia(HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +109,7 @@ public class SITransferir extends HttpServlet {
         } else {
         	request.setAttribute("mensajeError", "Cbu invalido o inexistente");
         }
-
+        
 
     }
 	
