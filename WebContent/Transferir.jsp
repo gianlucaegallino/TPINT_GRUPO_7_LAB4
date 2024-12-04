@@ -92,11 +92,11 @@
 			<!-- CBU del destinatario -->
 			<label for="cbu_destinatario">CBU del destinatario</label> <input
 				type="text" id="cbu_destinatario" name="cbu_destinatario"
-				placeholder="Ingrese el CBU del destinatario" maxlength="22" minlength="22"/>
+				placeholder="Ingrese el CBU del destinatario" maxlength="22" minlength="22" required pattern= "^[0-9]*$"/>
 
 			<!-- Cantidad a transferir -->
-			<label for="monto">Monto a transferir</label> <input type="number"
-				id="monto" name="monto" placeholder="Ingrese el monto a transferir" />
+			<label for="monto">Monto a transferir</label> <input type="text"
+				id="monto" name="monto" placeholder="Ingrese el monto a transferir" required pattern="^[1-9][0-9]*\.?[0-9][0-9]$"/>
 
 			<!-- Boton de transferencia -->
 			<button type="submit" id="btnRealizarTransferencia">Realizar
