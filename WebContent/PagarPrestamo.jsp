@@ -3,32 +3,13 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.util.Calendar"%>
 <%@ page import="entidades.Prestamo" %>
 <%@ page import="entidades.Cuenta" %>
 <%@ page import="java.util.Map"%>
 
-<%
-    String usuario = (String) session.getAttribute("usuarioLogeado");
-    if (usuario == null) {
-        usuario = "Invitado";
-    }
 
-    // Variables de ejemplo para cuotas y estado de pago
-    int totalCuotas = 12;
-    double cuotaMensual = 500.00; // Monto de ejemplo por cuota
-    Map<Integer, String> cuotasPagadas = new HashMap<>(); // Almacena cuotas pagadas con fecha
-    cuotasPagadas.put(1, "2024-01-15");
-    cuotasPagadas.put(3, "2024-03-15");
-    cuotasPagadas.put(6, "2024-06-15");
-
-    // Generar listado de cuotas
-    ArrayList<Integer> cuotasPendientes = new ArrayList<>();
-    for (int i = 1; i <= totalCuotas; i++) {
-        if (!cuotasPagadas.containsKey(i)) {
-            cuotasPendientes.add(i);
-        }
-    }
-%>
 <%@ include file="Inicio.jsp"%>
 <!-- Incluimos el inicio -->
 
@@ -76,13 +57,18 @@
 				
 				if (deudasPendientes != null) { for (Prestamo deuda : deudasPendientes) { 
 				 
-					let totalSaldar = deuda.getcuotasrestantes * deuda.costocuota;
-					let proximacuota = deuda.fechaoriginal + (meses-cuotasrestantes)
+					double totalSaldar = deuda.getCuotasRestantes() * deuda.getMontoMensual();
+					int cuotaspagas = deuda.getPlazoMeses()-deuda.getCuotasRestantes();
+					//Armamos una instancia calendario para sumar meses y determinar el proximo pago.
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(deuda.getFecha());
+					cal.add(Calendar.MONTH, cuotaspagas);
+					Date proximacuota = cal.getTime();
 				%>
 				<option value="<%= deuda.getCuotasRestantes() %>"
-				data-costocuota="<%= deuda.getCostoCuota() %>"
-				data-totalsaldar="<%= totalsaldar %>"
-				data-proxcuota="<%= proxcuota %>"
+				data-costocuota="<%= deuda.getMontoMensual() %>"
+				data-totalsaldar="<%= totalSaldar %>"
+				data-proxcuota="<%= proximacuota %>"
 				
 				>[DEUDA]</option>
 				<% 		} 

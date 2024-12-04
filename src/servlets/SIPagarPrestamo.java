@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Negocio.NegCargarDescolgables;
-import Negocio.NegCuentas;
-import Negocio.NegPrestamo;
+
 import entidades.Cuenta;
 import entidades.Prestamo;
 
