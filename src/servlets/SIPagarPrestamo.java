@@ -66,14 +66,14 @@ public class SIPagarPrestamo extends HttpServlet {
 
 				
 		if (cantCuotasApagar > CuotasRestantes || cantCuotasApagar <= 0) {
-			//Dar error
+			request.setAttribute("mensajeError", "Cantidad de cuotas invalida.");
 			RequestDispatcher rd = request.getRequestDispatcher("/PagarPrestamo.jsp");
 			rd.forward(request, response);
 			return;
 		}
 		
 		if (costoDelPago > dinerodisponible) {
-			//Dar error
+			request.setAttribute("mensajeError", "No tiene el dinero suficiente.");
 			RequestDispatcher rd = request.getRequestDispatcher("/PagarPrestamo.jsp");
 			rd.forward(request, response);
 			return;
@@ -82,7 +82,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		//Realizar pago deuda
 		negpr.realizarPago(cbuDePago, cantCuotasApagar, costoDelPago, iddeuda);
 		
-		request.setAttribute("hecho", true);
+		request.setAttribute("mensajeExito", "Pago realizado correctamente.");
 		
 		doGet(request, response);
 
@@ -152,7 +152,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		if (prestamos != null && !prestamos.isEmpty()) {
 			request.setAttribute("prestamos", prestamos); // Establecer el atributo "prestamos"
 		} else {
-			request.setAttribute("mensajeError", "No hay prestamos.");
+			request.setAttribute("mensajeError", "No hay prestamos a pagar!");
 		}
 
 		// Damos constancia de que esta funcion ya se corrio, sin importar si se

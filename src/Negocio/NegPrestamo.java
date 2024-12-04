@@ -69,6 +69,7 @@ public class NegPrestamo {
 		Prestamo prestamo = new Prestamo(1, sqlDate, monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idCliente), cbu, String.valueOf(cuotas));
 		//Solicitado Prestamo
 		prestamoDao.AgregarPrestamo(prestamo);
+		request.setAttribute("mensajeExito", "Prestamo solicitado.");
 	}
 	
 	private double realizarCalculointeresTotal(int cuotas, double TASA_INTERES){

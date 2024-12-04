@@ -124,6 +124,15 @@
 				<%= "$"+ new DecimalFormat("#.##").format(cuotaMensual) %></p>
 			</div>
 		<%} %>
+						<div class="formulario-mensaje"
+			style="<%= request.getAttribute("mensajeExito") != null && !request.getAttribute("mensajeExito").toString().isEmpty() ? "display: block;" : "display: none;" %>">
+				<h3 style="color: green;"><%= request.getAttribute("mensajeExito") %></h3>
+		</div>
+
+		<div class="formulario-mensaje"
+			style="<%= request.getAttribute("mensajeError") != null && !request.getAttribute("mensajeError").toString().isEmpty() ? "display: block;" : "display: none;" %>">
+				<h3 style="color: red;"><%= request.getAttribute("mensajeError") %></h3>
+		</div>
 
 
 		
