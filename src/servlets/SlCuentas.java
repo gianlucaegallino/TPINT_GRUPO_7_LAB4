@@ -50,24 +50,6 @@ public class SlCuentas extends HttpServlet {
     		} else if("listarCuentas".equals(action)) {
     			listarCuentas(request, response);
     		}
-    	/*
-        // Eliminar
-        if (request.getParameter("Eliminar") != null) {
-            String cbuCuenta = request.getParameter("cbu");
-            if (cbuCuenta != null && !cbuCuenta.isEmpty()) {
-                NegCuentas cnt1 = new NegCuentas();
-                int filas = cnt1.EliminarCuentaCbu(cbuCuenta);
-
-                request.setAttribute("cantfilas", filas);
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            } else {
-                // Manejar el caso en que el valor es nulo o vacío
-                // Por ejemplo, mostrar un mensaje de error al usuario
-                request.setAttribute("mensaje", "Error: No se ha seleccionado ninguna cuenta.");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            }
-        }
-        */
     }
     
     

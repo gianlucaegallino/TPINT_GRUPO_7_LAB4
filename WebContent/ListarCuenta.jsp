@@ -25,6 +25,7 @@
 	<div class="formulario-listar" id="formularioListar">
 		<h2>Listar Cuenta</h2>
 		<form action="SlCuentas" method="post">
+			<input type="hidden" name="action" value="listarCuentas">
 			<div class="formulario-listar-input">
 				<label for="cbu">CBU: </label> <input type="text" id="cbuBuscar"
 					name="cbuBuscar" placeholder="Ingrese el CBU" />
@@ -45,6 +46,7 @@
 			</div>
 		</form>
 		<form action="SlCuentas" method="post">
+			<input type="hidden" name="action" value="listarCuentas">
 			<input type="submit" value="Mostrar todos" name="btnBuscar" />
 		</form>
 
