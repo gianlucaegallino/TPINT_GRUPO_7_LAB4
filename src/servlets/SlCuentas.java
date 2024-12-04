@@ -19,9 +19,6 @@ import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.TipoCuenta;
 
-/**
- * Servlet implementation class SlCuentas
- */
 @WebServlet("/SlCuentas")
 public class SlCuentas extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -56,6 +53,8 @@ public class SlCuentas extends HttpServlet {
             throws ServletException, IOException {
     		System.out.println("Entrando a doPost");
     		String action = request.getParameter("action");
+    		NegCuentas cnt = new NegCuentas();
+    		RequestDispatcher rd = null;
     		
     		if ("AgregarCuentas".equals(action)) {
     			AgregarCuentas(request, response);
@@ -64,7 +63,13 @@ public class SlCuentas extends HttpServlet {
     		} else if("modificarEliminarCuenta".equals(action)) {
     			modificarEliminarCuenta(request,response);
     		}
-        /*
+    		if (request.getParameter("btnBuscar") != null) {
+    			ArrayList<Cuenta> lista = cnt.ObtenerLasCuentas();
+    			request.setAttribute("listaCuenta", lista);
+    			rd = request.getRequestDispatcher("/ListarCuenta.jsp");
+                rd.forward(request, response);
+    		}
+        
         if (request.getParameter("btnBuscar1") != null) {
             String cbu = request.getParameter("cbuBuscar");
             String tipoCuentaStr = request.getParameter("tipoCuenta");
@@ -79,37 +84,12 @@ public class SlCuentas extends HttpServlet {
             rd = request.getRequestDispatcher("/ListarCuenta.jsp");
         }
 
-        if (request.getParameter("btnBuscar") != null) {
-            ArrayList<Cuenta> lista = cnt.ObtenerLasCuentas();
-            request.setAttribute("listaCuenta", lista);
-        }
 
         if (request.getParameter("btnBuscar2") != null) {
             String cbu = request.getParameter("cbuBuscar");
             ArrayList<Cuenta> lista = cnt.ObtenerCuentaCbu(cbu);
             request.setAttribute("listaCuenta", lista);
             rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-        }
-        // Modificar
-        if (request.getParameter("botonModificar") != null) {
-            int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
-            // UNICOS DOS CAMPOS A MODIFICA
-            String cbu = request.getParameter("cbuModificar");
-            double saldo = Double.parseDouble(request.getParameter("saldoModificar")); // Necesario agregar en el front
-
-            Cuenta cuenta = new Cuenta();
-            cuenta.setNumero_cuenta(idCuenta);
-            cuenta.setCbu(cbu);
-            cuenta.setSaldo(saldo);
-            boolean resultado = cnt.modificarCuenta(cuenta);
-
-            if (resultado) {
-                request.setAttribute("mensaje", "¡La cuenta se modificó correctamente!");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            } else {
-                request.setAttribute("mensaje", "Error al modificar la cuenta.");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            }
         }
         // Eliminar
         if (request.getParameter("Eliminar") != null) {
@@ -128,16 +108,16 @@ public class SlCuentas extends HttpServlet {
             }
         }
         rd.forward(request, response);
-		*/
+		
     }
     
     
     private void modificarEliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	if (request.getParameter("btnModificar") != null) {
+    	if (request.getParameter("btnGuardar") != null) {
             int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
             // UNICOS DOS CAMPOS A MODIFICA
-            String cbu = request.getParameter("cbuModificar");
-            double saldo = Double.parseDouble(request.getParameter("saldoModificar")); // Necesario agregar en el front
+            String cbu = request.getParameter("cbu");
+            double saldo = Double.parseDouble(request.getParameter("saldo")); // Necesario agregar en el front
 
             Cuenta cuenta = new Cuenta();
             cuenta.setNumero_cuenta(idCuenta);

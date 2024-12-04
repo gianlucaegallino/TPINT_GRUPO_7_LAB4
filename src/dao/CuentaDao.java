@@ -96,9 +96,12 @@ public class CuentaDao {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				Cuenta c = new Cuenta();
-				c.setCliente_id(rs.getInt("cliente_id"));
+				c.setIDcliente(new Cliente(rs.getInt("cliente_id")));
 				c.setFecha_creacion(rs.getDate("fecha_creacion"));
-				c.setTipo_cuenta_id(rs.getInt("tipo_cuenta_id"));
+				int tipocuenta = rs.getInt("tipo_cuenta_id");
+				String tipoCuentaStr = BuscarTipoC(tipocuenta);
+				TipoCuenta cuent = new TipoCuenta(tipoCuentaStr);
+				c.setCuenta(cuent);
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));
@@ -127,7 +130,7 @@ public class CuentaDao {
 			// Construir consulta din�mica
 			String query = "SELECT * FROM cuentas WHERE estado = 1";
 			if (cbu != null && !cbu.isEmpty()) {
-				query += " AND cbu = '" + cbu + "'";
+				query += " AND cbu LIKE '%" + cbu + "%'";
 			}
 			if (tipoCuenta != null) {
 				query += " AND tipo_cuenta_id = " + tipoCuenta;
@@ -140,9 +143,12 @@ public class CuentaDao {
 			// Procesar resultados
 			while (rs.next()) {
 				Cuenta c = new Cuenta();
-				c.setCliente_id(rs.getInt("cliente_id"));
+				c.setIDcliente(new Cliente(rs.getInt("cliente_id")));
 				c.setFecha_creacion(rs.getDate("fecha_creacion"));
-				c.setTipo_cuenta_id(rs.getInt("tipo_cuenta_id"));
+				int tipocuenta = rs.getInt("tipo_cuenta_id");
+				String tipoCuentaStr = BuscarTipoC(tipocuenta);
+				TipoCuenta cuent = new TipoCuenta(tipoCuentaStr);
+				c.setCuenta(cuent);
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));

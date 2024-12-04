@@ -26,8 +26,8 @@
 		<h2>Listar Cuenta</h2>
 		<form action="SlCuentas" method="post">
 			<div class="formulario-listar-input">
-				<label for="cbu">CBU:</label> <input type="text" id="cbuBuscar"
-					name="cbuBuscar" placeholder="Ingrese el CBU" required />
+				<label for="cbu">CBU: </label> <input type="text" id="cbuBuscar"
+					name="cbuBuscar" placeholder="Ingrese el CBU" />
 			</div>
 
 			<div class="formulario-listar-input">
@@ -70,9 +70,9 @@
 				<% if (listaC != null) {
                 for (Cuenta cuenta : listaC) { %>
 				<tr>
-					<td><%= cuenta.getCliente_id() %></td>
+					<td><%= cuenta.getIDcliente().getIdCliente() %></td>
 					<td><%= cuenta.getFecha_creacion() %></td>
-					<td><%= cuenta.getTipo_cuenta_id() %></td>
+					<td><%= cuenta.getCuenta().getNombre() %></td>
 					<td><%= cuenta.getNumero_cuenta() %></td>
 					<td><%= cuenta.getCbu() %></td>
 					<td><%= cuenta.getSaldo() %></td>

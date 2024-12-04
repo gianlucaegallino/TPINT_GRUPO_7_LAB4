@@ -3,7 +3,6 @@ package dao;
 import java.sql.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import entidades.Cliente;
 
@@ -19,9 +18,10 @@ public class PrestamoDao {
     public PrestamoDao() {
         try {
             connection = DriverManager.getConnection(host + dbName, user, pass);
-            System.out.println("Conexión exitosa a la base de datos");
+            System.out.println("Conexiï¿½n exitosa a la base de datos");
         } catch (SQLException e) {
             System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+            throw new RuntimeException(e); // Lanza la excepciÃ³n
         }
     }
     
@@ -75,35 +75,64 @@ public class PrestamoDao {
 
 	}
 
-    public List<Prestamo> listarPrestamosPendientes() {
-        List<Prestamo> prestamos = new ArrayList<>();
-        String sql = "SELECT * FROM prestamos WHERE estado = 'pendiente'";
+    public ArrayList<Prestamo> listarPrestamosPendientes() {
+        ArrayList<Prestamo> prestamos = new ArrayList<>();
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection cn = null;
+			try {
+				cn = DriverManager.getConnection(host + dbName, user, pass);
+				PreparedStatement st = cn.prepareStatement("SELECT * FROM prestamos WHERE estado = 'pendiente'");
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+					Prestamo prestamo = new Prestamo();
+					prestamo.setId(rs.getInt("id"));
+					int idCliente = rs.getInt("cliente_id");
+					String ClienteNombre = buscarAtributo(idCliente, "nombre");
+					String ClienteApellido = buscarAtributo(idCliente, "apellido");
+					String ClienteDNI = buscarAtributo(idCliente, "dni");
+					Cliente cliente = new Cliente(idCliente, ClienteNombre, ClienteApellido, ClienteDNI);
+					prestamo.setCliente(cliente);
+					prestamo.setImportePedido(rs.getDouble("importe_pedido"));
+					prestamo.setFecha(rs.getDate("fecha"));
+					prestamo.setEstado(rs.getString("estado"));
+					prestamo.setInteresAnual(rs.getDouble("interes_anual"));
+					prestamo.setImporteConIntereses(rs.getDouble("importe_con_intereses"));
+					prestamo.setPlazoMeses(rs.getInt("plazo_meses"));
+					prestamo.setMontoMensual(rs.getDouble("monto_mensual"));
+					prestamo.setCbu_cuenta(rs.getString("cbu_cuenta"));
+					prestamo.setPagos_restantes(rs.getString("pagos_restantes"));
+					
+					prestamos.add(prestamo);
+				}
+			}catch (Exception e) {
+				throw new RuntimeException("Error al obtener prÃ©stamos pendientes", e);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Error al cargar el driver JDBC", e);
+		}
+        return prestamos;
+    }
 
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+    
+    public String buscarAtributo(int id , String elementoAbuscar) {
+    	String valor = null;
+    	String sql = "SELECT " + elementoAbuscar + " FROM clientes WHERE id_cliente = ?";
+    	try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                Prestamo prestamo = new Prestamo(
-                    rs.getInt("id"),
-                    rs.getDate("fecha"),
-                    rs.getDouble("importe_pedido"),
-                    rs.getDouble("importe_con_intereses"),
-                    rs.getInt("plazo_meses"),
-                    rs.getDouble("monto_mensual"),
-                    rs.getString("estado"),
-                    rs.getDouble("interes_anual"),
-                    new Cliente(rs.getInt("cliente_id")),
-                    rs.getString("cbu_cuenta"));
-            
-                prestamos.add(prestamo);
+            if (rs.next()) {
+                valor = rs.getString(elementoAbuscar);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return prestamos;
+        return valor;
     }
 
-    public Prestamo obtenerPorNumero(int id) {
+	public Prestamo obtenerPorNumero(int id) {
         Prestamo prestamo = null;
         String sql = "SELECT * FROM prestamos WHERE id = ?";
 
@@ -120,7 +149,7 @@ public class PrestamoDao {
                     rs.getInt("plazo_meses"),
                     rs.getDouble("monto_mensual"),
                     rs.getString("estado"),
-                    rs.getDouble("interes_anual"), // Nuevo campo para el interés anual
+                    rs.getDouble("interes_anual"), // Nuevo campo para el interï¿½s anual
                     new Cliente(rs.getInt("cliente_id")),
                     rs.getString("cbu_cuenta"));
             }
@@ -135,7 +164,7 @@ public class PrestamoDao {
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, prestamo.getEstado());
-            pstmt.setDouble(2, prestamo.getInteresAnual()); // Nuevo campo para actualizar el interés anual
+            pstmt.setDouble(2, prestamo.getInteresAnual()); // Nuevo campo para actualizar el interï¿½s anual
             pstmt.setInt(3, prestamo.getId());
             return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -148,10 +177,10 @@ public class PrestamoDao {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Conexión cerrada correctamente");
+                System.out.println("Conexiï¿½n cerrada correctamente");
             }
         } catch (SQLException e) {
-            System.err.println("Error al cerrar la conexión: " + e.getMessage());
+            System.err.println("Error al cerrar la conexiï¿½n: " + e.getMessage());
         }
     }
 }

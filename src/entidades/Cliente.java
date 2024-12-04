@@ -44,6 +44,16 @@ public class Cliente {
 		this.idUsuario = idUsuario;
 	}
 	
+	
+	
+
+	public Cliente(int idCliente, String nombre, String apellido, String dni) {
+		super();
+		this.idCliente = idCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+	}
 	// GETTERS AND SETTERS
 	public int getIdCliente() {
 		return idCliente;
