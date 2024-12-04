@@ -57,7 +57,7 @@
 				<option value=1>Caja de Ahorro</option>
 				<option value=2>Cuenta Corriente</option>
 			</select> <label for="cbu">CBU:</label> <input type="text" id="cbu" name="cbu"
-				placeholder="Ingrese CBU" required /> <label for="saldo">Saldo:</label>
+				placeholder="Ingrese CBU" maxlength="22" minlength="22" required /> <label for="saldo">Saldo:</label>
 			<input type="text" id="saldo" name="saldo" value="10000" disabled />
 
 			<input type="submit" value="Guardar Cuenta" name=btnGuardar

@@ -93,7 +93,7 @@
 				<tr>
 					<td><%=mov.getFecha()%></td>
 					<td><%=mov.getDetalle()%></td>
-					<td><%=mov.getImporte()%></td>
+					<td><%= String.format("%.2f", mov.getImporte()) %></td>
 					<td><%=mov.getTipo_movimiento()%></td>
 				</tr>
 				<%

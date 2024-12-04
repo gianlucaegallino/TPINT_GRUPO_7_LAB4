@@ -92,7 +92,7 @@
 			<!-- CBU del destinatario -->
 			<label for="cbu_destinatario">CBU del destinatario</label> <input
 				type="text" id="cbu_destinatario" name="cbu_destinatario"
-				placeholder="Ingrese el CBU del destinatario" />
+				placeholder="Ingrese el CBU del destinatario" maxlength="22" minlength="22"/>
 
 			<!-- Cantidad a transferir -->
 			<label for="monto">Monto a transferir</label> <input type="number"
