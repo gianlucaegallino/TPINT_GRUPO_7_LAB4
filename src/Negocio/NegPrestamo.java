@@ -1,19 +1,18 @@
 package Negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import dao.PrestamoDao;
 import entidades.Cliente;
-import entidades.Cuenta;
 import entidades.Prestamo;
 
 public class NegPrestamo {
     private PrestamoDao prestamoDao = new PrestamoDao();
 
-    public List<Prestamo> obtenerPrestamosPendientes() {
+    public ArrayList<Prestamo> obtenerPrestamosPendientes() {
         return prestamoDao.listarPrestamosPendientes();
     }
 

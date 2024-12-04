@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="entidades.Prestamo"%>
 <%@ page import="entidades.Cliente"%>
@@ -14,64 +14,55 @@
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 </head>
 <body class="bodyAutorizar">
-	<div class="containerAutorizar">
-		<h2>Autorizar Solicitudes de Préstamos</h2>
+    <div class="containerAutorizar">
+        <h2>Autorizar Solicitudes de Préstamos</h2>
+        
+        <%
+            String mensajeExito = (String) request.getAttribute("mensajeExito");
+            String mensajeError = (String) request.getAttribute("mensajeError");
+        %>
 
-		<%
-		    ArrayList<Prestamo> prestamosPendientes = (ArrayList<Prestamo>) request.getAttribute("prestamosPendientes");
-		%>
-		<% if (prestamosPendientes != null && !prestamosPendientes.isEmpty()) { %>
-		<table class="tablaPrestamos">
-			<thead>
-				<tr>
-					<th>Número de Préstamo</th>
-					<th>DNI del Cliente</th>
-					<th>Cliente</th>
-					<th>Monto Solicitado</th>
-					<th>Cuotas</th>
-					<th>Interés Anual (%)</th>
-					<th>Valor de Cada Cuota</th>
-					<th>Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% for (Prestamo prestamo : prestamosPendientes) { 
-                    	Cliente cliente = prestamo.getCliente();
-                    %>
-				<tr>
-					<td><%= prestamo.getId() %></td>
-					<td><%= cliente.getDni() %></td>
-					<!-- Mostrar DNI del cliente -->
-					<td><%= cliente.getApellido() %></td>
-					<!-- Mostrar Apellido del cliente -->
-					<td>$<%= String.format("%.2f", prestamo.getImportePedido()) %></td>
-					<td><%= prestamo.getPlazoMeses() %> meses</td>
-					<td><%= String.format("%.2f", prestamo.getInteresAnual()) %></td>
-					<td>$<%= String.format("%.2f", prestamo.getImportePedido() / prestamo.getPlazoMeses()) %></td>
-					<td>
-						<form action="SlAutorizarPrestamo" method="post"
-							style="display: inline;">
-							<input type="hidden" name="numeroPrestamo"
-								value="<%= prestamo.getId() %>"> <input type="hidden"
-								name="accion" value="aprobar">
-							<button type="submit" class="aprobarBtn">Aprobar</button>
-						</form>
-						<form action="SlAutorizarPrestamo" method="post"
-							style="display: inline;">
-							<input type="hidden" name="numeroPrestamo"
-								value="<%= prestamo.getId() %>"> <input type="hidden"
-								name="accion" value="rechazar">
-							<button type="submit" class="rechazarBtn">Rechazar</button>
-						</form>
-					</td>
-				</tr>
-				<% } %>
-			</tbody>
-		</table>
-		<% } else { %>
-		<p>No hay préstamos pendientes en este momento.</p>
-		<% } %>
+        <% if (mensajeExito != null && !mensajeExito.isEmpty()) { %>
+            <p style="color: green;"><%= mensajeExito %></p>
+        <% } %>
 
-	</div>
+        <% if (mensajeError != null && !mensajeError.isEmpty()) { %>
+            <p style="color: red;"><%= mensajeError %></p>
+        <% } %>
+        <hr>
+        <form action="SlAutorizarPrestamo" method="POST">
+        	<input type="hidden" name="action" value="buscarPrestamoPendientes" />
+        	<input type="submit" value="Mostrar Todos los prestamos pendientes" name="btnMostrarPrestamosPendientes">
+        </form>
+
+        <table class="tablaPrestamos" style="display: block;">
+            <thead>
+                <tr>
+                    <th>N° Préstamo</th>
+                    <th>DNI del Cliente</th>
+                    <th>Cliente</th>
+                    <th>CBU</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Importe Solicitado</th>
+                    <th>Cuotas</th>
+                    <th>Interés Anual</th>
+                    <th>Valor de Cuota</th>
+                    <th>Importe con intereses</th>
+                    <th>Pagos Restantes</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+					String tablaHTML = (String) request.getAttribute("tablaHTML");
+				%>
+				<% if (tablaHTML != null && !tablaHTML.isEmpty()) { %>
+			        <%= tablaHTML %>
+			    <% } %>
+			         
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

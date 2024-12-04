@@ -6,6 +6,13 @@
 	font-family: 'Nunito', sans-serif;
 }
 
+td, th {
+	white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+.acciones-column {
+    white-space: nowrap; /* Evita que el contenido se ajuste a la línea */
+}
 .bodyAutorizar {
 	display: flex;
 	justify-content: center;
