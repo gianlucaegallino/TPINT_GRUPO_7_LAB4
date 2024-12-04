@@ -91,27 +91,6 @@ public class SlCuentas extends HttpServlet {
             request.setAttribute("listaCuenta", lista);
             rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
         }
-        // Modificar
-        if (request.getParameter("botonModificar") != null) {
-            int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
-            // UNICOS DOS CAMPOS A MODIFICA
-            String cbu = request.getParameter("cbuModificar");
-            double saldo = Double.parseDouble(request.getParameter("saldoModificar")); // Necesario agregar en el front
-
-            Cuenta cuenta = new Cuenta();
-            cuenta.setNumero_cuenta(idCuenta);
-            cuenta.setCbu(cbu);
-            cuenta.setSaldo(saldo);
-            boolean resultado = cnt.modificarCuenta(cuenta);
-
-            if (resultado) {
-                request.setAttribute("mensaje", "¡La cuenta se modificó correctamente!");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            } else {
-                request.setAttribute("mensaje", "Error al modificar la cuenta.");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
-            }
-        }
         // Eliminar
         if (request.getParameter("Eliminar") != null) {
             String cbuCuenta = request.getParameter("cbu");
@@ -134,7 +113,7 @@ public class SlCuentas extends HttpServlet {
     
     
     private void modificarEliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	if (request.getParameter("btnModificar") != null) {
+    	if (request.getParameter("btnGuardar") != null) {
             int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
             // UNICOS DOS CAMPOS A MODIFICA
             String cbu = request.getParameter("cbu");
