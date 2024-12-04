@@ -183,4 +183,33 @@ public class PrestamoDao {
             System.err.println("Error al cerrar la conexi�n: " + e.getMessage());
         }
     }
+
+	public int removerPagosRestantes(int iddeuda, Integer cuotaspagas) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Connection connect = null;
+		int filasAfectadas = 0;
+		try {
+			connect = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement sentence = connect.prepareStatement("UPDATE prestamos SET pagos_restantes = pagos_restantes - ? WHERE id = ?");
+			sentence.setString(1, String.valueOf(cuotaspagas));
+			sentence.setInt(2, iddeuda);
+
+			filasAfectadas = sentence.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connect != null) {
+					connect.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return filasAfectadas;
+	}
 }

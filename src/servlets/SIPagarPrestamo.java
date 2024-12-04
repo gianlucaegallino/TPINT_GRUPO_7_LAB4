@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Negocio.NegCargarDescolgables;
-
+import Negocio.NegPrestamo;
 import entidades.Cuenta;
 import entidades.Prestamo;
 
@@ -25,9 +25,11 @@ public class SIPagarPrestamo extends HttpServlet {
 
 	
 	NegCargarDescolgables negDesc;
+	NegPrestamo negpr;
 	public SIPagarPrestamo() {
 		super();
 		negDesc = new NegCargarDescolgables();
+		negpr = new NegPrestamo();
 	}
 
 	/**
@@ -51,8 +53,37 @@ public class SIPagarPrestamo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		int cantCuotasApagar = Integer.parseInt(request.getParameter("cantcuotasapagar"));
+		String cbuDePago = request.getParameter("cuenta");
+		double precioUnaCuota = Double.parseDouble(request.getParameter("costocuota"));
+		int CuotasRestantes = Integer.parseInt(request.getParameter("cuotasrestantes"));
+		double dinerodisponible = Double.parseDouble(request.getParameter("saldo"));
+		int iddeuda = Integer.parseInt(request.getParameter("iddeuda"));
+		
+		double costoDelPago = cantCuotasApagar * precioUnaCuota;
+				
+		cargarDescolgables(request);
+				
+		if (cantCuotasApagar > CuotasRestantes || cantCuotasApagar <= 0) {
+			//Dar error
+			RequestDispatcher rd = request.getRequestDispatcher("/PagarPrestamo.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
+		if (costoDelPago > dinerodisponible) {
+			//Dar error
+			RequestDispatcher rd = request.getRequestDispatcher("/PagarPrestamo.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
+		//Realizar pago deuda
+		negpr.realizarPago(cbuDePago, cantCuotasApagar, costoDelPago, iddeuda);
+		
+		
+
 	}
 
 	private void cargarDescolgables(HttpServletRequest request) {

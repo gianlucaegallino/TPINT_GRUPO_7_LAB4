@@ -5,12 +5,18 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import dao.CuentaDao;
+import dao.MovimientoDao;
 import dao.PrestamoDao;
 import entidades.Cliente;
+import entidades.Cuenta;
+import entidades.Movimiento;
 import entidades.Prestamo;
 
 public class NegPrestamo {
     private PrestamoDao prestamoDao = new PrestamoDao();
+    private  MovimientoDao movDao = new MovimientoDao();
+	private CuentaDao cdao = new CuentaDao();
 
     public ArrayList<Prestamo> obtenerPrestamosPendientes() {
         return prestamoDao.listarPrestamosPendientes();
@@ -75,5 +81,24 @@ public class NegPrestamo {
 	
 	private double realizarCalculocuotaMensual(int cuotas, double totalConInteres){
 		return (cuotas > 0) ? totalConInteres / cuotas : 0; // Evitar division por cero
+	}
+	
+	public void realizarPago(String cbu, int cuotaspagas, double monto, int iddeuda) {
+		//Remueve plata de la cuenta
+		cdao.RemoverMonto(cbu, monto);
+		
+		//Reduce cuotas a pagar de el prestamo.
+		prestamoDao.removerPagosRestantes(iddeuda, cuotaspagas);
+	
+		
+		//Registra movimiento
+		long normaldate = new Date().getTime();
+		java.sql.Date sqlDate = new java.sql.Date(normaldate);
+		Cuenta cuentainicio = cdao.obtenerCuentaCbu(cbu).get(0);
+		
+
+		Movimiento pagodeuda = new Movimiento(cuentainicio, sqlDate, "Pago de" + cuotaspagas + " cuotas de deuda " + iddeuda, monto, "Pago de prestamo");
+		movDao.AgregarMovimiento(pagodeuda);
+
 	}
 }
