@@ -75,6 +75,11 @@
 
 	<div class="history-container" id="movement-history"
 		style="display: block">
+		<div class="formulario-mensaje"
+			style="<%= request.getAttribute("titulomovs") != null && !request.getAttribute("titulomovs").toString().isEmpty() ? "display: block;" : "display: none;" %>">
+				<h3 style="color: black;">Historial de movimientos del CBU <%= request.getAttribute("titulomovs") %> :</h3>
+		</div>
+		
 		<table>
 			<thead>
 				<tr>
