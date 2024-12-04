@@ -96,7 +96,7 @@
 
 			<!-- Cantidad a transferir -->
 			<label for="monto">Monto a transferir</label> <input type="text"
-				id="monto" name="monto" placeholder="Ingrese el monto a transferir" required pattern="^[1-9][0-9]*\.?[0-9][0-9]$"/>
+				id="monto" name="monto" placeholder="Ingrese el monto a transferir" required pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"/>
 
 			<!-- Boton de transferencia -->
 			<button type="submit" id="btnRealizarTransferencia">Realizar

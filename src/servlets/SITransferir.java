@@ -93,13 +93,12 @@ public class SITransferir extends HttpServlet {
        	 return;
         }
         
-        Cuenta cta = negCta.ObtenerCuentaCbu(cbuDest).get(0); 
+        ArrayList <Cuenta> ctas = negCta.ObtenerCuentaCbu(cbuDest); 
         		
-        if (cta != null) {
+        if (ctas != null && ctas.isEmpty() != true) {
 
             negTransf.realizarTransferencia(montoATransferir, cbuUsu, cbuDest);
 
-            // vvrificar si la transferencia salio bien.
             
             //imprimir mensajes 
         	request.setAttribute("mensajeExito", "Transferencia Realizada Correctamente");
