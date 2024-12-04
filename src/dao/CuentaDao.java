@@ -96,9 +96,12 @@ public class CuentaDao {
 			ResultSet rs = st.executeQuery(query);
 			while (rs.next()) {
 				Cuenta c = new Cuenta();
-				c.setCliente_id(rs.getInt("cliente_id"));
+				c.setIDcliente(new Cliente(rs.getInt("cliente_id")));
 				c.setFecha_creacion(rs.getDate("fecha_creacion"));
-				c.setTipo_cuenta_id(rs.getInt("tipo_cuenta_id"));
+				int tipocuenta = rs.getInt("tipo_cuenta_id");
+				String tipoCuentaStr = BuscarTipoC(tipocuenta);
+				TipoCuenta cuent = new TipoCuenta(tipoCuentaStr);
+				c.setCuenta(cuent);
 				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
 				c.setCbu(rs.getString("cbu"));
 				c.setSaldo(rs.getDouble("saldo"));
