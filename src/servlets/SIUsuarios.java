@@ -71,14 +71,21 @@ public class SIUsuarios extends HttpServlet {
 				// Obtenemos los clientes que tengan su id Usuario en NULL
 				System.out.print("GET");
 				ArrayList<Cliente> listaClientesinIDUsuario = null;
+				ArrayList<Usuario> listaUsuarios = null;
 				
 				listaClientesinIDUsuario= negDesc.obtenerIDUsuarioVacio();
+				listaUsuarios = negDesc.obtenerUsuarios();
 				System.out.print("Clientes encontrados: " + listaClientesinIDUsuario);
 				
 				if(listaClientesinIDUsuario != null && !listaClientesinIDUsuario.isEmpty()) {
 					request.setAttribute("listaClientes", listaClientesinIDUsuario);
 				}else {
 		            request.setAttribute("mensajeError", "No hay clientes.");
+		        }
+				if(listaUsuarios != null && !listaUsuarios.isEmpty()) {
+					request.setAttribute("listaUsuarios", listaUsuarios);
+				}else {
+		            request.setAttribute("mensajeError", "No hay usuarios.");
 		        }
 				
 				//Damos constancia de que esta funcion ya se corrio, sin importar si se devolvieron o no cuentas

@@ -12,6 +12,7 @@ import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Sexo;
 import entidades.TipoCuenta;
+import entidades.Usuario;
 
 public class CargarDescolgablesDao {
     private String host = "jdbc:mysql://localhost:3306/";
@@ -186,6 +187,30 @@ public class CargarDescolgablesDao {
             e.printStackTrace();
         }
 		return clientes;
+	}
+	
+	public ArrayList<Usuario> obtenerUsuarios(){
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement sentence = connect
+                    .prepareStatement("SELECT u.*, CASE WHEN c.id_usuario IS NULL THEN 'No existe en clientes' ELSE 'Existe en clientes' END AS cliente_status FROM usuarios u LEFT JOIN clientes c ON u.id_usuario = c.id_usuario;");
+            ResultSet rs = sentence.executeQuery();
+            while(rs.next()) {
+            	Usuario usuario = new Usuario();
+            	usuario.setIdUsuario(rs.getInt("ID_Usuario"));
+            	usuario.setUsuario(rs.getString("username"));
+            	usuario.setContrasena(rs.getString("contrasena"));
+            	usuario.setTipo_usuario(rs.getInt("tipo_usuario"));
+            	usuario.setClienteStatus(rs.getString("cliente_status"));
+            	
+            	usuarios.add(usuario);
+            }
+		}catch (Exception e) {
+            e.printStackTrace();
+        }
+		return usuarios;
 	}
 	
 

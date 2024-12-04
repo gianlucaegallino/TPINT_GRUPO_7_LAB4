@@ -8,6 +8,17 @@ public class Usuario {
 	private String usuario;
 	private String contrasena;
 	private int tipo_usuario;
+	private String clienteStatus;
+
+	
+	public Usuario(int idUsuario, String usuario, String contrasena, int tipo_usuario, String clienteStatus) {
+		super();
+		this.idUsuario = idUsuario;
+		this.usuario = usuario;
+		this.contrasena = contrasena;
+		this.tipo_usuario = tipo_usuario;
+		this.clienteStatus = clienteStatus;
+	}
 
 	public Usuario(int idUsuario, String usuario, String contrasena, int tipo_usuario) {
 		super();
@@ -22,8 +33,17 @@ public class Usuario {
 
 	// Getters Setters
 
+	
 	public int getIdUsuario() {
 		return idUsuario;
+	}
+
+	public String getClienteStatus() {
+		return clienteStatus;
+	}
+
+	public void setClienteStatus(String clienteStatus) {
+		this.clienteStatus = clienteStatus;
 	}
 
 	public void setIdUsuario(int idUsuario) {

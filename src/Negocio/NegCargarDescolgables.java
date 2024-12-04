@@ -10,6 +10,7 @@ import entidades.Nacionalidad;
 import entidades.Prestamo;
 import entidades.Provincia;
 import entidades.Sexo;
+import entidades.Usuario;
 
 
 public class NegCargarDescolgables {
@@ -49,6 +50,9 @@ public class NegCargarDescolgables {
 		
 		public ArrayList<Cliente> obtenerIDUsuarioVacio(){
 			return desc.obtenerIDUsuarioVacio();
+		}
+		public ArrayList<Usuario> obtenerUsuarios(){
+			return desc.obtenerUsuarios();
 		}
 		public ArrayList<Prestamo> ObtenerLosPrestamos(int id) {
 

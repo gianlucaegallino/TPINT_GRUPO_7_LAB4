@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="InicioUsuarioBanco.jsp"%>
 <%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -105,9 +106,32 @@
 													<% } 
 						                %>
 								</select>
-								<div class="button-container">
+							</div>
+							<div class="form-element">
+								<label for="AsignarCliente">Elige el usuario que quieras asignar: </label>
+								<select id="AsignarUsuarioaCuenta" name="AsignarUsuarioaCuenta">
+									<%
+									    ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("listaUsuarios");
+									    if (listaUsuarios != null) {
+									        for (Usuario usuario : listaUsuarios) {
+									            String UsuarioCompleto = usuario.getUsuario();
+									            if (!usuario.getClienteStatus().equals("Existe en clientes")) {
+									%>
+									            <option value="<%= usuario.getIdUsuario() %>"
+									                ><%= "Usuario: " + UsuarioCompleto + " | Tipo Usuario: " + usuario.getTipo_usuario() %></option>
+									<%
+									            }
+									        }
+									    } else {
+									%>
+									        <option value="" disabled>No hay datos disponibles</option>
+									<%
+									    }
+									%>
+								</select>
+							</div>
+							<div class="button-container">
 									<input type="submit" value="Asignar Usuario" name="btnAsignarUsuario">
-								</div>
 							</div>
 						</div>
 					</div>
