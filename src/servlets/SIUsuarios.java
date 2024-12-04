@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Negocio.NegCliente;
 import Negocio.NegUsuario;
-
+import entidades.Cliente;
 import entidades.Usuario;
 
 /**
@@ -22,21 +23,35 @@ public class SIUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private NegUsuario negUsu;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public SIUsuarios() {
         super();
         negUsu = new NegUsuario();
-        // TODO Auto-generated constructor stub
+
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Obtenemos los clientes que tengan su id Usuario en NULL
+		System.out.print("GET");
+		NegCliente negocioCli = new NegCliente();
+		ArrayList<Cliente> listaClientesinIDUsuario= negocioCli.obtenerIDUsuarioVacio();
+		System.out.print("Clientes encontrados: " + listaClientesinIDUsuario);
+		StringBuilder desplegableHTML = new StringBuilder();
+		
+		if(listaClientesinIDUsuario != null && !listaClientesinIDUsuario.isEmpty()) {
+			System.out.print("listaClientes tiene algo");
+			for(Cliente user : listaClientesinIDUsuario) {
+				System.out.print("recorriendo el for");
+				 desplegableHTML.append("<option value=" + user.getIdCliente() + ">" + "Cliente: " + user.getNombre() + " " + user.getApellido() + " | DNI: " + user.getDni() + "</option>");
+			}
+		}
+		
+		System.out.print("desplegable" + desplegableHTML.toString());
+		request.setAttribute("desplegableHTML", desplegableHTML.toString());
+		request.setAttribute("listaClientes", listaClientesinIDUsuario);
+		System.out.print("Saliendo GET");
+		RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
+	    rd.forward(request, response);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -49,7 +64,8 @@ public class SIUsuarios extends HttpServlet {
 
         if ("agregarUsuario".equals(action)) {
             agregarUsuario(request, response);
-        } else {
+        } else if("asignarUsuario".equals(action)) {
+        	
         	//Tirar excepcion!
         }
 	}
@@ -77,7 +93,7 @@ public class SIUsuarios extends HttpServlet {
 
             // Redirigir a la JSP de agregar usuar con un mensaje de Ã©xito o error
             if (resultado == 0) {
-                request.setAttribute("mensajeExito", "¡Cliente agregado correctamente!");
+                request.setAttribute("mensajeExito", "ï¿½Cliente agregado correctamente!");
             } else {
                 request.setAttribute("mensajeError", "Error al agregar el cliente.");
             }
@@ -98,7 +114,7 @@ public class SIUsuarios extends HttpServlet {
 	            return "Nombre Usuario Vacio.";
 	        }
 
-	        // ValidaciÃ³n de la contraseña
+	        // ValidaciÃ³n de la contraseï¿½a
 	        if (pwd == null || pwd.isEmpty()) {
 	            return "Contrasena vacia.";
 	        }

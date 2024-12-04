@@ -30,6 +30,10 @@ public class NegCliente {
     public ArrayList<Cliente> obtenerTodosLosClientes() {
         return clienteDao.obtenerTodosLosClientes();
     }
+    
+    public ArrayList<Cliente> obtenerIDUsuarioVacio(){
+    	return clienteDao.obtenerIDUsuarioVacio();
+    }
 
     public ArrayList<Cliente> ObtenerUnCliente(String dni) {
         ArrayList<Cliente> lista = new ArrayList<>();
