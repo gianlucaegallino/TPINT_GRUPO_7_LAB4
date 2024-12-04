@@ -60,7 +60,7 @@ public class NegPrestamo {
 		//conseguimos una fecha normal y la volvemos una fecha sql
 		long normaldate = new Date().getTime();
 		java.sql.Date sqlDate = new java.sql.Date(normaldate);
-		Prestamo prestamo = new Prestamo(1, sqlDate, monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idCliente), cbu, cuotas);
+		Prestamo prestamo = new Prestamo(1, sqlDate, monto, totalConInteres, cuotas, cuotaMensual, "pendiente", TASA_INTERES*12, new Cliente(idCliente), cbu, String.valueOf(cuotas));
 		//Solicitado Prestamo
 		prestamoDao.AgregarPrestamo(prestamo);
 	}
