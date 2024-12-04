@@ -89,7 +89,7 @@ public class NegCuentas {
 	 * cnt.EliminarCuenta(numCuenta); }
 	 */
 
-	public int crearNuevaCuenta(String clienteDNI, String fecha, String tipoCuentaStr, String cbu,
+	/*public int crearNuevaCuenta(String clienteDNI, String fecha, String tipoCuentaStr, String cbu,
 			String saldoInicial) {
 
 		Cuenta cuenta = new Cuenta();
@@ -132,6 +132,7 @@ public class NegCuentas {
 		return filas;
 
 	}
+	*/
 
 	public int EliminarCuentaCbu(String cbuCuenta) {
 		return cnt.EliminarCuentaCbu(cbuCuenta);

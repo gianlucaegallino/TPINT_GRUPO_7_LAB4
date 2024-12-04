@@ -27,7 +27,7 @@
 		<form action="SlCuentas" method="post">
 			<div class="formulario-listar-input">
 				<label for="cbu">CBU: </label> <input type="text" id="cbuBuscar"
-					name="cbuBuscar" placeholder="Ingrese el CBU" required />
+					name="cbuBuscar" placeholder="Ingrese el CBU" />
 			</div>
 
 			<div class="formulario-listar-input">

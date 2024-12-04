@@ -35,7 +35,7 @@ public class SlAutorizarPrestamo extends HttpServlet {
 
 	private void rechazarPrestamo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idPrestamo = Integer.parseInt(request.getParameter("idPrestamo"));
-        boolean resultado = negocioPrestamo.aprobarPrestamo(idPrestamo);
+        boolean resultado = negocioPrestamo.rechazarPrestamo(idPrestamo);
         if (resultado) {
             // Redireccionar a una página de éxito
             request.setAttribute("mensajeExito", "Préstamo rechazado correctamente");

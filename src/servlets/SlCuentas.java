@@ -54,6 +54,7 @@ public class SlCuentas extends HttpServlet {
     		System.out.println("Entrando a doPost");
     		String action = request.getParameter("action");
     		NegCuentas cnt = new NegCuentas();
+    		RequestDispatcher rd = null;
     		
     		if ("AgregarCuentas".equals(action)) {
     			AgregarCuentas(request, response);
@@ -65,10 +66,10 @@ public class SlCuentas extends HttpServlet {
     		if (request.getParameter("btnBuscar") != null) {
     			ArrayList<Cuenta> lista = cnt.ObtenerLasCuentas();
     			request.setAttribute("listaCuenta", lista);
-    			RequestDispatcher rd = request.getRequestDispatcher("/ListarCuenta.jsp");
+    			rd = request.getRequestDispatcher("/ListarCuenta.jsp");
                 rd.forward(request, response);
     		}
-        /*
+        
         if (request.getParameter("btnBuscar1") != null) {
             String cbu = request.getParameter("cbuBuscar");
             String tipoCuentaStr = request.getParameter("tipoCuenta");
@@ -128,7 +129,7 @@ public class SlCuentas extends HttpServlet {
             }
         }
         rd.forward(request, response);
-		*/
+		
     }
     
     
