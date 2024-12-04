@@ -65,9 +65,9 @@
 
 		<form action="SIPedirPrestamo" method="POST">
 			<label for="monto">Monto:</label> 
-			<input type="number" id="monto" name="monto" required> 
+			<input type="text" id="monto" name="monto" required  required pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"> 
 			<label for="cuotas">Cantidad de Cuotas:</label> 
-			<input type="number" id="cuotas" name="cuotas" required>
+			<input type="text" id="cuotas" name="cuotas" required pattern= "^[0-9]*$" maxlength="2">
 <!-- Seleccion de la cuenta -->
 			<label for="cuenta">Cuenta de Deposito:</label> <select id="cuenta"
 				name="cuenta" required>
@@ -105,7 +105,7 @@
 		<% if (cuotas != null) { %>
 			<div class="formulario-mensaje"
 				style="<%= cuotas != null ? "display: block;" : "display: none;" %>">
-			<h3>Intereses para $<%= monto %> en <%= cuotas %> cuotas:</h3>
+			<h3>Intereses para $<%= String.format("%.2f", monto) %> en <%= cuotas %> cuotas:</h3>
 			<p>
 				Interes Anual:
 				<%= new DecimalFormat("#.##").format(TASA_INTERES*12) + "%" %></p>
