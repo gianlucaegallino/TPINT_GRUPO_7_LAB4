@@ -36,28 +36,7 @@ public class SlCuentas extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
-    	int filas = 0;
-
-        // Al presionar el boton guardar
-        if (request.getParameter("btnGuardar") != null) {
-
-            // Sacamos los parametros, y los enviamos al negocio.
-            String clienteDNI = request.getParameter("DNICliente");
-            String Fecha = request.getParameter("fechaCreacion");
-            String tipoCuentaStr = request.getParameter("tipoCuenta");
-            String cbu = request.getParameter("cbu");
-            String saldoInicial = "10000";
-
-            NegCuentas negCuentas = new NegCuentas();
-            filas = negCuentas.crearNuevaCuenta(clienteDNI, Fecha, tipoCuentaStr, cbu,
-                    saldoInicial);
-
-            request.setAttribute("cantfilas", filas);
-            RequestDispatcher rd = request.getRequestDispatcher("/Cuentas.jsp");
-            rd.forward(request, response);
-
-        }
+    	/*
 
         // Si se presiona el boton de eliminar
         else if (request.getParameter("Eliminar") != null) {
@@ -82,7 +61,9 @@ public class SlCuentas extends HttpServlet {
     			AgregarCuentas(request, response);
     		} else if("BuscarCuentas".equals(action)) {
     			BuscarCuentas(request,response);
-    		} 
+    		} else if("modificarEliminarCuenta".equals(action)) {
+    			modificarEliminarCuenta(request,response);
+    		}
         /*
         if (request.getParameter("btnBuscar1") != null) {
             String cbu = request.getParameter("cbuBuscar");
@@ -151,7 +132,34 @@ public class SlCuentas extends HttpServlet {
     }
     
     
-    private void BuscarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void modificarEliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	if (request.getParameter("btnModificar") != null) {
+            int idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
+            // UNICOS DOS CAMPOS A MODIFICA
+            String cbu = request.getParameter("cbuModificar");
+            double saldo = Double.parseDouble(request.getParameter("saldoModificar")); // Necesario agregar en el front
+
+            Cuenta cuenta = new Cuenta();
+            cuenta.setNumero_cuenta(idCuenta);
+            cuenta.setCbu(cbu);
+            cuenta.setSaldo(saldo);
+            NegCuentas cnt = new NegCuentas();
+            boolean resultado = cnt.modificarCuenta(cuenta); 
+
+            if (resultado) {
+                request.setAttribute("mensaje", "¡La cuenta se modificó correctamente!");
+                RequestDispatcher rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
+                rd.forward(request, response);
+            } else {
+                request.setAttribute("mensaje", "Error al modificar la cuenta.");
+                RequestDispatcher rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
+                rd.forward(request, response);
+            }
+        }
+		
+	}
+
+	private void BuscarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     		System.out.print("Entrando al BuscarCuenta \n");
     		String CbuBuscar = request.getParameter("cbuBuscar");
     		ArrayList<Cuenta> listacuentas = negCuenta.ObtenerCuentaCbu(CbuBuscar);

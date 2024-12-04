@@ -46,41 +46,42 @@
           if (listaC != null) {
               for (Cuenta cuenta : listaC) {
         %>
-		<!-- Tabla para mostrar los datos de la cuenta -->
-		<table class="tabla-cuentas" id="tablaCuentas">
-			<thead>
-				<tr>
-					<th>ID Cliente</th>
-					<th>Fecha de Creación</th>
-					<th>Tipo de Cuenta</th>
-					<th>N° Cuenta</th>
-					<th>CBU</th>
-					<th>Saldo</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><%=cuenta.getIDcliente().getIdCliente()%></td>
-					<td><%=cuenta.getFecha_creacion()%></td>
-					<td><%=cuenta.getCuenta().getNombre()%></td>
-					<td><%=cuenta.getNumero_cuenta()%></td>
-					<td class="editable"><span class="campo-valor"><%= cuenta.getCbu() %></span>
-						<input type="text" name="cbu" value="<%= cuenta.getCbu() %>" placeholder="Nuevo CBU" style="display: none;"></td>
-					<td class="editable"><span class="campo-valor"><%= cuenta.getSaldo() %></span>
-						<input type="text" name="saldo" value="<%= cuenta.getSaldo() %>" placeholder="Nuevo Saldo" style="display: none;"></td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-		<form>
+        <form action="SICuentas" method="POST">
+        	<input type="hidden" name="action" value="modificarEliminarCuenta">
+			<!-- Tabla para mostrar los datos de la cuenta -->
+			<table class="tabla-cuentas" id="tablaCuentas">
+				<thead>
+					<tr>
+						<th>ID Cliente</th>
+						<th>Fecha de Creación</th>
+						<th>Tipo de Cuenta</th>
+						<th>N° Cuenta</th>
+						<th>CBU</th>
+						<th>Saldo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%=cuenta.getIDcliente().getIdCliente()%></td>
+						<td><%=cuenta.getFecha_creacion()%></td>
+						<td><%=cuenta.getCuenta().getNombre()%></td>
+						<td><%=cuenta.getNumero_cuenta()%></td>
+						<td class="editable"><span class="campo-valor"><%= cuenta.getCbu() %></span>
+							<input type="text" name="cbu" value="<%= cuenta.getCbu() %>" placeholder="Nuevo CBU" style="display: none;"></td>
+						<td class="editable"><span class="campo-valor"><%= cuenta.getSaldo() %></span>
+							<input type="text" name="saldo" value="<%= cuenta.getSaldo() %>" placeholder="Nuevo Saldo" style="display: none;"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
 			<div class="botones-modificar-eliminar">
 				<button class="botonModificar" id="btnModificar" name="btnModificar" type="button">Modificar</button>
 				<button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button">Eliminar</button>
-					<input type="submit" value="Guardar" name="btnGuardar" onClick="confirmar()" style="display: none;">
+					<input type="submit" value="Guardar" name="btnGuardar" onClick="confirmar()" style="display: none;"/>
 					<!-- Botón Guardar oculto -->
-					<input type="submit" value="Cancelar" id="btnCancelar" name="btnCancelar" style="display: none;">
+					<input type="submit" value="Cancelar" id="btnCancelar" name="btnCancelar" style="display: none;"/>
 					<!-- Botón Cancelar oculto -->
-					<input type="submit" value="Eliminar" onClick="confirmar()" name="Eliminar" style="display: none;">
+					<input type="submit" value="Eliminar" onClick="confirmar()" name="Eliminar" style="display: none;"/>
 			</div>
 		</form>
 		<%

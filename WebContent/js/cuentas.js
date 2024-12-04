@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
 	let btnModificar = document.getElementById('btnModificar');
-	let btnGuardar = document.querySelector('input[name="btnGuardar"]');
+	let btnGuardar = document.querySelector('form > input[name="btnGuardar"]');
 	let btnEliminar = document.getElementById('btnEliminar');
 	let btnCancelar = document.getElementById('btnCancelar');
 	let EliminarSubmit = document.getElementById('Eliminar');
