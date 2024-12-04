@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ include file="InicioUsuarioBanco.jsp"%>
+<%@ page import="entidades.Cliente"%>
+<%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,6 +19,7 @@
 	<div class="formulario-agregar" id="formularioAgregarUsuario"
 		style="display: block;">
 		<h2>Agregar Usuario</h2>
+		<br>
 		<form action="SIUsuarios" method="POST">
 			<input type="hidden" name="action" value="agregarUsuario">
 			<div class="form-container">
@@ -56,6 +59,51 @@
 				<input type="submit" value="Guardar Usuario"
 					name="btnAgregarUsuario">
 			</div>
+		</form>
+		
+		<hr>
+		<br>
+		
+		<form action="SIUsuarios" method="POST">
+			<input type="hidden" name="action" value="asignarUsuario">
+				<h2>Asignar Usuario a Cliente</h2>
+					<div class="form-container">
+						<div class="fila">
+							<div class="form-element">
+								<label for="AsignarCliente">Elige a que Cliente se le asignará el usuario:</label>
+								<select id="AsignarUsuarioaCuenta" name="AsignarUsuarioaCuenta">
+										<%
+											ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
+											if (listaClientes != null) {
+						                      for (Cliente cliente : listaClientes) {
+						                        %>
+
+													<option value="<%= cliente.getIdCliente() %>"
+														><%= "Cliente: " + cliente.getNombre() + " " + cliente.getApellido() + " | DNI: " + cliente.getDni() %></option>
+
+													<% 
+						                      }
+						                    } else { 
+						                      %>
+													<option value="" disabled>No hay datos disponibles</option>
+
+													<% } 
+						                %>
+										
+										
+										<% 
+											String desplegableHTML = (String) request.getAttribute("desplegableHTML"); 
+										%>
+										<% if(desplegableHTML != null && !desplegableHTML.isEmpty()) { %>
+											<%= desplegableHTML %>
+										<% } %>
+								</select>
+								<div class="button-container">
+									<input type="submit" value="Asignar Usuario" name="btnAsignarUsuario">
+								</div>
+							</div>
+						</div>
+					</div>
 		</form>
 
 		<div class="formulario-mensaje"
