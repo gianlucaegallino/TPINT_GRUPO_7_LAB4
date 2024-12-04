@@ -37,10 +37,9 @@ public class SIPagarPrestamo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Cargar lista 1
-		cargarDescolgablesCuentaBanco(request);
-		// Cargar lista 2
-		cargarDescolgablesPrestamos(request);
+		// Cargar lista
+		cargarDescolgables(request);
+
 		// Devolver valores
 
 		RequestDispatcher rd = request.getRequestDispatcher("/Transferir.jsp");
@@ -57,7 +56,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {
+	private void cargarDescolgables(HttpServletRequest request) {
 
 		// Armamos un array para almacenar las cookies
 		Cookie[] cookies = null;
@@ -98,14 +97,18 @@ public class SIPagarPrestamo extends HttpServlet {
 			request.setAttribute("cuentas", cuentas); // Establecer el atributo "cuentas"
 		} else {
 			request.setAttribute("mensajeError", "No hay cuentas.");
-		}
+		} 
+			
+		cargarDescolgablesPrestamos(request, id);
+		
+			
 
 		// Damos constancia de que esta funcion ya se corrio, sin importar si se
 		// devolvieron o no cuentas
 		request.setAttribute("mensajeCarga", "Cargadas");
 	}
 
-	private void cargarDescolgablesPrestamos(HttpServletRequest request) {
+	private void cargarDescolgablesPrestamos(HttpServletRequest request, int id) {
 
 		ArrayList<Prestamo> prestamos = null;
 

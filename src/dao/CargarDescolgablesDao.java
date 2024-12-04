@@ -177,7 +177,7 @@ public class CargarDescolgablesDao {
         ArrayList < Prestamo > prest = new ArrayList < > ();
         try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
         		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
-        		"SELECT * FROM prestamos WHERE cliente_id = ? AND pagos_restantes > 0"
+        		"SELECT * FROM prestamos WHERE cliente_id = ? AND pagos_restantes > 0 AND estado = 'aprobado'"
         				)) {
         	stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -185,12 +185,12 @@ public class CargarDescolgablesDao {
             while (rs.next()) {
 				Prestamo p = new Prestamo();
 				//c.setCliente_id(rs.getInt("cliente_id"));
-				c.setFecha_creacion(rs.getDate("fecha_creacion"));
-				c.setCuenta(new TipoCuenta(rs.getInt("tipo_cuenta_id"),""));
-				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
-				c.setCbu(rs.getString("cbu"));
-				c.setSaldo(rs.getDouble("saldo"));
-				prest.add(c);
+				p.setFecha(rs.getDate("fecha"));
+				p.setImporteConIntereses(rs.getDouble("importe_con_intereses"));
+				p.setMontoMensual(rs.getDouble("monto_mensual"));
+				p.setCuotasRestantes(rs.getInt("pagos_restantes"));
+				// solo los datos necesarios
+				prest.add(p);
             }
 
         } catch (SQLException e) {

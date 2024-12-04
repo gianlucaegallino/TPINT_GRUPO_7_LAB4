@@ -6,6 +6,7 @@ import dao.CargarDescolgablesDao;
 import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
+import entidades.Prestamo;
 import entidades.Provincia;
 import entidades.Sexo;
 
