@@ -119,7 +119,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		}
 
 		// Damos constancia de que esta funcion ya se corrio, sin importar si se
-		// devolvieron o no cuentas
+		// devolvieron o no prestamos
 		request.setAttribute("mensajeCargaPrest", "Cargadas");
 	}
 

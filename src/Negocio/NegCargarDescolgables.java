@@ -44,5 +44,9 @@ public class NegCargarDescolgables {
 
 			return desc.ObtenerLasCuentasBancarias(id);
 		}
+		public ArrayList<Prestamo> ObtenerLosPrestamos(int id) {
+
+			return desc.ObtenerLosPrestamos(id);
+		}
 }
 

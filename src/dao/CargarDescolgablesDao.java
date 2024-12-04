@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
+import entidades.Prestamo;
 import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
@@ -164,5 +165,37 @@ public class CargarDescolgablesDao {
             e.printStackTrace();
         }
         return cuentas;
+	}
+
+	public ArrayList< Prestamo > ObtenerLosPrestamos(int id) {
+		try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList < Prestamo > prest = new ArrayList < > ();
+        try (Connection conn = (Connection) DriverManager.getConnection(host + dbName, user, pass); 
+        		PreparedStatement stmt = (PreparedStatement) conn.prepareStatement(
+        		"SELECT * FROM prestamos WHERE cliente_id = ? AND pagos_restantes > 0"
+        				)) {
+        	stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+				Prestamo p = new Prestamo();
+				//c.setCliente_id(rs.getInt("cliente_id"));
+				c.setFecha_creacion(rs.getDate("fecha_creacion"));
+				c.setCuenta(new TipoCuenta(rs.getInt("tipo_cuenta_id"),""));
+				c.setNumero_cuenta(rs.getInt("numero_cuenta"));
+				c.setCbu(rs.getString("cbu"));
+				c.setSaldo(rs.getDouble("saldo"));
+				prest.add(c);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return prest;
 	}
 }

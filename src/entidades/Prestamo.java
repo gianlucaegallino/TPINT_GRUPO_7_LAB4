@@ -14,7 +14,6 @@ public class Prestamo {
     private double interesAnual;
     private String cbu_cuenta;
     private int cuotasRestantes;
-    private String pagos_restantes;
     
 
 
@@ -57,13 +56,6 @@ public class Prestamo {
     // Getters y Setters
     
     
-    public String getPagos_restantes() {
-    	return pagos_restantes;
-    }
-    
-    public void setPagos_restantes(String pagos_restantes) {
-    	this.pagos_restantes = pagos_restantes;
-    }
     
     public String getCbu_cuenta() {
 		return cbu_cuenta;
