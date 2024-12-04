@@ -253,5 +253,35 @@ public class CargarDescolgablesDao {
         return prestamos;
 	}
 	
+	public boolean asignarUsuarioACliente(int idUsuario, int idCliente) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		Connection connect = null;
+		boolean filasAfectadas = false;
+		try {
+			connect = DriverManager.getConnection(host + dbName, user, pass);
+			PreparedStatement sentence = connect.prepareStatement(
+					"UPDATE clientes SET id_usuario = ? WHERE id_cliente = ?");
+			sentence.setInt(1, idUsuario);
+			sentence.setInt(2, idCliente);
+
+			filasAfectadas = sentence.executeUpdate() > 0; // Actualiza la base de datos
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (connect != null) {
+					connect.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return filasAfectadas;
+	}
     
 }
