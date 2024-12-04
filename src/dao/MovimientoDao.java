@@ -67,7 +67,7 @@ public class MovimientoDao {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connect = DriverManager.getConnection(host + dbName, user, pass);
             PreparedStatement sentence = connect
-                    .prepareStatement("SELECT * FROM movimientos WHERE cuenta_id = ? AND estado = 1");
+                    .prepareStatement("SELECT * FROM movimientos WHERE cuenta_id = ?");
             sentence.setInt(1, id);
             ResultSet rs = sentence.executeQuery();
             while (rs.next()) {

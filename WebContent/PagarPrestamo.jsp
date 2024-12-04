@@ -3,6 +3,8 @@
 <%@ page import="java.text.DecimalFormat"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.HashMap"%>
+<%@ page import="entidades.Prestamo" %>
+<%@ page import="entidades.Cuenta" %>
 <%@ page import="java.util.Map"%>
 
 <%
@@ -47,49 +49,122 @@
 </head>
 <body class="bodyPrestamo">
 	<div class="containerPrestamo">
-		<p>
-			Usuario: <strong><%= usuario %></strong>
-		</p>
+		<form action="SITransferir" method="GET" style="display: none"
+			id="formCargarListas"></form>
 
-		<h3>Cuotas a Pagar</h3>
+		<%
+			if (request.getAttribute("mensajeCarga") != "Cargadas") {
+		%>
+
+		<script type="text/javascript">
+			document.getElementById('formCargarListas').submit();
+		</script>
+
+		<%
+			}
+		%>
+
+
+		<h3>Deudas a Pagar</h3>
 		<form action="PagarPrestamo.jsp" method="post">
-			<label for="cuotaSeleccionada">Seleccionar Cuota:</label> <select
-				id="cuotaSeleccionada" name="cuotaSeleccionada" required>
-				<% for (Integer cuota : cuotasPendientes) { %>
-				<option value="<%= cuota %>">Cuota
-					<%= cuota %> - $<%= new
-                DecimalFormat("#.##").format(cuotaMensual) %>
-				</option>
-				<% } %>
-			</select> <label for="cuenta">Cuenta para Descuento:</label> <select
-				id="cuenta" name="cuenta" required>
-				<option value="caja_ahorro">Caja de Ahorro</option>
-				<option value="cuenta_corriente">Cuenta Corriente</option>
-			</select>
+			<label for="deudaSeleccionada">Seleccionar deuda a pagar:</label> <select
+				id="deudaSeleccionada" name="deudaSeleccionada" required>
+				<% 
+				
+				ArrayList<Prestamo> deudasPendientes = (ArrayList<Prestamo>) request.getAttribute("prestamos");
 
-			<button type="submit">Pagar Cuota</button>
+				
+				if (deudasPendientes != null) { for (Prestamo deuda : deudasPendientes) { 
+				 
+					let totalSaldar = deuda.getcuotasrestantes * deuda.costocuota;
+					let proximacuota = deuda.fechaoriginal + (meses-cuotasrestantes)
+				%>
+				<option value="<%= deuda.getCuotasRestantes() %>"
+				data-costocuota="<%= deuda.getCostoCuota() %>"
+				data-totalsaldar="<%= totalsaldar %>"
+				data-proxcuota="<%= proxcuota %>"
+				
+				>[DEUDA]</option>
+				<% 		} 
+					}
+				%>
+			</select> 
+			<script defer>
+					let deudaSeleccionada = document.querySelector("#deudaSeleccionada");
+					let cuotasrestantes = document.querySelector("#cuotasrestantes");
+					let costocuota = document.querySelector("#costocuota");
+					let totalsaldar = document.querySelector("#totalsaldar");
+					let proxcuota = document.querySelector("#proxcuota");
+
+					let rest = deudaSeleccionada.selectedOptions[0].value;
+					let cost = deudaSeleccionada.selectedOptions[0].getAttribute("data-costocuota");
+					let tot = deudaSeleccionada.selectedOptions[0].getAttribute("data-totalsaldar");
+					let prox = deudaSeleccionada.selectedOptions[0].getAttribute("data-proxcuota");
+
+					if (saldo != "") {
+						contadorSaldo.value = saldo;
+
+					} else {
+						contadorSaldo.value = null;
+					}
+
+					selectCuenta.addEventListener("change", function() {
+						let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
+						
+						if (saldo != "") {
+							contadorSaldo.value = saldo;
+
+						} else {
+							contadorSaldo.value = null;
+							
+						}
+					});
+				</script>
+			
+			<label for="cuotasrestantes">Cuotas Restantes:</label> <input
+				class="balance-display" id="cuotasrestantes" name="cuotasrestantes"
+				readonly> 
+			<label for="costocuota">Costo por cuota:</label> <input
+				class="balance-display" id="costocuota" name="costocuota" readonly>
+			<label for="totalsaldar">Total a saldar:</label> <input
+				class="balance-display" id="totalsaldar" name="totalsaldar" readonly>
+			<label for="proxcuota">Vencimiento Proxima Cuota:</label> <input
+				class="balance-display" id="proxcuota" name="proxcuota" readonly>
+
+
+			<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
+				name="cuenta" required>
+				<%
+					ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
+
+					if (cuentas != null) {
+						for (Cuenta cuenta : cuentas) {
+
+							String tipo = (cuenta.getCuenta().getId() == 1) ? "Caja de Ahorro" : "Cuenta Corriente";
+				%>
+
+				<option value="<%=cuenta.getCbu()%>"
+					data-saldo="<%=cuenta.getSaldo()%>"><%=tipo + " - CBU: " + cuenta.getCbu()%></option>
+
+				<%
+					}
+					} else {
+				%>
+
+				<option value="" disabled selected>No hay cuentas
+					disponibles</option>
+				<%
+					}
+				%>
+			</select>
+						<label for="proxcuota">Seleccione cantidad cuotas a pagar:</label> <input
+				class="balance-display" id="proxcuota" name="proxcuota" readonly>
+				
+
+
+			<button type="submit">Pagar Cuotas Seleccionadas</button>
 		</form>
 
-		<h3>Historial de Cuotas</h3>
-		<table class="historialCuotas" border="1">
-			<thead>
-				<tr>
-					<th>Cuota</th>
-					<th>Estado</th>
-					<th>Fecha de Pago</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% for (int i = 1; i <= totalCuotas; i++) { %>
-				<tr>
-					<td>Cuota <%= i %></td>
-					<td><%= cuotasPagadas.containsKey(i) ? "Pagada" : "Pendiente" %>
-					</td>
-					<td><%= cuotasPagadas.getOrDefault(i, "N/A") %></td>
-				</tr>
-				<% } %>
-			</tbody>
-		</table>
 	</div>
 </body>
 </html>
