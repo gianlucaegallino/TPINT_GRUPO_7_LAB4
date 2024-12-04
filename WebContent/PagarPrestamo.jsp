@@ -247,7 +247,7 @@
 						.getAttribute("data-saldo");
 
 				if (saldo != "") {
-					contadorSaldo.value = saldo;
+					contadorSaldo.value = Number(saldo).toFixed(2);
 
 				} else {
 					contadorSaldo.value = null;
@@ -258,7 +258,7 @@
 							.getAttribute("data-saldo");
 
 					if (saldo != "") {
-						contadorSaldo.value = saldo;
+						contadorSaldo.value = Number(saldo).toFixed(2);
 
 					} else {
 						contadorSaldo.value = null;

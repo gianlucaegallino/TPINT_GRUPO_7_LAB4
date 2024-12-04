@@ -71,7 +71,7 @@
 					let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
 
 					if (saldo != "") {
-						contadorSaldo.value = saldo;
+						contadorSaldo.value = Number(saldo).toFixed(2);
 
 					} else {
 						contadorSaldo.value = null;
@@ -81,8 +81,7 @@
 						let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
 						
 						if (saldo != "") {
-							contadorSaldo.value = saldo;
-
+							contadorSaldo.value =  Number(saldo).toFixed(2);
 						} else {
 							contadorSaldo.value = null;
 							
