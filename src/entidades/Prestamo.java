@@ -149,10 +149,21 @@ public class Prestamo {
 	public String getPagos_restantes() {
 		return pagos_restantes;
 	}
-
+	
 	public void setPagos_restantes(String pagos_restantes) {
 		this.pagos_restantes = pagos_restantes;
 	}
+	
+	//Agregamos dos metodos con casteo, para retrocompatibilidad
+	
+	public Integer getCuotasRestantes() {
+		return Integer.parseInt(pagos_restantes);
+	}
+	
+	public void setCuotasRestantes(int pagos_restantes) {
+		this.pagos_restantes =  String.valueOf(pagos_restantes);
+	}
+
     
     
 }
