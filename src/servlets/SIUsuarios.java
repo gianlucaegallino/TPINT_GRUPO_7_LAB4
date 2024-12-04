@@ -56,14 +56,26 @@ public class SIUsuarios extends HttpServlet {
         }	//Tirar excepcion!
 	}
 	
-	private void asignarUsuario(HttpServletRequest request, HttpServletResponse response) {
-		String clienteId = request.getParameter("AsignarUsuarioaCuenta");
-		System.out.print("el valor del select de cliente es: " + clienteId);
+	private void asignarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int clienteId = Integer.parseInt(request.getParameter("AsignarUsuarioaCuenta"));
+		System.out.print("el valor del select de cliente es: " + clienteId + " ");
 		
-		String nombreUsu = request.getParameter("UsernameUsuario");
-		System.out.print("Nombre del usuario: " + nombreUsu);
+		int usuarioId = Integer.parseInt(request.getParameter("AsignarUsuarioaCuenta2"));
+		System.out.print("el id usuario seleccionado es: " + usuarioId);
 		
+		boolean asignarUsuario = negDesc.asignarUsuarioACliente(usuarioId, clienteId);		
 		
+		// Validation and message handling
+	    if (asignarUsuario) {
+	        // Success message
+	        request.setAttribute("mensajeExito", "Usuario asignado al cliente correctamente.");
+	    } else {
+	        // Error message
+	        request.setAttribute("mensajeError", "Error al asignar usuario al cliente. Intente nuevamente.");
+	    }
+	    
+	    RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
+        rd.forward(request, response);
 	}
 
 	private void cargarDescolgables(HttpServletRequest request)

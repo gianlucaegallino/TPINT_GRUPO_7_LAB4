@@ -54,6 +54,10 @@ public class NegCargarDescolgables {
 		public ArrayList<Usuario> obtenerUsuarios(){
 			return desc.obtenerUsuarios();
 		}
+		
+		public Boolean asignarUsuarioACliente(int idUsuario, int idCliente) {
+			return desc.asignarUsuarioACliente(idUsuario, idCliente);
+		}
 		public ArrayList<Prestamo> ObtenerLosPrestamos(int id) {
 
 			return desc.ObtenerLosPrestamos(id);

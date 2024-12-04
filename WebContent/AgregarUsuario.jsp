@@ -109,16 +109,18 @@
 							</div>
 							<div class="form-element">
 								<label for="AsignarCliente">Elige el usuario que quieras asignar: </label>
-								<select id="AsignarUsuarioaCuenta" name="AsignarUsuarioaCuenta">
+								<select id="AsignarUsuarioaCuenta2" name="AsignarUsuarioaCuenta2">
+									<option value="" disabled selected>Seleccione un Usuario</option>
 									<%
 									    ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("listaUsuarios");
 									    if (listaUsuarios != null) {
 									        for (Usuario usuario : listaUsuarios) {
 									            String UsuarioCompleto = usuario.getUsuario();
+									            String tipoUsuario = (usuario.getTipo_usuario() == 1) ? "Cliente" : "Administrador";
 									            if (!usuario.getClienteStatus().equals("Existe en clientes")) {
-									%>
+									%>			
 									            <option value="<%= usuario.getIdUsuario() %>"
-									                ><%= "Usuario: " + UsuarioCompleto + " | Tipo Usuario: " + usuario.getTipo_usuario() %></option>
+									                ><%= "Usuario: " + UsuarioCompleto + " | Tipo Usuario: " + tipoUsuario %></option>
 									<%
 									            }
 									        }
