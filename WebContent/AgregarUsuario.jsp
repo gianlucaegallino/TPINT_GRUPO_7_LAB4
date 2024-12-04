@@ -16,8 +16,20 @@
 <body class="bodyInicio">
 
 	<!-- Formulario de agregar usuario -->
-	<div class="formulario-agregar" id="formularioAgregarUsuario"
-		style="display: block;">
+	<div class="formulario-agregar" id="formularioAgregarUsuario" style="display: block;">
+		<form action="SIUsuarios" method="GET" style="display: none" id="formCargarListas"></form>
+	
+		<%
+				if (request.getAttribute("mensajeCarga") != "Cargadas") {
+			%>
+	
+			<script type="text/javascript">
+				document.getElementById('formCargarListas').submit();
+			</script>
+	
+			<%
+				}
+		%>
 		<h2>Agregar Usuario</h2>
 		<br>
 		<form action="SIUsuarios" method="POST">
@@ -46,8 +58,7 @@
 					<div class="form-element">
 						<label for="TipoUsuario">TIPO DE USUARIO:</label> <select
 							id="TipoUsuario" name="TipoUsuario" required>
-							<option value="" disabled selected>-- SELECCIONE TIPO DE
-								USUARIO --</option>
+							<option value="" disabled selected>Seleccione el Tipo de Usuario</option>
 							<option value="1">Administrador</option>
 							<option value="2">Cliente</option>
 						</select>
@@ -72,6 +83,7 @@
 							<div class="form-element">
 								<label for="AsignarCliente">Elige a que Cliente se le asignará el usuario:</label>
 								<select id="AsignarUsuarioaCuenta" name="AsignarUsuarioaCuenta">
+										<option value="" disabled selected>Seleccione un Cliente</option>
 										<%
 											ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
 											if (listaClientes != null) {

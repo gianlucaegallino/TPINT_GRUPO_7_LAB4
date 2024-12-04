@@ -37,24 +37,35 @@ public class SIUsuarios extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		cargarDescolgables(request);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
+		
+		rd.forward(request, response);
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 
         if ("agregarUsuario".equals(action)) {
             agregarUsuario(request, response);
         } else if("asignarUsuario".equals(action)) {
-        	
-        	//Tirar excepcion!
-        }
+        	asignarUsuario(request, response);
+        }	//Tirar excepcion!
 	}
 	
+	private void asignarUsuario(HttpServletRequest request, HttpServletResponse response) {
+		String clienteId = request.getParameter("AsignarUsuarioaCuenta");
+		System.out.print("el valor del select de cliente es: " + clienteId);
+		
+		String nombreUsu = request.getParameter("UsernameUsuario");
+		System.out.print("Nombre del usuario: " + nombreUsu);
+		
+		
+	}
+
 	private void cargarDescolgables(HttpServletRequest request)
             throws ServletException, IOException {
 				// Obtenemos los clientes que tengan su id Usuario en NULL
@@ -70,6 +81,8 @@ public class SIUsuarios extends HttpServlet {
 		            request.setAttribute("mensajeError", "No hay clientes.");
 		        }
 				
+				//Damos constancia de que esta funcion ya se corrio, sin importar si se devolvieron o no cuentas
+		        request.setAttribute("mensajeCarga", "Cargadas");
 				System.out.print("Saliendo GET");
 				
     }	
