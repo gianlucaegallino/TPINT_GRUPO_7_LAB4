@@ -36,7 +36,7 @@ public class PrestamoDao {
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement miSentencia = con.prepareStatement(
-					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual, cbu_cuenta)VALUES(?,?,?,?,?,?,?,?,?)");
+					"INSERT INTO prestamos (cliente_id, fecha, importe_pedido, estado, interes_anual, importe_con_intereses, plazo_meses, monto_mensual, cbu_cuenta, pagos_restantes)VALUES(?,?,?,?,?,?,?,?,?,?)");
 
 
 			miSentencia.setInt(1, prestamo.getCliente().getIdCliente());
@@ -48,6 +48,7 @@ public class PrestamoDao {
 			miSentencia.setInt(7, prestamo.getPlazoMeses());
 			miSentencia.setDouble(8, prestamo.getMontoMensual());
 			miSentencia.setString(9, prestamo.getCbu_cuenta());
+			miSentencia.setString(10, prestamo.getPagos_restantes());
 
 			// Ejecutar la consulta
 			int filasAfectadas = miSentencia.executeUpdate(); // Usamos 'executeUpdate' ya que no esperamos un

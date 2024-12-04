@@ -53,6 +53,7 @@ public class SIPedirPrestamo extends HttpServlet {
 			throws ServletException, IOException {
 		String act = request.getParameter("submit");
 		if (act == null) {
+			
 			// No se selecciono boton
 		} else if (act.equals("calcular")) {
 			// Variables para el calculo
@@ -100,9 +101,7 @@ public class SIPedirPrestamo extends HttpServlet {
 		} else {
 			// Tirar excepcion; html alterado
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("/PedirPrestamo.jsp");
-		rd.forward(request, response);
+		doGet(request,response);
 
 	}
 
