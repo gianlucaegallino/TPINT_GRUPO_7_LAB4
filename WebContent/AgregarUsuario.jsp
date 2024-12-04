@@ -76,10 +76,13 @@
 											ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
 											if (listaClientes != null) {
 						                      for (Cliente cliente : listaClientes) {
+						                    	  
+						                    	  String NombreCompleto = cliente.getNombre() + " " + cliente.getApellido();
+						                    	  
 						                        %>
 
 													<option value="<%= cliente.getIdCliente() %>"
-														><%= "Cliente: " + cliente.getNombre() + " " + cliente.getApellido() + " | DNI: " + cliente.getDni() %></option>
+														><%= "Cliente: " + NombreCompleto + " | DNI: " + cliente.getDni() %></option>
 
 													<% 
 						                      }
@@ -89,14 +92,6 @@
 
 													<% } 
 						                %>
-										
-										
-										<% 
-											String desplegableHTML = (String) request.getAttribute("desplegableHTML"); 
-										%>
-										<% if(desplegableHTML != null && !desplegableHTML.isEmpty()) { %>
-											<%= desplegableHTML %>
-										<% } %>
 								</select>
 								<div class="button-container">
 									<input type="submit" value="Asignar Usuario" name="btnAsignarUsuario">

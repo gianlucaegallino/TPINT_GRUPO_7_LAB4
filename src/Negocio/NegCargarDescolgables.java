@@ -3,6 +3,7 @@ package Negocio;
 import java.util.ArrayList;
 
 import dao.CargarDescolgablesDao;
+import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Localidad;
 import entidades.Nacionalidad;
@@ -44,6 +45,10 @@ public class NegCargarDescolgables {
 		public ArrayList<Cuenta> ObtenerLasCuentasBancarias(int id) {
 
 			return desc.ObtenerLasCuentasBancarias(id);
+		}
+		
+		public ArrayList<Cliente> obtenerIDUsuarioVacio(){
+			return desc.obtenerIDUsuarioVacio();
 		}
 		public ArrayList<Prestamo> ObtenerLosPrestamos(int id) {
 

@@ -165,6 +165,28 @@ public class CargarDescolgablesDao {
         return cuentas;
 	}
 	
+	public ArrayList<Cliente> obtenerIDUsuarioVacio(){
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement sentence = connect
+                    .prepareStatement("SELECT id_cliente, nombre, apellido, dni FROM clientes WHERE id_usuario IS NULL AND estado = 1");
+            ResultSet rs = sentence.executeQuery();
+            while(rs.next()) {
+            	Cliente cliente = new Cliente();
+            	cliente.setIdCliente(rs.getInt("id_cliente"));
+            	cliente.setNombre(rs.getString("nombre"));
+            	cliente.setApellido(rs.getString("apellido"));
+            	cliente.setDni(rs.getString("dni"));
+            	
+            	clientes.add(cliente);
+            }
+		}catch (Exception e) {
+            e.printStackTrace();
+        }
+		return clientes;
+	}
 	
 
 	public ArrayList< Prestamo > ObtenerLosPrestamos(int id) {

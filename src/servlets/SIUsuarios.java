@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Negocio.NegCliente;
+import Negocio.NegCargarDescolgables;
 import Negocio.NegUsuario;
+import dao.CargarDescolgablesDao;
 import entidades.Cliente;
+import entidades.Cuenta;
 import entidades.Usuario;
 
 /**
@@ -23,35 +25,18 @@ public class SIUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private NegUsuario negUsu;
+	private NegCargarDescolgables negDesc;
 
     public SIUsuarios() {
         super();
+        negDesc = new NegCargarDescolgables();
         negUsu = new NegUsuario();
 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Obtenemos los clientes que tengan su id Usuario en NULL
-		System.out.print("GET");
-		NegCliente negocioCli = new NegCliente();
-		ArrayList<Cliente> listaClientesinIDUsuario= negocioCli.obtenerIDUsuarioVacio();
-		System.out.print("Clientes encontrados: " + listaClientesinIDUsuario);
-		StringBuilder desplegableHTML = new StringBuilder();
 		
-		if(listaClientesinIDUsuario != null && !listaClientesinIDUsuario.isEmpty()) {
-			System.out.print("listaClientes tiene algo");
-			for(Cliente user : listaClientesinIDUsuario) {
-				System.out.print("recorriendo el for");
-				 desplegableHTML.append("<option value=" + user.getIdCliente() + ">" + "Cliente: " + user.getNombre() + " " + user.getApellido() + " | DNI: " + user.getDni() + "</option>");
-			}
-		}
-		
-		System.out.print("desplegable" + desplegableHTML.toString());
-		request.setAttribute("desplegableHTML", desplegableHTML.toString());
-		request.setAttribute("listaClientes", listaClientesinIDUsuario);
-		System.out.print("Saliendo GET");
-		RequestDispatcher rd = request.getRequestDispatcher("/AgregarUsuario.jsp");
-	    rd.forward(request, response);
+		cargarDescolgables(request);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -69,6 +54,25 @@ public class SIUsuarios extends HttpServlet {
         	//Tirar excepcion!
         }
 	}
+	
+	private void cargarDescolgables(HttpServletRequest request)
+            throws ServletException, IOException {
+				// Obtenemos los clientes que tengan su id Usuario en NULL
+				System.out.print("GET");
+				ArrayList<Cliente> listaClientesinIDUsuario = null;
+				
+				listaClientesinIDUsuario= negDesc.obtenerIDUsuarioVacio();
+				System.out.print("Clientes encontrados: " + listaClientesinIDUsuario);
+				
+				if(listaClientesinIDUsuario != null && !listaClientesinIDUsuario.isEmpty()) {
+					request.setAttribute("listaClientes", listaClientesinIDUsuario);
+				}else {
+		            request.setAttribute("mensajeError", "No hay clientes.");
+		        }
+				
+				System.out.print("Saliendo GET");
+				
+    }	
 
 	private void agregarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
