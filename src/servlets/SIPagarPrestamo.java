@@ -63,7 +63,7 @@ public class SIPagarPrestamo extends HttpServlet {
 		
 		double costoDelPago = cantCuotasApagar * precioUnaCuota;
 				
-		cargarDescolgables(request);
+
 				
 		if (cantCuotasApagar > CuotasRestantes || cantCuotasApagar <= 0) {
 			//Dar error
@@ -82,7 +82,9 @@ public class SIPagarPrestamo extends HttpServlet {
 		//Realizar pago deuda
 		negpr.realizarPago(cbuDePago, cantCuotasApagar, costoDelPago, iddeuda);
 		
+		request.setAttribute("hecho", true);
 		
+		doGet(request, response);
 
 	}
 

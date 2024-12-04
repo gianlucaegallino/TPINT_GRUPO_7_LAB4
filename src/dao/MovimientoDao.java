@@ -35,7 +35,7 @@ public class MovimientoDao {
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
 			PreparedStatement miSentencia = con.prepareStatement(
-					"INSERT INTO movimientos (cuenta_id, fecha, detalle, importe, tipo)VALUES(?,?,?,?,?)");
+					"INSERT INTO movimientos (cuenta_id, fecha, detalle, importe, tipo_movimiento)VALUES(?,?,?,?,?)");
 			// Establecer los valores de los parámetros utilizando el objeto 'cuenta'
 			miSentencia.setInt(1, mov.getNumCuenta());
 			miSentencia.setDate(2, (Date) mov.getFecha());

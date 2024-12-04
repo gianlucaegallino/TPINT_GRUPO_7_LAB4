@@ -97,8 +97,10 @@ public class NegPrestamo {
 		Cuenta cuentainicio = cdao.obtenerCuentaCbu(cbu).get(0);
 		
 
-		Movimiento pagodeuda = new Movimiento(cuentainicio, sqlDate, "Pago de" + cuotaspagas + " cuotas de deuda " + iddeuda, monto, "Pago de prestamo");
+		Movimiento pagodeuda = new Movimiento(cuentainicio, sqlDate, "Pago de " + cuotaspagas + " cuota(s) de deuda " + iddeuda, monto, "Pago de prestamo");
 		movDao.AgregarMovimiento(pagodeuda);
+		
+		return;
 
 	}
 }
