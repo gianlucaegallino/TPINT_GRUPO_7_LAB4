@@ -268,7 +268,7 @@
 			</script>
 			<label for="cantcuotasapagar">Seleccione cantidad cuotas a
 				pagar:</label> <input class="balance-display" id="cantcuotasapagar"
-				name="cantcuotasapagar">
+				name="cantcuotasapagar" required pattern= "^[0-9]*$" maxlength="2">
 
 
 
