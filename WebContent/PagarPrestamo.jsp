@@ -5,6 +5,10 @@
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.util.Calendar"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%@ page import="java.time.Instant"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.ZoneOffset"%>
 <%@ page import="entidades.Prestamo" %>
 <%@ page import="entidades.Cuenta" %>
 <%@ page import="java.util.Map"%>
@@ -62,15 +66,20 @@
 					//Armamos una instancia calendario para sumar meses y determinar el proximo pago.
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(deuda.getFecha());
-					cal.add(Calendar.MONTH, cuotaspagas);
-					Date proximacuota = cal.getTime();
+					cal.add(Calendar.MONTH, cuotaspagas+1);
+					//Lo convertimos en un instant, para darle el formato que queremos
+					Instant instant = cal.getTime().toInstant();
+					//Convertimos el instant a localdatetime con un offset utc (irrelevante, solo queremos la fecha)
+					LocalDateTime ldt = instant.atOffset(ZoneOffset.UTC).toLocalDateTime();
+					//formateamos el localdatetime para tener la hora deseada
+					String proximacuota = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ldt);
 				%>
 				<option value="<%= deuda.getCuotasRestantes() %>"
 				data-costocuota="<%= deuda.getMontoMensual() %>"
 				data-totalsaldar="<%= totalSaldar %>"
 				data-proxcuota="<%= proximacuota %>"
 				
-				>[DEUDA]</option>
+				>Prestamo a <%= deuda.getPlazoMeses() %> meses por <%= deuda.getImporteConIntereses() %> al CBU <%= deuda.getCbu_cuenta() %></option>
 				<% 		} 
 					} else {
 						%>
@@ -81,6 +90,18 @@
 						%>
 				
 			</select> 
+
+			
+			<label for="cuotasrestantes">Cuotas Restantes:</label> <input
+				class="balance-display" id="cuotasrestantes" name="cuotasrestantes"
+				readonly> 
+			<label for="costocuota">Costo por cuota:</label> <input
+				class="balance-display" id="costocuota" name="costocuota" readonly>
+			<label for="totalsaldar">Total a saldar:</label> <input
+				class="balance-display" id="totalsaldar" name="totalsaldar" readonly>
+			<label for="proxcuota">Vencimiento Proxima Cuota:</label> <input
+				class="balance-display" id="proxcuota" name="proxcuota" readonly>
+
 			<script defer>
 					let deudaSeleccionada = document.querySelector("#deudaSeleccionada");
 					let cuotasrestantes = document.querySelector("#cuotasrestantes");
@@ -93,38 +114,83 @@
 					let tot = deudaSeleccionada.selectedOptions[0].getAttribute("data-totalsaldar");
 					let prox = deudaSeleccionada.selectedOptions[0].getAttribute("data-proxcuota");
 
-					if (saldo != "") {
-						contadorSaldo.value = saldo;
+					if (rest != "") {
+						cuotasrestantes.value = rest;
 
 					} else {
-						contadorSaldo.value = null;
+						cuotasrestantes.value = null;
+					}
+					
+
+					if (cost != "") {
+						costocuota.value = cost;
+
+					} else {
+						costocuota.value = null;
+					}
+					
+
+					if (tot != "") {
+						totalsaldar.value = tot;
+
+					} else {
+						totalsaldar.value = null;
+					}
+					
+
+					if (prox != "") {
+						proxcuota.value = prox;
+
+					} else {
+						proxcuota.value = null;
 					}
 
-					selectCuenta.addEventListener("change", function() {
-						let saldo = selectCuenta.selectedOptions[0].getAttribute("data-saldo");
-						
-						if (saldo != "") {
-							contadorSaldo.value = saldo;
+					deudaSeleccionada.addEventListener("change", function() {
+						let deudaSeleccionada = document.querySelector("#deudaSeleccionada");
+						let cuotasrestantes = document.querySelector("#cuotasrestantes");
+						let costocuota = document.querySelector("#costocuota");
+						let totalsaldar = document.querySelector("#totalsaldar");
+						let proxcuota = document.querySelector("#proxcuota");
+
+						let rest = deudaSeleccionada.selectedOptions[0].value;
+						let cost = deudaSeleccionada.selectedOptions[0].getAttribute("data-costocuota");
+						let tot = deudaSeleccionada.selectedOptions[0].getAttribute("data-totalsaldar");
+						let prox = deudaSeleccionada.selectedOptions[0].getAttribute("data-proxcuota");
+
+						if (rest != "") {
+							cuotasrestantes.value = rest;
 
 						} else {
-							contadorSaldo.value = null;
-							
+							cuotasrestantes.value = null;
+						}
+						
+
+						if (cost != "") {
+							costocuota.value = cost;
+
+						} else {
+							costocuota.value = null;
+						}
+						
+
+						if (tot != "") {
+							totalsaldar.value = tot;
+
+						} else {
+							totalsaldar.value = null;
+						}
+						
+
+						if (prox != "") {
+							proxcuota.value = prox;
+
+						} else {
+							proxcuota.value = null;
 						}
 					});
 				</script>
-			
-			<label for="cuotasrestantes">Cuotas Restantes:</label> <input
-				class="balance-display" id="cuotasrestantes" name="cuotasrestantes"
-				readonly> 
-			<label for="costocuota">Costo por cuota:</label> <input
-				class="balance-display" id="costocuota" name="costocuota" readonly>
-			<label for="totalsaldar">Total a saldar:</label> <input
-				class="balance-display" id="totalsaldar" name="totalsaldar" readonly>
-			<label for="proxcuota">Vencimiento Proxima Cuota:</label> <input
-				class="balance-display" id="proxcuota" name="proxcuota" readonly>
 
-
-			<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
+			<label for="cuenta">Selecciona una cuenta para pagar:</label> <select id="cuenta"
 				name="cuenta" required>
 				<%
 					ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getAttribute("cuentas");
