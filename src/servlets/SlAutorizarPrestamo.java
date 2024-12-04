@@ -39,12 +39,12 @@ public class SlAutorizarPrestamo extends HttpServlet {
         if (resultado) {
             // Redireccionar a una página de éxito
             request.setAttribute("mensajeExito", "Préstamo rechazado correctamente");
-            request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
+            
         } else {
             // Redireccionar a una página de error
             request.setAttribute("mensajeError", "Ha ocurrido un problema al rechazar el préstamo");
-            request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
         }
+        request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
 	}
 
 	private void aprobarPrestamo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,12 +53,12 @@ public class SlAutorizarPrestamo extends HttpServlet {
         if (resultado) {
             // Redireccionar a una página de éxito
             request.setAttribute("mensajeExito", "Préstamo aprobado correctamente");
-            request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
+
         } else {
             // Redireccionar a una página de error
             request.setAttribute("mensajeError", "Ha ocurrido un problema al aprobar el préstamo");
-            request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
         }
+        request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
 	}
 
 	private void buscarPrestamoPendientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,7 +102,6 @@ public class SlAutorizarPrestamo extends HttpServlet {
 	        // Pasar el HTML de la tabla a la JSP
 	     request.setAttribute("tablaHTML", htmlTabla.toString());
 	     
-	     //request.setAttribute("prestamosPendientes", prestamosPendientes);
 	     System.out.print("Salimos del get");
 	     request.getRequestDispatcher("AutorizarPrestamos.jsp").forward(request, response);
 	}
