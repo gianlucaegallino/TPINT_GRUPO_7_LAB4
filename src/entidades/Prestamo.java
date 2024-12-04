@@ -14,10 +14,15 @@ public class Prestamo {
     private double interesAnual;
     private String cbu_cuenta;
     private int cuotasRestantes;
+    private String pagos_restantes;
     
 
 
-    // Constructor
+    public Prestamo() {
+		super();
+	}
+
+	// Constructor
     public Prestamo(int id,  Date fecha, double importePedido, double importeConIntereses, int plazoMeses, double montoMensual, String estado, double interesAnual, Cliente cliente, String cbu_cuenta) {
         this.id = id;
 
@@ -27,7 +32,7 @@ public class Prestamo {
         this.plazoMeses = plazoMeses;
         this.montoMensual = montoMensual;
         this.estado = estado;
-        this.interesAnual = interesAnual; // Asignación de interesAnual
+        this.interesAnual = interesAnual; // Asignaciï¿½n de interesAnual
         
         this.cliente = cliente;
         this.cbu_cuenta = cbu_cuenta;
@@ -42,7 +47,7 @@ public class Prestamo {
         this.plazoMeses = plazoMeses;
         this.montoMensual = montoMensual;
         this.estado = estado;
-        this.interesAnual = interesAnual; // Asignación de interesAnual
+        this.interesAnual = interesAnual; // Asignaciï¿½n de interesAnual
         
         this.cliente = cliente;
         this.cbu_cuenta = cbu_cuenta;
@@ -50,6 +55,16 @@ public class Prestamo {
     }
 
     // Getters y Setters
+    
+    
+    public String getPagos_restantes() {
+    	return pagos_restantes;
+    }
+    
+    public void setPagos_restantes(String pagos_restantes) {
+    	this.pagos_restantes = pagos_restantes;
+    }
+    
     public String getCbu_cuenta() {
 		return cbu_cuenta;
 	}
