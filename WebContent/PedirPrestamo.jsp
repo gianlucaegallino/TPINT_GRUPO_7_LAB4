@@ -100,12 +100,16 @@
 
 
 			<script type="text/javascript">
-			    function confirmar(){
-			    	let response = confirm ("Esta seguro que quiere continuar?")
-				    if (response){
-				      document.formpedirprestamo.submit();
-				    }
-			    }
+		    function confirmar(){
+		    	let response = confirm ("Esta seguro que quiere continuar?");
+			    if (response === true){
+			      if(document.formpedirprestamo.checkValidity() === true){
+			    	  document.formpedirprestamo.submit();
+			      }
+			    }else{
+			    	  event.preventDefault();
+			      }
+		    }
 			</script>
 			
 		</form>

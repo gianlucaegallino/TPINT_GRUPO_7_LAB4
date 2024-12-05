@@ -64,12 +64,16 @@
 				onClick="confirmar()" class="btnSubmit">
 
 			<script type="text/javascript">
-			    function confirmar(){
-			    	let response = confirm ("Esta seguro que quiere continuar?")
-				    if (response){
-				      document.formCuentas.submit();
-				    }
-			    }
+		    function confirmar(){
+		    	let response = confirm ("Esta seguro que quiere continuar?");
+			    if (response === true){
+			      if(document.formCuentas.checkValidity() === true){
+			    	  document.formCuentas.submit();
+			      }
+			    }else{
+			    	  event.preventDefault();
+			      }
+		    }
 			</script>
 		</form>
 	</div>

@@ -53,7 +53,6 @@
 				id="deudaSeleccionada" name="deudaSeleccionada" required>
 				<%
 					ArrayList<Prestamo> deudasPendientes = (ArrayList<Prestamo>) request.getAttribute("prestamos");
-					System.out.println(deudasPendientes);
 
 					if (deudasPendientes != null) {
 						for (Prestamo deuda : deudasPendientes) {
@@ -77,7 +76,7 @@
 					data-proxcuota="<%=proximacuota%>"
 					data-iddeuda="<%=deuda.getId()%>">Prestamo a
 					<%=deuda.getPlazoMeses()%> meses por
-					<%=deuda.getImporteConIntereses()%> al CBU
+					<%=String.format("%.2f", deuda.getImporteConIntereses())%> al CBU
 					<%=deuda.getCbu_cuenta()%></option>
 				<%
 					}
@@ -277,10 +276,14 @@
 
 			<script type="text/javascript">
 			    function confirmar(){
-			    	let response = confirm ("Esta seguro que quiere continuar?")
-				    if (response){
-				      document.formpagarprestamo.submit();
-				    }
+			    	let response = confirm ("Esta seguro que quiere continuar?");
+				    if (response === true){
+				      if(document.formpagarprestamo.checkValidity() === true){
+				    	  document.formpagarprestamo.submit();
+				      }
+				    }else{
+				    	  event.preventDefault();
+				      }
 			    }
 			</script>
 		</form>

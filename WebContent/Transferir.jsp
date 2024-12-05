@@ -99,17 +99,20 @@
 				id="monto" name="monto" placeholder="Ingrese el monto a transferir" required pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"/>
 
 			<!-- Boton de transferencia -->
-			
-			<input type="submit" id="btnRealizarTransferencia" value="Realizar transferencia" name=btnTrans
-				onClick="confirmar()">
+			<button type = "submit" id="btnRealizarTransferencia" value="Realizar transferencia" name=btnTrans
+				onClick="confirmar()">Realizar Transferencia</button>
 
 			<script type="text/javascript">
-			    function confirmar(){
-			    	let response = confirm ("Esta seguro que quiere continuar?")
-				    if (response){
-				      document.formtrans.submit();
-				    }
-			    }
+		    function confirmar(){
+		    	let response = confirm ("Esta seguro que quiere continuar?");
+			    if (response === true){
+			      if(document.formtrans.checkValidity() === true){
+			    	  document.formtrans.submit();
+			      }
+			    }else{
+			    	  event.preventDefault();
+			      }
+		    }
 			</script>
 			
 			<input type="hidden" name="action" value="realizarTransferencia">
