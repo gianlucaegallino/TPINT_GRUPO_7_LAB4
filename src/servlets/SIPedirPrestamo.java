@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import Negocio.NegCargarDescolgables;
 import Negocio.NegPrestamo;
 import entidades.Cuenta;
+import excepciones.ModificacionMaliciosaException;
 
 /**
  * Servlet implementation class SIPedirPrestamo
@@ -99,10 +100,19 @@ public class SIPedirPrestamo extends HttpServlet {
 
 			neg.solicitarPrestamo(monto, cuotas, TASA_INTERES, request, idCliente, cbuUsu);
 		} else {
-			// Tirar excepcion; html alterado
+			try {
+				manejarexcepcion(request, response);
+			} catch (ModificacionMaliciosaException e) {
+				e.printStackTrace();
+			}
 		}
 		doGet(request,response);
 
+	}
+	
+	private void manejarexcepcion(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ModificacionMaliciosaException {
+		throw new ModificacionMaliciosaException();
 	}
 
 	private void cargarDescolgablesCuentaBanco(HttpServletRequest request) {

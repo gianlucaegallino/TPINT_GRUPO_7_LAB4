@@ -19,6 +19,7 @@ import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Sexo;
+import excepciones.OpcionNoEncontradaException;
 
 @WebServlet("/SIClientes")
 public class SIClientes extends HttpServlet {
@@ -107,6 +108,12 @@ public class SIClientes extends HttpServlet {
         case "modificarEliminarCliente":
         	modificarEliminarCliente(request, response);
         	break;
+        default:
+        	try {
+				manejarexcepcion(request, response);
+			} catch (OpcionNoEncontradaException e) {
+				e.printStackTrace();
+			}
         }
 
         
@@ -115,6 +122,11 @@ public class SIClientes extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/ClientesModificarEliminar.jsp");
 			rd.forward(request, response);
 		}
+    }
+    
+    private void manejarexcepcion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, OpcionNoEncontradaException {
+    	throw new OpcionNoEncontradaException();
     }
 
     private void buscarPorDNI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

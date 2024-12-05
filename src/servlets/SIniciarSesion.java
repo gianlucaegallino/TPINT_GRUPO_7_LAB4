@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Negocio.NegUsuario;
 import entidades.Usuario;
+import excepciones.BotonInvalidoException;
 import entidades.Cliente;
 import Negocio.NegCliente;
 
@@ -47,6 +48,16 @@ public class SIniciarSesion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		try {
+			verificarLogin(request, response);
+		} catch (BotonInvalidoException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void verificarLogin(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, BotonInvalidoException{
 		if (request.getParameter("btnInicioSesion") != null) {
 			// Extrae parametros
 			String nomUsuario = request.getParameter("nomUsu");
@@ -116,8 +127,9 @@ public class SIniciarSesion extends HttpServlet {
 					rd.forward(request, response);
 				}
 			}
+		} else {
+			throw new BotonInvalidoException();
 		}
-
 	}
 
 }
