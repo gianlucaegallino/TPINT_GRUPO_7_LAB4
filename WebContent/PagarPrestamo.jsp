@@ -48,7 +48,7 @@
 
 
 		<h3>Deudas a Pagar</h3>
-		<form action="SIPagarPrestamo" method="POST">
+		<form action="SIPagarPrestamo" method="POST" name="formpagarprestamo">
 			<label for="deudaSeleccionada">Seleccionar deuda a pagar:</label> <select
 				id="deudaSeleccionada" name="deudaSeleccionada" required>
 				<%
@@ -272,7 +272,17 @@
 
 
 
-			<button type="submit">Pagar Cuotas Seleccionadas</button>
+			<button type="submit" onClick="confirmar()">Pagar Cuotas Seleccionadas</button>
+
+
+			<script type="text/javascript">
+			    function confirmar(){
+			    	let response = confirm ("Esta seguro que quiere continuar?")
+				    if (response){
+				      document.formpagarprestamo.submit();
+				    }
+			    }
+			</script>
 		</form>
 								<div class="formulario-mensaje"
 			style="<%= request.getAttribute("mensajeExito") != null && !request.getAttribute("mensajeExito").toString().isEmpty() ? "display: block;" : "display: none;" %>">

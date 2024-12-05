@@ -63,7 +63,7 @@
 		<h2>Pedir Prestamo</h2>
 
 
-		<form action="SIPedirPrestamo" method="POST">
+		<form action="SIPedirPrestamo" method="POST" name="formpedirprestamo">
 			<label for="monto">Monto:</label> 
 			<input type="text" id="monto" name="monto" required  required pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"> 
 			<label for="cuotas">Cantidad de Cuotas:</label> 
@@ -96,7 +96,18 @@
 			</select>
 
 			<button type="submit" name="submit" value="calcular">Calcular Cuota</button>
-			<button type="submit" name="submit" value="solicitar">Solicitar Prestamo</button>
+			<button type="submit" name="submit" value="solicitar" onClick="confirmar()">Solicitar Prestamo</button>
+
+
+			<script type="text/javascript">
+			    function confirmar(){
+			    	let response = confirm ("Esta seguro que quiere continuar?")
+				    if (response){
+				      document.formpedirprestamo.submit();
+				    }
+			    }
+			</script>
+			
 		</form>
 
 

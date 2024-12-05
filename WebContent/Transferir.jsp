@@ -33,7 +33,7 @@
 		%>
 
 		<h2>Transferencias</h2>
-		<form action="SITransferir" method="POST">
+		<form action="SITransferir" method="POST" name="formtrans">
 			<!-- Seleccion de la cuenta -->
 			<label for="cuenta">Selecciona una cuenta</label> <select id="cuenta"
 				name="cuenta" required>
@@ -99,8 +99,19 @@
 				id="monto" name="monto" placeholder="Ingrese el monto a transferir" required pattern="^[1-9][0-9]*(\.[0-9]{1,2})?$"/>
 
 			<!-- Boton de transferencia -->
-			<button type="submit" id="btnRealizarTransferencia">Realizar
-				Transferencia</button>
+			
+			<input type="submit" id="btnRealizarTransferencia" value="Realizar transferencia" name=btnTrans
+				onClick="confirmar()">
+
+			<script type="text/javascript">
+			    function confirmar(){
+			    	let response = confirm ("Esta seguro que quiere continuar?")
+				    if (response){
+				      document.formtrans.submit();
+				    }
+			    }
+			</script>
+			
 			<input type="hidden" name="action" value="realizarTransferencia">
 		</form>
 		
