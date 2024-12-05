@@ -89,3 +89,78 @@ button:hover {
 #botonPedirPrestamo {
 	background-color: #663647;
 }
+
+
+/* ESTILOS PARA AGREGAR */
+.formulario-agregar {
+	display: none; /* Por defecto está oculto */
+	position: absolute;
+	top: 300px;
+	left: 27%;
+	width: 100%;
+	max-width: 980px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 2px solid #646464;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-agregar h2 {
+	text-align: center;
+}
+
+.formulario-agregar input[type="submit"] {
+	background-color: #646464;
+	color: #fff;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.formulario-agregar input[type="submit"]:hover {
+	background-color: #663647;
+}
+
+.form-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.form-container .fila {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.form-element {
+	flex-grow: 1;
+	flex-basis: calc(20% - 10px);
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+
+input, select {
+	width: 90%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.button-container {
+	text-align: center;
+	margin-top: 20px;
+}
