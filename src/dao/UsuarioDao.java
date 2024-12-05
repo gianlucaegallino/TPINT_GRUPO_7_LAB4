@@ -91,7 +91,7 @@ public class UsuarioDao implements IConexion, IUsuarioDao {
 			e.printStackTrace();
 		}
 
-		Usuario usuario = new Usuario();
+		Usuario usuario = null;
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(host + dbName, user, pass);
@@ -100,13 +100,16 @@ public class UsuarioDao implements IConexion, IUsuarioDao {
 			miSentencia.setString(1, nomUsuario);
 			miSentencia.setString(2, contUsuario);
 			ResultSet resultado = miSentencia.executeQuery();
-			resultado.next();
+			if (resultado.next()){
+				usuario = new Usuario();
+				// copia datos de cuenta
+				usuario.setIdUsuario(resultado.getInt(1));
+				usuario.setUsuario(resultado.getString(2));
+				usuario.setContrasena(resultado.getString(3));
+				usuario.setTipo_usuario(resultado.getInt(4));
+			}
 
-			// copia datos de cuenta
-			usuario.setIdUsuario(resultado.getInt(1));
-			usuario.setUsuario(resultado.getString(2));
-			usuario.setContrasena(resultado.getString(3));
-			usuario.setTipo_usuario(resultado.getInt(4));
+
 
 			con.close();
 		} catch (Exception e) {

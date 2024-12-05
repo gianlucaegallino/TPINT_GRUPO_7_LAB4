@@ -70,7 +70,7 @@ public class SIniciarSesion extends HttpServlet {
 				NegUsuario negUsuario = new NegUsuario();
 				Usuario usuario = negUsuario.conseguirUsuarioPorCredenciales(nomUsuario, contUsuario);
 
-				if (usuario.getUsuario() != null) {
+				if (usuario != null) {
 					
 					// Redirige en base al tipo de usuario.
 					int tipoUsuario = usuario.getTipo_usuario();

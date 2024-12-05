@@ -54,7 +54,7 @@
 					<div class="error-text"></div>
 				</div>
 				<div>
-					<input type="password" placeholder="Contrasena" id="password"
+					<input type="password" placeholder="Contraseña" id="password"
 						name="password" required>
 					<div class="error-text"></div>
 				</div>
