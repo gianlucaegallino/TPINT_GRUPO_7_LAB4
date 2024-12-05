@@ -366,6 +366,24 @@ public class ClienteDao {
         return sexoDescripcion;
     }
 	
+	/*
+	public String BuscarDireccion(int id) {
+        // Realiza la consulta a la base de datos para obtener la descripción del sexo
+        String dire = null;
+        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT descripcion FROM sexo WHERE id = ?")) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	dire = rs.getString("descripcion");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dire;
+    }*/
+	
 	public String BuscarNacionalidad(int id) {
 		String NacionalidadNombre = null;
         try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
@@ -465,7 +483,7 @@ public class ClienteDao {
 	 */
 
 	
-	  public Cliente obtenerClientePorId(int clienteId) { 
+	 public Cliente obtenerClientePorId(int clienteId) { 
 		  try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
@@ -473,7 +491,7 @@ public class ClienteDao {
 			}
 
 			Connection connect = null;
-			Cliente cliente = new Cliente();
+			Cliente cliente = null;
 
 			try {
 				connect = DriverManager.getConnection(host + dbName, user, pass);
@@ -481,29 +499,29 @@ public class ClienteDao {
 				sentence.setInt(1, clienteId);
 				ResultSet rs = sentence.executeQuery();
 				if (rs.next()) {
-					cliente = new Cliente();
-					cliente.setDni(rs.getString("dni"));
-					cliente.setNombre(rs.getString("nombre"));
-					cliente.setApellido(rs.getString("apellido"));
-					cliente.setCuil(rs.getString("cuil"));
-					
-					int sexoId = rs.getInt("sexo_id");
-		            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
-		            cliente.setSexo(sexo);
-		            
-		            int nacioID = rs.getInt("nacionalidad_id");
-		            Nacionalidad nacio = new Nacionalidad(nacioID);
-		            cliente.setNacionalidad(nacio);
-		            
-					cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
-					
-					String direccion = rs.getString("direccion_id");
-					Direccion direc = new Direccion(direccion);
-					cliente.setDireccion(direc);
-					
-					cliente.setCorreo_electronico(rs.getString("correo_electronico"));
-					cliente.setTelefono(rs.getString("telefono"));
-					cliente.setIdCliente(rs.getInt("id_cliente"));
+	                cliente = new Cliente();
+	                cliente.setDni(rs.getString("dni"));
+	                cliente.setNombre(rs.getString("nombre"));
+	                cliente.setApellido(rs.getString("apellido"));
+	                cliente.setCuil(rs.getString("cuil"));
+
+	                int sexoId = rs.getInt("sexo_id");
+	                Sexo sexo = new Sexo(BuscarSexo(sexoId));
+	                cliente.setSexo(sexo);
+
+	                int nacioID = rs.getInt("nacionalidad_id");
+	                Nacionalidad nacio = new Nacionalidad(BuscarNacionalidad(nacioID));
+	                cliente.setNacionalidad(nacio);
+
+	                cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
+
+	                String direccion = rs.getString("direccion_id");
+	                Direccion direc = new Direccion(direccion);
+	                cliente.setDireccion(direc);
+
+	                cliente.setCorreo_electronico(rs.getString("correo_electronico"));
+	                cliente.setTelefono(rs.getString("telefono"));
+	                cliente.setIdCliente(rs.getInt("id_cliente"));
 				}
 
 			} catch (Exception e) {
