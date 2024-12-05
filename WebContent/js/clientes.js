@@ -72,8 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function cargarLocalidades(provId) {
 	
-	  console.log(hi);
-	
 	  var form = document.createElement('form');
 	  form.method = 'GET';
 	  form.action = 'SIClientes';

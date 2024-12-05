@@ -36,6 +36,7 @@ public class SIClientes extends HttpServlet {
 
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        	
         cargarDescolgables(request);
 
         if (request.getParameter("ProvCliente") != null) {
@@ -192,6 +193,7 @@ public class SIClientes extends HttpServlet {
         
         if (localidades != null && !localidades.isEmpty()) {
             request.setAttribute("localidades", localidades);
+            request.setAttribute("prov", provId);
         } else {
             request.setAttribute("mensajeError", "No se pudieron cargar las localidades.");
         }

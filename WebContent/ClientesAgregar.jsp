@@ -48,7 +48,10 @@
 
 							<% 
                     // Obtener el valor de provCliente como String
-                    String Prov = (String) request.getAttribute("prov");
+                    String Prov = null;
+                    if (request.getAttribute("prov") != null){
+                     Prov = String.valueOf(request.getAttribute("prov"));
+                    }
 
                     // Convertir provCliente a int (si es posible)
                     int provCliente = (Prov != null && !Prov.isEmpty()) ? Integer.parseInt(Prov) : -1;
