@@ -35,6 +35,8 @@
 			<input type="submit" value="Buscar Cuenta" name="btnBuscar2" />
 		</form>
 
+        <form action="SICuentas" method="POST">
+        	<input type="hidden" name="action" value="modificarEliminarCuenta" />
 		<%
         ArrayList<Cuenta> listaC = null;
         if (request.getAttribute("listaCuenta") != null) {
@@ -46,8 +48,6 @@
           if (listaC != null) {
               for (Cuenta cuenta : listaC) {
         %>
-        <form action="SICuentas" method="POST">
-        	<input type="hidden" name="action" value="modificarEliminarCuenta">
 			<!-- Tabla para mostrar los datos de la cuenta -->
 			<table class="tabla-cuentas" id="tablaCuentas" style="display: block;">
 				<thead>
@@ -73,15 +73,14 @@
 					</tr>
 				</tbody>
 			</table>
-			<br>
+			
 			<div class="botones-modificar-eliminar">
 				<button class="botonModificar" id="btnModificar" name="btnModificar" type="button">Modificar</button>
-				<button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button">Eliminar</button>
+				<button class="botonEliminar" id="btnEliminar" name="btnEliminar" type="button" onClick="confirmar()">Eliminar</button>
 					<input type="submit" value="Guardar" name="btnGuardar" onClick="confirmar()" style="display: none;"/>
 					<!-- Botón Guardar oculto -->
 					<input type="submit" value="Cancelar" id="btnCancelar" name="btnCancelar" style="display: none;"/>
 					<!-- Botón Cancelar oculto -->
-					<input type="submit" value="Eliminar" onClick="confirmar()" name="Eliminar" style="display: none;"/>
 			</div>
 		</form>
 		<%

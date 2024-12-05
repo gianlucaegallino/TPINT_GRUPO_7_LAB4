@@ -118,10 +118,12 @@
 									            String UsuarioCompleto = usuario.getUsuario();
 									            String tipoUsuario = (usuario.getTipo_usuario() == 1) ? "Cliente" : "Administrador";
 									            if (!usuario.getClienteStatus().equals("Existe en clientes")) {
+									            	if(usuario.getTipo_usuario() != 2) {
 									%>			
 									            <option value="<%= usuario.getIdUsuario() %>"
 									                ><%= "Usuario: " + UsuarioCompleto + " | Tipo Usuario: " + tipoUsuario %></option>
 									<%
+									            }
 									            }
 									        }
 									    } else {

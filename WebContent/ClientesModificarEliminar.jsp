@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="StyleSheet" href="./css/EstiloClientes.css">
+<link rel="stylesheet" href="./css/EstiloClientes.css">
 <link rel="stylesheet" href="./css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Gestión de Clientes | Banco Liberación</title>
@@ -34,11 +34,11 @@
 		</form>
 		<hr>
 
-		<%
-            Cliente cliente = (Cliente) request.getAttribute("cliente");
-            if (cliente != null) {
-        %>
 		<form action="SIClientes" method="POST">
+			<%
+	            Cliente cliente = (Cliente) request.getAttribute("cliente");
+	            if (cliente != null) {
+	        %>
 			<input type="hidden" name="action" value="modificarEliminarCliente">
 			<input type="hidden" name="idCliente"
 				value="<%= cliente.getIdCliente() %>">
@@ -103,10 +103,10 @@
 				<input type="submit" value="Eliminar" id="btnEliminarSubmit"
 					name="btnEliminarSubmit" style="display: none;">
 			</div>
+			<%
+	            }
+	        %>
 		</form>
-		<%
-            }
-        %>
 	</div>
 	<script defer src="js/clientes.js"></script>
 </body>

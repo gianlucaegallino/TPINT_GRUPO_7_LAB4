@@ -48,7 +48,8 @@
 		<form action="SlCuentas" method="POST" name=formCuentas>
 			<input type="hidden" name="action" value="AgregarCuentas" />
 			<label for="DNICliente">DNI Cliente:</label> <input type="number"
-				id="DNICliente" name="DNICliente" placeholder="Ingrese DNI" required />
+				id="DNICliente" name="DNICliente" placeholder="Ingrese DNI" pattern="[0-9]{7,8}" maxlength="8"
+							title="El DNI debe tener entre 7 y 8 dígitos." required />
 
 			<label for="fechaCreacion">Fecha de Creación:</label> <input
 				type="date" id="fechaCreacion" name="fechaCreacion" required /> <label

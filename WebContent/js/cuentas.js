@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     let btnModificar = document.getElementById('btnModificar');
-    let btnGuardar = document.querySelector('.botones-modificar-eliminar > input[name="btnGuardar"]');
+    let btnGuardar = document.querySelector('input[name="btnGuardar"]');
     let btnEliminar = document.getElementById('btnEliminar');
     let btnCancelar = document.getElementById('btnCancelar');
     let EliminarSubmit = document.getElementById('Eliminar');
@@ -39,20 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             btnModificar.style.display = 'block';
             btnCancelar.style.display = 'none';
             btnEliminar.style.display = 'block';
-        });
-    }
-
-    // Botón Eliminar
-    if (btnEliminar != null) {
-        btnEliminar.addEventListener('click', function() {
-            camposEditables.forEach(function(input) {
-                input.disabled = true;
-                input.style.backgroundColor = '#ddd';
-            });
-            btnModificar.style.display = 'none';
-            btnEliminar.style.display = 'none';
-            btnCancelar.style.display = 'block';
-            EliminarSubmit.style.display = 'block';
         });
     }
 });

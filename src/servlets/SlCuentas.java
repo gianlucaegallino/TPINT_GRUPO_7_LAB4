@@ -82,7 +82,7 @@ public class SlCuentas extends HttpServlet {
 	}
 
 	private void modificarEliminarCuenta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	RequestDispatcher rd = null;
+
     	// Add print statements for debugging
         System.out.println("Entrando a modificarEliminarCuenta");
         if (request.getParameter("btnGuardar") != null) {
@@ -109,24 +109,24 @@ public class SlCuentas extends HttpServlet {
             }
             request.getRequestDispatcher("/EditarEliminarCuenta.jsp").forward(request, response);
             
-        } else if (request.getParameter("Eliminar") != null) {
+        } else if (request.getParameter("btnEliminar") != null) {
             String cbuCuenta = request.getParameter("cbu");
             if (cbuCuenta != null && !cbuCuenta.isEmpty()) {
                 NegCuentas cnt1 = new NegCuentas();
                 int filas = cnt1.EliminarCuentaCbu(cbuCuenta);
 
                 request.setAttribute("cantfilas", filas);
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
+                request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
             } else {
                 // Manejar el caso en que el valor es nulo o vacío
                 // Por ejemplo, mostrar un mensaje de error al usuario
                 request.setAttribute("mensaje", "Error: No se ha seleccionado ninguna cuenta.");
-                rd = request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
+                request.getRequestDispatcher("/EditarEliminarCuenta.jsp");
             }
-        }
-        if (rd != null) {
-            rd.forward(request, response);
-        }
+        } else if (request.getParameter("btnCancelar") != null) {
+
+			request.getRequestDispatcher("/EditarEliminarCuenta.jsp").forward(request, response);
+		}
 	}
 
 	private void BuscarCuentas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
