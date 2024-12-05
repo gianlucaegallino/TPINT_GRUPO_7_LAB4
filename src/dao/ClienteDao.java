@@ -301,7 +301,7 @@ public class ClienteDao {
 		}
 
 		Connection connect = null;
-		Cliente cliente = null;
+		Cliente cliente = new Cliente();
 
 		try {
 			connect = DriverManager.getConnection(host + dbName, user, pass);
@@ -309,19 +309,19 @@ public class ClienteDao {
 			sentence.setString(1, dni);
 			ResultSet rs = sentence.executeQuery();
 			if (rs.next()) {
-				 cliente = new Cliente();
+				cliente = new Cliente();
 				cliente.setDni(rs.getString("dni"));
 				cliente.setNombre(rs.getString("nombre"));
 				cliente.setApellido(rs.getString("apellido"));
 				cliente.setCuil(rs.getString("cuil"));
 				
 				int sexoId = rs.getInt("sexo_id");
-				String SexoDescrip = BuscarSexo(sexoId);
-				cliente.setSexo(new Sexo(sexoId, SexoDescrip));
+	            Sexo sexo = new Sexo(sexoId); // Puedes obtener la descripción si la necesitas
+	            cliente.setSexo(sexo);
 	            
 	            int nacioID = rs.getInt("nacionalidad_id");
-	            String NacioDescrip = BuscarNacionalidad(nacioID);
-	            cliente.setNacionalidad(new Nacionalidad(nacioID, NacioDescrip));
+	            Nacionalidad nacio = new Nacionalidad(nacioID);
+	            cliente.setNacionalidad(nacio);
 	            
 				cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
 				
@@ -331,7 +331,7 @@ public class ClienteDao {
 				
 				cliente.setCorreo_electronico(rs.getString("correo_electronico"));
 				cliente.setTelefono(rs.getString("telefono"));
-				cliente.setEstado(rs.getString("estado"));
+				cliente.setIdCliente(rs.getInt("id_cliente"));
 			}
 
 		} catch (Exception e) {
