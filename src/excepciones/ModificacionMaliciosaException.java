@@ -11,4 +11,6 @@ public class ModificacionMaliciosaException extends Exception{
 	public String getMessage() {
 		return "Se detecto una modificacion maliciosa al codigo.";
 	}
+	
+	//Usada en SIPEDIRPRESTAMO
 }

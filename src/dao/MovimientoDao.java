@@ -8,18 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import entidades.Cliente;
 import entidades.Cuenta;
-import entidades.Direccion;
 import entidades.Movimiento;
-import entidades.Nacionalidad;
-import entidades.Sexo;
+import interfaces.IConexion;
+import interfaces.IMovimientoDao;
 
-public class MovimientoDao {
-	private String host = "jdbc:mysql://localhost:3306/";
-	private String user = "root";
-	private String pass = "root";
-	private String dbName = "bdbancoliberacion?useSSL=false";
+public class MovimientoDao implements IConexion, IMovimientoDao  {
+
 
 	
 	public Boolean AgregarMovimiento(Movimiento mov) {
@@ -61,6 +56,7 @@ public class MovimientoDao {
 		return (filasAfectadas > 0);
 	}
 	
+	@Override
 	public ArrayList<Movimiento> TraerListaMovimiento(int id){
 		ArrayList<Movimiento> movs = new ArrayList<>();
         try {

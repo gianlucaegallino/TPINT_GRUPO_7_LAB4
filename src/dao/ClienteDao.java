@@ -12,12 +12,11 @@ import entidades.Direccion;
 import entidades.Nacionalidad;
 import entidades.Sexo;
 import entidades.Usuario;
+import interfaces.IClienteDao;
+import interfaces.IConexion;
 
-public class ClienteDao {
-	private String host = "jdbc:mysql://localhost:3306/";
-	private String user = "root";
-	private String pass = "root";
-	private String dbName = "bdbancoliberacion?useSSL=false";
+public class ClienteDao implements IConexion, IClienteDao  {
+
 
 	public int AgregarCliente(Cliente cliente) {
 		try {
@@ -66,6 +65,7 @@ public class ClienteDao {
 		return 0;
 	}
 
+	@Override
 	public ArrayList<Cliente> obtenerTodosLosClientes() {
 		ArrayList<Cliente> LCliente = new ArrayList<Cliente>();
 		try {

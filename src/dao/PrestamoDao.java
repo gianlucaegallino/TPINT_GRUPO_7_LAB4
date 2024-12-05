@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import entidades.Cliente;
 
 import entidades.Prestamo;
+import interfaces.IConexion;
+import interfaces.IPrestamoDao;
 
-public class PrestamoDao {
-    private String host = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String pass = "root";
-    private String dbName = "bdbancoliberacion?useSSL=false";
+public class PrestamoDao implements IConexion, IPrestamoDao {
+
     private Connection connection;
 
     public PrestamoDao() {
@@ -76,6 +75,7 @@ public class PrestamoDao {
 
 	}
 
+    @Override
     public ArrayList<Prestamo> listarPrestamosPendientes() {
         ArrayList<Prestamo> prestamos = new ArrayList<>();
         try {

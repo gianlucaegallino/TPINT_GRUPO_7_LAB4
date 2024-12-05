@@ -12,12 +12,11 @@ import java.util.ArrayList;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.TipoCuenta;
+import interfaces.IConexion;
+import interfaces.ICuentaDao;
 
-public class CuentaDao {
-	private String host = "jdbc:mysql://localhost:3306/";
-	private String user = "root";
-	private String pass = "root";
-	private String dbName = "bdbancoliberacion?useSSL=false";
+public class CuentaDao implements IConexion, ICuentaDao {
+
 
 	public int AgregarCuenta(Cuenta cuenta) {
 		try {
@@ -80,6 +79,7 @@ public class CuentaDao {
 	    return cantidad;
 	}
 
+	@Override
 	public ArrayList<Cuenta> obtenerLasCuentas() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

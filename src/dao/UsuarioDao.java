@@ -7,14 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entidades.Usuario;
+import interfaces.IConexion;
+import interfaces.IUsuarioDao;
 
-// TO-DO: ABSTRAER CONEXION A OTRA CLASE.
-
-public class UsuarioDao {
-	private String host = "jdbc:mysql://localhost:3306/";
-	private String user = "root";
-	private String pass = "root";
-	private String dbName = "bdbancoliberacion?useSSL=false";
+public class UsuarioDao implements IConexion, IUsuarioDao {
 
 	
 	public int AgregarUsuario(Usuario usuario) {
@@ -87,7 +83,7 @@ public class UsuarioDao {
 	
 	
 	
-	
+	@Override
 	public Usuario obtenerUsuarioporLogin(String nomUsuario, String contUsuario) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

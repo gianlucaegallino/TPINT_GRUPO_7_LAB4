@@ -13,13 +13,9 @@ import entidades.Provincia;
 import entidades.Sexo;
 import entidades.TipoCuenta;
 import entidades.Usuario;
+import interfaces.IConexion;
 
-public class CargarDescolgablesDao {
-    private String host = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String pass = "root";
-    private String dbName = "bdbancoliberacion?useSSL=false";
-    private Connection connection;
+public class CargarDescolgablesDao implements IConexion {
 
     // Método para obtener los sexos desde la base de datos
     public ArrayList < Sexo > obtenerSexos() {
