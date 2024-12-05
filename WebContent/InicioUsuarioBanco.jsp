@@ -81,7 +81,7 @@
 			value="Usuarios" onClick="window.location.href='AgregarUsuario.jsp'" />
 
 
-		<input class="botonInicio" type="submit" value="Informes Estadísticos" />
+		<input class="botonInicio" type="submit" value="Informes Estadísticos" onClick="window.location.href='InformesEstadisticos.jsp'" />
 
 	</article>
 	<hr />

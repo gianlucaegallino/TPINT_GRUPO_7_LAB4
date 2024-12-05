@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ include file="InicioUsuarioBanco.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -10,47 +10,40 @@
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Formulario de Filtro</title>
 </head>
-<body>
-	<h2>Reportes de Cuentas y Préstamos</h2>
-
-	<!-- Formulario para el filtro de fechas de alta y tipo de cuenta -->
-	<form action="#" method="post">
-		<fieldset>
-			<legend>Reportes de Cuentas</legend>
-			<label for="fechaAltaDesde">Fecha de Alta Desde:</label> <input
-				type="date" id="fechaAltaDesde" name="fechaAltaDesde" required><br>
-			<br> <label for="fechaAltaHasta">Fecha de Alta Hasta:</label> <input
-				type="date" id="fechaAltaHasta" name="fechaAltaHasta" required><br>
-			<br> <label for="tipoCuenta">Tipo de Cuenta:</label> <select
-				id="tipoCuenta" name="tipoCuenta" required>
-				<option value="corriente">Cuenta Corriente</option>
-				<option value="ahorro">Caja de Ahorro</option>
-			</select> <br>
-
-			<button type="submit">Aplicar Filtro</button>
-		</fieldset>
-
-		<br>
-
-
-		<!-- Formulario para el filtro de fechas y rango de préstamos aceptados -->
-		<fieldset>
-			<legend>Reportes de Préstamos</legend>
-			<label for="fechaPrestamoDesde">Fecha de Préstamo Desde:</label> <input
-				type="date" id="fechaPrestamoDesde" name="fechaPrestamoDesde"
-				required><br> <br> <label for="fechaPrestamoHasta">Fecha
-				de Préstamo Hasta:</label> <input type="date" id="fechaPrestamoHasta"
-				name="fechaPrestamoHasta" required><br> <br> <label
-				for="montoMinimo">Monto Mayor a:</label> <input type="number"
-				id="montoMinimo" name="montoMinimo" min="0" step="0.01" required><br>
-			<br> <label for="montoMaximo">Monto Menor a:</label> <input
-				type="number" id="montoMaximo" name="montoMaximo" min="0"
-				step="0.01" required> <br>
-
-			<button type="submit">Aplicar Filtro</button>
-		</fieldset>
-
-
-	</form>
-</body>
+<body class="bodyInicio">
+    <div class="formulario-agregar" id="formularioInformesEstadisticos" style="display: block;">
+    <h2>Informes Estadisticos</h2>
+        <div class="form-container">
+            <form action="SvInformesEstadisticos" method="POST">
+                <input type="hidden" name="action" value="PorcentajeMovsAlta">
+                <div class="fila">
+                    <div class="form-element">
+                        <label for="PorcentajeAlta">Porcentaje de movimientos que fueron dados altas de cuenta</label>
+                    </div>
+                    <div class="form-element">
+                        <label for="FechaDesde" >Desde: </label>
+                        <input type="date" id="fechadesdeInput" name="fechadesdeInput" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="FechaHasta">Hasta:</label>
+                        <input type="date" id="fechahastaInput" name="fechahastaInput" required>
+                    </div>
+                    <div class="form-element">
+                        <% String fechainicio = (String) request.getAttribute("fechainicio"); %>
+                        <% String fechafinal = (String) request.getAttribute("fechafinal"); %>
+                        <% Double porcentaje = (Double) request.getAttribute("porcentaje"); %>
+                        <label for="MostrarPorcentajes"> 
+                            <% if (fechainicio != null && fechafinal != null && porcentaje != null) { %>
+                                Entre <span style="color: red;"><%= fechainicio %></span> y <span style="color: red;"><%= fechafinal %></span> hubo un <span style="color: green;"><%= String.format("%.2f", porcentaje) %> %</span> de movimientos de tipo: <span style="font-weight: bold;">Alta de Cuenta</span>  
+                            <% } %>
+                        </label>
+                    </div>
+                    <div class="form-element">
+                        <input type="submit" value="Calcular Porcentaje">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>	
 </html>
