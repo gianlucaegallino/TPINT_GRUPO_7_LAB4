@@ -43,8 +43,8 @@
                     </div>
                 </div>
             </form>
-            <hr>
             <form action="SvInformesEstadisticos" method="POST">
+            	<hr>
             	<input type="hidden" name="action" value="MontoPromedioPrestamo">
             	<div class="fila">
             		<div class="form-element">
@@ -73,9 +73,35 @@
                     </div>
             	</div>
             </form>
-            <hr>
             <form action="SvInformesEstadisticos" method="POST">
+                <hr>
             	<input type="hidden" name="action" value="PorcentajePrestamosAprobados">
+            	<div class="fila">
+            		<div class="form-element">
+            			<label for="MontoPromedio">Porcentaje de prestamos que fueron aceptados</label>
+            		</div>
+            		<div class="form-element">
+                        <label for="FechaDesde" >Desde: </label>
+                        <input type="date" id="fechadesdeInput3" name="fechadesdeInput3" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="FechaHasta">Hasta:</label>
+                        <input type="date" id="fechahastaInput3" name="fechahastaInput3" required>
+                    </div>
+            		<div class="form-element">
+                        <% String fechainicio3 = (String) request.getAttribute("fechainicio3"); %>
+                        <% String fechafinal3 = (String) request.getAttribute("fechafinal3"); %>
+                        <% Double porcentajeAprobados = (Double) request.getAttribute("porcentajeAprobados"); %>
+                        <label for="MostrarPorcentajes"> 
+                            <% if (fechainicio3 != null && fechafinal3 != null && porcentajeAprobados != null) { %>
+                                Entre <span style="color: red;"><%= fechainicio3 %></span> y <span style="color: red;"><%= fechafinal3 %></span> el porcentaje de prestamos aprobados fue de <span style="color: green;"><%= String.format("%.2f", porcentajeAprobados) %> %</span>
+                            <% } %>
+                        </label>
+                    </div>
+            		<div class="form-element">
+                        <input type="submit" value="Calcular Porcentaje">
+                    </div>
+            	</div>
             </form>
         </div>
     </div>

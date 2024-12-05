@@ -34,7 +34,45 @@ public class SvInformesEstadisticos extends HttpServlet {
 		} else if("MontoPromedioPrestamo".equals(action)) {
 			System.out.print("Entrando a MontoPromedioPrestamo");
 			MontoPromedioPrestamo(request,response);
+		} else if("PorcentajePrestamosAprobados".equals(action)) {
+			PorcentajePrestamosAprobados(request,response);
 		}
+	}
+
+	private void PorcentajePrestamosAprobados(HttpServletRequest request, HttpServletResponse response) {
+		try {
+            // Obtener las fechas de la solicitud
+            String fechaDesde = request.getParameter("fechadesdeInput3");
+            String fechaHasta = request.getParameter("fechahastaInput3");
+
+            System.out.print("fechadesde: " + fechaDesde);
+            System.out.print("fechahasta: " + fechaHasta);
+
+            // Convertir las fechas al formato SQL Date
+            java.sql.Date dateDesde = java.sql.Date.valueOf(fechaDesde);
+            java.sql.Date dateHasta = java.sql.Date.valueOf(fechaHasta);
+
+            System.out.print("fechadesdeSQL: " + dateDesde);
+            System.out.print("fechahastaSQL: " + dateHasta);
+
+            NegInformesEstadisticos NegInform = new NegInformesEstadisticos();
+            double porcentajeAprobados = NegInform.calcularPorcentajePrestamosAprobados(dateDesde, dateHasta);
+
+            System.out.print("PorcentajeAprobados: " + porcentajeAprobados);
+
+            // Establecer el porcentaje en el atributo de la solicitud
+            request.setAttribute("fechainicio3", dateDesde.toString());
+            request.setAttribute("fechafinal3", dateHasta.toString());
+            request.setAttribute("porcentajeAprobados", porcentajeAprobados);
+
+            // Redireccionar la solicitud a la página JSP
+            RequestDispatcher rd = request.getRequestDispatcher("/InformesEstadisticos.jsp");
+            rd.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Manejar el error
+        }
 	}
 
 	private void MontoPromedioPrestamo(HttpServletRequest request, HttpServletResponse response) {

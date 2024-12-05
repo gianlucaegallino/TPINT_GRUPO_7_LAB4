@@ -24,4 +24,7 @@ public class NegInformesEstadisticos {
 	public double calcularMontoPromedioPrestamo(Date fechaDesde, Date fechaHasta) {
         return inform.calcularMontoPromedioPrestamo(fechaDesde, fechaHasta);
     }
+	public double calcularPorcentajePrestamosAprobados(Date fechaDesde, Date fechaHasta) {
+        return inform.calcularPorcentajePrestamosAprobados(fechaDesde, fechaHasta);
+    }
 }

@@ -91,4 +91,29 @@ public class InformesEstadisticosDao implements IConexion{
         }
         return promedioMonto;
     }
+    
+    public double calcularPorcentajePrestamosAprobados(Date fechaDesde, Date fechaHasta) {
+        double porcentajeAprobados = 0;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Connection cn = null;
+        try {
+            cn = DriverManager.getConnection(host + dbName, user, pass);
+            PreparedStatement sentence = cn
+                    .prepareStatement("SELECT COUNT(CASE WHEN estado = 'aprobado' THEN 1 END) * 100.0 / COUNT(*) FROM prestamos WHERE fecha BETWEEN ? AND ?");
+            sentence.setDate(1, (java.sql.Date) fechaDesde);
+            sentence.setDate(2, (java.sql.Date) fechaHasta);
+            ResultSet rs = sentence.executeQuery();
+            if (rs.next()) {
+                porcentajeAprobados = rs.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return porcentajeAprobados;
+    }
 }
