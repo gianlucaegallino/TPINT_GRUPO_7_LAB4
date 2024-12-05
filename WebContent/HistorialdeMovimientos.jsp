@@ -15,6 +15,18 @@
 <link rel="stylesheet" href="./css/estiloHistorial.css" />
 <link rel="stylesheet" href="./css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+
+<!--  estilo tabla -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+	$(document).ready( function( ){
+		$('#table_id').DataTable();
+	});
+</script>
+
+
 <title>Historial de Movimientos</title>
 </head>
 
@@ -80,7 +92,7 @@
 				<h3 style="color: black;">Historial de movimientos del CBU <%= request.getAttribute("titulomovs") %> :</h3>
 		</div>
 		
-		<table>
+		<table id="table_id" class="display">
 			<thead>
 				<tr>
 					<th>Fecha</th>

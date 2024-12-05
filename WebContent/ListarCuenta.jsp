@@ -13,6 +13,17 @@
 <link rel="stylesheet" href="./css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Gestión de Clientes | Banco Liberación</title>
+
+<!--  estilo tabla -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+	$(document).ready( function( ){
+		$('#tablaCuentas').DataTable();
+	});
+</script>
+
 </head>
 <body class="bodyInicio">
 	<article class="menu-gestiones">
@@ -57,7 +68,7 @@
      %>
 
 		<!-- Tabla para mostrar los datos de las cuentas -->
-		<table class="tabla-cuentas" id="tablaCuentas">
+		<table class="tabla-cuentas display" id="tablaCuentas">
 			<thead>
 				<tr>
 					<th>ID Cliente</th>

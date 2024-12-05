@@ -14,6 +14,17 @@
 <link rel="stylesheet" href="./css/normalize.css" />
 <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <title>Gestión de Clientes | Banco Liberación</title>
+
+<!--  estilo tabla -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+	$(document).ready( function( ){
+		$('#tablaCliente2').DataTable();
+	});
+</script>
+
 </head>
 <body class="bodyInicio">
 	<div class="formulario-listar-cliente" id="formListarCliente"
@@ -120,7 +131,7 @@
 			</form>
 			<hr>
 		</div>
-		<table class="tabla-clientes" id="tablaCliente2"
+		<table class="tabla-clientes display" id="tablaCliente2"
 			style="display: block;">
 			<thead>
 				<tr>

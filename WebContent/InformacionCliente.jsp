@@ -21,6 +21,16 @@ table {
 	border: 1px solid;
 }
 </style>
+
+<!--  estilo tabla -->
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+	$(document).ready( function( ){
+		$('#table_id').DataTable();
+	});
+</script>
 </head>
 
 <body>
@@ -57,7 +67,7 @@ table {
 	%>
 
 
-	<table border="1" style="margin: 0 auto;">
+	<table id='table-id' class='display' border="1" style="margin: 0 auto;">
 
 		<tr>
 			<td>Nombre:</td>
