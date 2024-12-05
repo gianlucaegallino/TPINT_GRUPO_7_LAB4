@@ -85,7 +85,7 @@ function cargarLocalidades(provId) {
 	  var form = document.createElement('form');
 	  form.method = 'GET';
 	  form.action = 'SIClientes';
-
+/*
 	  
 	  //Generamos un form invisible, y cargamos los datos del form real para que se mantengan
 	  
@@ -166,7 +166,7 @@ function cargarLocalidades(provId) {
 	  form.appendChild(inputCorreo);
 	  console.log(inputCorreo);
 	  
-
+*/
 	  document.body.appendChild(form);
 	  
 	  form.submit();

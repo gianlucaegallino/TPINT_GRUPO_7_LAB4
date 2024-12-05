@@ -50,12 +50,12 @@
 				<h2 class="tituloRegistrarse">Iniciar Sesion</h2>
 				<div>
 					<input type="text" placeholder="Nombre Usuario" id="nomUsu"
-						name="nomUsu">
+						name="nomUsu" required>
 					<div class="error-text"></div>
 				</div>
 				<div>
 					<input type="password" placeholder="Contrasena" id="password"
-						name="password">
+						name="password" required>
 					<div class="error-text"></div>
 				</div>
 				<div>
@@ -67,7 +67,7 @@
 			<% if(request.getAttribute("mensaje")=="error")
 					{
 				%>
-			Usuario o Contrasenia incorrecta!
+			  <p style="color: red;">Usuario o Contraseña incorrecta!</p>
 			<%} %>
 
 		</section>
