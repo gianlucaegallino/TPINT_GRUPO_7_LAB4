@@ -21,4 +21,7 @@ public class NegInformesEstadisticos {
 	public int contarTodosMovimientos(Date fechaDesde, Date fechaHasta) {
 		return inform.contarTodosMovimientos(fechaDesde, fechaHasta);
 	}
+	public double calcularMontoPromedioPrestamo(Date fechaDesde, Date fechaHasta) {
+        return inform.calcularMontoPromedioPrestamo(fechaDesde, fechaHasta);
+    }
 }

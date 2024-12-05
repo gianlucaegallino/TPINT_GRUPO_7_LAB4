@@ -31,7 +31,46 @@ public class SvInformesEstadisticos extends HttpServlet {
 		if("PorcentajeMovsAlta".equals(action)) {
 			System.out.print("Entrando a PorcentajeMovsAlta");
 			PorcentajeMovsAlta(request,response);
+		} else if("MontoPromedioPrestamo".equals(action)) {
+			System.out.print("Entrando a MontoPromedioPrestamo");
+			MontoPromedioPrestamo(request,response);
 		}
+	}
+
+	private void MontoPromedioPrestamo(HttpServletRequest request, HttpServletResponse response) {
+		try {
+            // Obtener las fechas de la solicitud
+            String fechaDesde = request.getParameter("fechadesdeInput2");
+            String fechaHasta = request.getParameter("fechahastaInput2");
+
+            System.out.print("fechadesde: " + fechaDesde);
+            System.out.print("fechahasta: " + fechaHasta);
+
+            // Convertir las fechas al formato SQL Date
+            java.sql.Date dateDesde = java.sql.Date.valueOf(fechaDesde);
+            java.sql.Date dateHasta = java.sql.Date.valueOf(fechaHasta);
+
+            System.out.print("fechadesdeSQL: " + dateDesde);
+            System.out.print("fechahastaSQL: " + dateHasta);
+
+            NegInformesEstadisticos NegInform = new NegInformesEstadisticos();
+            double promedioMontoPrestamo = NegInform.calcularMontoPromedioPrestamo(dateDesde, dateHasta);
+
+            System.out.print("PromedioMontoPrestamo: " + promedioMontoPrestamo);
+
+            // Establecer el promedio en el atributo de la solicitud
+            request.setAttribute("fechainicio2", dateDesde.toString());
+            request.setAttribute("fechafinal2", dateHasta.toString());
+            request.setAttribute("promedioMontoPrestamo", promedioMontoPrestamo);
+
+            // Redireccionar la solicitud a la página JSP
+            RequestDispatcher rd = request.getRequestDispatcher("/InformesEstadisticos.jsp");
+            rd.forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Manejar el error
+        }
 	}
 
 	private void PorcentajeMovsAlta(HttpServletRequest request, HttpServletResponse response) {

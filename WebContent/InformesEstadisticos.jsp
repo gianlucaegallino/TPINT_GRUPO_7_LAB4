@@ -43,6 +43,40 @@
                     </div>
                 </div>
             </form>
+            <hr>
+            <form action="SvInformesEstadisticos" method="POST">
+            	<input type="hidden" name="action" value="MontoPromedioPrestamo">
+            	<div class="fila">
+            		<div class="form-element">
+            			<label for="MontoPromedio">Monto promedio de los prestamos solicitados</label>
+            		</div>
+            		<div class="form-element">
+                        <label for="FechaDesde" >Desde: </label>
+                        <input type="date" id="fechadesdeInput2" name="fechadesdeInput2" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="FechaHasta">Hasta:</label>
+                        <input type="date" id="fechahastaInput2" name="fechahastaInput2" required>
+                    </div>
+            		<div class="form-element">
+            			<% String fechainicio2 = (String) request.getAttribute("fechainicio2"); %>
+                        <% String fechafinal2 = (String) request.getAttribute("fechafinal2"); %>
+                        <% Double promedioMontoPrestamo = (Double) request.getAttribute("promedioMontoPrestamo"); %>
+                        <label for="MostrarPorcentajes"> 
+                            <% if (fechainicio2 != null && fechafinal2 != null && promedioMontoPrestamo != null) { %>
+                                Entre <span style="color: red;"><%= fechainicio2 %></span> y <span style="color: red;"><%= fechafinal2 %></span> el monto promedio de los prestamos solicitados fue de <span style="color: green;"><%= "$" + String.format("%.2f", promedioMontoPrestamo) %></span>
+                            <% } %>
+                        </label>
+            		</div>
+            		<div class="form-element">
+                        <input type="submit" value="Calcular Promedio">
+                    </div>
+            	</div>
+            </form>
+            <hr>
+            <form action="SvInformesEstadisticos" method="POST">
+            	<input type="hidden" name="action" value="PorcentajePrestamosAprobados">
+            </form>
         </div>
     </div>
 </body>	
