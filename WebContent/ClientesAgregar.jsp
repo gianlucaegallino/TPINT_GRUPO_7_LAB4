@@ -38,6 +38,69 @@
 		<form action="SIClientes" method="POST" id="formcli">
 			<input type="hidden" name="action" value="agregarCliente" />
 			<div class="form-container">
+			<div class="fila">
+					<div class="form-element">
+						<label for="ProvCliente">PROVINCIA:</label> <select
+							id="ProvCliente" name="ProvCliente"
+							onchange="cargarLocalidades(this.value)" required>
+							<option value="" disabled selected>Seleccione la
+								Provincia</option>
+
+							<% 
+                    // Obtener el valor de provCliente como String
+                    String Prov = (String) request.getAttribute("prov");
+
+                    // Convertir provCliente a int (si es posible)
+                    int provCliente = (Prov != null && !Prov.isEmpty()) ? Integer.parseInt(Prov) : -1;
+                          
+                    // Obtener las provincias desde el request
+                    ArrayList<Provincia> provincias = (ArrayList<Provincia>) request.getAttribute("Provincia");
+
+                    if (provincias != null && !provincias.isEmpty()) {
+                      // Recorrer las provincias y agregarlas al select
+                      for (Provincia provincia : provincias) { %>
+							<option value="<%= provincia.getId() %>"
+								<%= (provincia.getId() == provCliente) ? "selected" : "" %>>
+								<%= provincia.getNombre() %>
+							</option>
+							<% 
+                      }
+                    } else { %>
+							<option value="" disabled>No hay provincias disponibles</option>
+							<% } 
+                  %>
+						</select>
+					</div>
+					<div class="form-element">
+						<!-- Select de Localidades -->
+						<label for="LocCliente">LOCALIDAD:</label> <select id="LocCliente"
+							name="LocCliente" required>
+							<option value="">Seleccione una Localidad</option>
+							<% 
+                  // Obtener las localidades desde el request
+                  ArrayList<Localidad> localidades = (ArrayList<Localidad>) request.getAttribute("localidades");
+                  if (localidades != null && !localidades.isEmpty()) {
+                    for (Localidad localidad : localidades) { %>
+							<option value="<%= localidad.getId() %>"><%= localidad.getNombre() %>
+								(<%= localidad.getProvincia().getNombre() %>)
+							</option>
+							<% 
+                    }
+                  } else { %>
+							<option value="" disabled>No hay localidades disponibles</option>
+							<% 
+                  }
+                %>
+						</select>
+					</div>
+					<div class="form-element">
+						<label for="DirecCliente">DIRECCION:</label> <input type="text"
+							id="DirecCliente" name="DirecCliente"
+							placeholder="Ingrese una Direccion"
+							value="<%= request.getAttribute("DirecCliente") != null ? request.getAttribute("DirecCliente") : "" %>"
+							required>
+					</div>
+				</div>
 				<div class="fila" id="DNI_CUIL">
 					<div class="form-element">
 						<label for="DniCliente">DNI:</label> <input type="text"
@@ -151,69 +214,7 @@
 							title="Debe tener al menos 18 años." required>
 					</div>
 				</div>
-				<div class="fila">
-					<div class="form-element">
-						<label for="ProvCliente">PROVINCIA:</label> <select
-							id="ProvCliente" name="ProvCliente"
-							onchange="cargarLocalidades(this.value)" required>
-							<option value="" disabled selected>Seleccione la
-								Provincia</option>
-
-							<% 
-                    // Obtener el valor de provCliente como String
-                    String Prov = (String) request.getAttribute("prov");
-
-                    // Convertir provCliente a int (si es posible)
-                    int provCliente = (Prov != null && !Prov.isEmpty()) ? Integer.parseInt(Prov) : -1;
-                          
-                    // Obtener las provincias desde el request
-                    ArrayList<Provincia> provincias = (ArrayList<Provincia>) request.getAttribute("Provincia");
-
-                    if (provincias != null && !provincias.isEmpty()) {
-                      // Recorrer las provincias y agregarlas al select
-                      for (Provincia provincia : provincias) { %>
-							<option value="<%= provincia.getId() %>"
-								<%= (provincia.getId() == provCliente) ? "selected" : "" %>>
-								<%= provincia.getNombre() %>
-							</option>
-							<% 
-                      }
-                    } else { %>
-							<option value="" disabled>No hay provincias disponibles</option>
-							<% } 
-                  %>
-						</select>
-					</div>
-					<div class="form-element">
-						<!-- Select de Localidades -->
-						<label for="LocCliente">LOCALIDAD:</label> <select id="LocCliente"
-							name="LocCliente" required>
-							<option value="">Seleccione una Localidad</option>
-							<% 
-                  // Obtener las localidades desde el request
-                  ArrayList<Localidad> localidades = (ArrayList<Localidad>) request.getAttribute("localidades");
-                  if (localidades != null && !localidades.isEmpty()) {
-                    for (Localidad localidad : localidades) { %>
-							<option value="<%= localidad.getId() %>"><%= localidad.getNombre() %>
-								(<%= localidad.getProvincia().getNombre() %>)
-							</option>
-							<% 
-                    }
-                  } else { %>
-							<option value="" disabled>No hay localidades disponibles</option>
-							<% 
-                  }
-                %>
-						</select>
-					</div>
-					<div class="form-element">
-						<label for="DirecCliente">DIRECCION:</label> <input type="text"
-							id="DirecCliente" name="DirecCliente"
-							placeholder="Ingrese una Direccion"
-							value="<%= request.getAttribute("DirecCliente") != null ? request.getAttribute("DirecCliente") : "" %>"
-							required>
-					</div>
-				</div>
+				
 				<div class="fila">
 					<div class="form-element">
 						<label for="CorreoCliente">CORREO:</label> <input type="email"
