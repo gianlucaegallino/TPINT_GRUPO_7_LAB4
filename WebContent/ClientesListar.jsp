@@ -88,10 +88,10 @@
 					<div class="form-element">
 						<input type="hidden" name="action" value="FiltrarXNacionalidadClientes" />
 						<%
-						    // Instancia el DAO
-						    CargarDescolgablesDao dao = new CargarDescolgablesDao();
+						    // Instancia el Negocio
+						    CargarDescolgablesDao Negdescolgable = new CargarDescolgablesDao();
 						    // Obtiene la lista de items del desplegable
-						    ArrayList<Nacionalidad> items = dao.obtenerNacionalidades();
+						    ArrayList<Nacionalidad> items = Negdescolgable.obtenerNacionalidades();
 						%>
 						<select id="NacioCliente" name="NacioCliente" required>
 							<option value="" disabled selected>Seleccione la Nacionalidad</option>
@@ -129,7 +129,6 @@
 					</div>
 				</div>
 			</form>
-			<hr>
 		</div>
 		<table class="tabla-clientes display" id="tablaCliente2"
 			style="display: block;">

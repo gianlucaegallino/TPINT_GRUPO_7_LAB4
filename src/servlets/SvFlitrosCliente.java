@@ -97,9 +97,6 @@ public class SvFlitrosCliente extends HttpServlet {
                 }
             }
 
-            // Ordenar los clientes por fecha de nacimiento (de la más cercana a la más lejana)
-            clientesFiltrados.sort((c1, c2) -> c1.getFecha_nacimiento().compareTo(c2.getFecha_nacimiento()));
-
             StringBuilder htmlTabla = new StringBuilder();
 
             if (clientesFiltrados != null && !clientesFiltrados.isEmpty()) {
@@ -247,13 +244,17 @@ public class SvFlitrosCliente extends HttpServlet {
 
 	private void cargarDescolgables(HttpServletRequest request) {
         System.out.println("Entrando a cargarDescolgables");
-        // Obtener la lista de nacionalidades y pasarla al JSP
-        ArrayList<Nacionalidad> nac = negDesc.ObtenerLasNacionaliadades();
-        if (nac != null && !nac.isEmpty()) {
-            request.setAttribute("nacionalidad", nac); // Establecer el atributo "nacionalidad"
-        } else {
-            request.setAttribute("mensajeError", "No se pudieron cargar los datos de Nacionalidad.");
+        ArrayList<Nacionalidad> listaNacionalidades = null;
+        
+        listaNacionalidades = negDesc.ObtenerLasNacionaliadades();
+        
+        if(listaNacionalidades != null && !listaNacionalidades.isEmpty()) {
+        	request.setAttribute("listaNacionalidades", listaNacionalidades);
+        }else {
+        	request.setAttribute("mensajeError", "No hay nacionalidades.");
         }
+        //Damos constancia de que esta funcion ya se corrio, sin importar si se devolvieron o no cuentas
+        request.setAttribute("mensajeCarga", "Cargadas");
     }
 
 	private void filtrarXApellidoClientes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -312,7 +313,7 @@ public class SvFlitrosCliente extends HttpServlet {
         request.setAttribute("tablaHTML", htmlTabla.toString());
 
         // Redirigir a la JSP de listado de clientes
-        System.out.print("SALIMOS DEL MOSTRAR CLIENTES");
+        System.out.print("SALIMOS DEL Filtro Apellido CLIENTES");
         RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
         rd.forward(request, response);
 		
@@ -350,12 +351,13 @@ public class SvFlitrosCliente extends HttpServlet {
         request.setAttribute("tablaHTML", htmlTabla.toString());
 
         // Redirigir a la JSP de listado de clientes
-        System.out.print("SALIMOS DEL MOSTRAR CLIENTES");
+        System.out.print("SALIMOS DEL Filtro nombre CLIENTES");
+        // Guardar el valor del nombre filtrado en la variable nombreFiltro
+        nombreFiltro = nombre; 
+        
         RequestDispatcher rd = request.getRequestDispatcher("/ClientesListar.jsp");
         rd.forward(request, response);
 		
-        // Guardar el valor del nombre filtrado en la variable nombreFiltro
-        nombreFiltro = nombre; 
 	}
 
 
