@@ -28,7 +28,7 @@ table {
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
 	$(document).ready( function( ){
-		$('#table_id').DataTable();
+		$('#tabla').DataTable();
 	});
 </script>
 </head>
@@ -67,7 +67,7 @@ table {
 	%>
 
 
-	<table id='table-id' class='display' border="1" style="margin: 0 auto;">
+	<table id="tabla" class="display" border="1" style="margin: 0 auto;">
 
 		<tr>
 			<td>Nombre:</td>
@@ -111,7 +111,7 @@ table {
 
 		<tr>
 			<td>Localidad:</td>
-			<td><%=cl.getDireccion().getIdLocalidad()%></td>
+			<td><%=cl.getDireccion().getIdLocalidad().getNombre() %></td>
 		</tr>
 
 		<tr>

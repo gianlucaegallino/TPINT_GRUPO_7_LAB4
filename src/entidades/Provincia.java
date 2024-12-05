@@ -10,7 +10,11 @@ public class Provincia {
         this.nombre = nombre;
     }
 
-    // Getter y Setter para id
+    public Provincia() {
+		// TODO Auto-generated constructor stub
+	}
+
+	// Getter y Setter para id
     public int getId() {
         return id;
     }

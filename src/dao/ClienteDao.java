@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 import entidades.Cliente;
 import entidades.Direccion;
+import entidades.Localidad;
 import entidades.Nacionalidad;
+import entidades.Provincia;
 import entidades.Sexo;
 import entidades.Usuario;
 import interfaces.IClienteDao;
@@ -366,23 +368,53 @@ public class ClienteDao implements IConexion, IClienteDao  {
         return sexoDescripcion;
     }
 	
-	/*
-	public String BuscarDireccion(int id) {
+	
+	public int BuscarIdLocalidad(String direccion) {
         // Realiza la consulta a la base de datos para obtener la descripción del sexo
-        String dire = null;
+        Integer idloc = null;
         try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
-             PreparedStatement stmt = conn.prepareStatement("SELECT descripcion FROM sexo WHERE id = ?")) {
-            stmt.setInt(1, id);
+             PreparedStatement stmt = conn.prepareStatement("SELECT id_localidad FROM direccion WHERE direccion = ?")) {
+            stmt.setString(1, direccion);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                	dire = rs.getString("descripcion");
+                	idloc = rs.getInt("id_localidad");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dire;
-    }*/
+        return idloc;
+    }
+	
+	public Localidad BuscarLocalidad(String direccion) {
+		Localidad idloc = null;
+
+		Integer id = BuscarIdLocalidad(direccion);
+
+		
+		if (id != null) {
+			 // Realiza la consulta a la base de datos 
+	        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
+	             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM localidad WHERE id = ?")) {
+	            stmt.setInt(1, id);
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                if (rs.next()) {
+	                	idloc = new Localidad();
+	                	idloc.setId(rs.getInt("id"));
+	                	idloc.setNombre(rs.getString("nombre"));
+	                	idloc.setProvincia(new Provincia());
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return idloc;
+		} else  {
+			return null;
+		}
+			
+		
+    }
 	
 	public String BuscarNacionalidad(int id) {
 		String NacionalidadNombre = null;
@@ -516,7 +548,11 @@ public class ClienteDao implements IConexion, IClienteDao  {
 	                cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
 
 	                String direccion = rs.getString("direccion_id");
-	                Direccion direc = new Direccion(direccion);
+	                
+	                Localidad localidad = BuscarLocalidad(direccion);
+	                
+	      
+	                Direccion direc = new Direccion(direccion, localidad);
 	                cliente.setDireccion(direc);
 
 	                cliente.setCorreo_electronico(rs.getString("correo_electronico"));
