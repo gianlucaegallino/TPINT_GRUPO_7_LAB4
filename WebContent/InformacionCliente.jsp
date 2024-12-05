@@ -105,16 +105,6 @@ table {
 		</tr>
 
 		<tr>
-			<td>Direccion:</td>
-			<td><%=cl.getDireccion().getDireccion()%></td>
-		</tr>
-
-		<tr>
-			<td>Localidad:</td>
-			<td><%=cl.getDireccion().getIdLocalidad().getNombre() %></td>
-		</tr>
-
-		<tr>
 			<td>Correo electronico:</td>
 			<td><%=cl.getCorreo_electronico()%></td>
 		</tr>
@@ -122,6 +112,10 @@ table {
 		<tr>
 			<td>Telefono:</td>
 			<td><%=cl.getTelefono()%></td>
+		</tr>
+		<tr>
+			<td>Direccion:</td>
+			<td><%=cl.getDireccion().getDireccion()%></td>
 		</tr>
 
 

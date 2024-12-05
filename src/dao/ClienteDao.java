@@ -432,6 +432,24 @@ public class ClienteDao implements IConexion, IClienteDao  {
         return NacionalidadNombre;
 	}
 	
+	public Nacionalidad BuscarNacionalidadEntera(int id) {
+		Nacionalidad nac = null;
+        try (Connection conn = DriverManager.getConnection(host + dbName, user, pass);
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM nacionalidad WHERE id = ?")) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                	nac = new Nacionalidad();
+                	nac.setNombre(rs.getString("nombre"));
+                	nac.setId(rs.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nac;
+	}
+	
 	public boolean modificarCliente(Cliente cliente) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -542,18 +560,13 @@ public class ClienteDao implements IConexion, IClienteDao  {
 	                cliente.setSexo(sexo);
 
 	                int nacioID = rs.getInt("nacionalidad_id");
-	                Nacionalidad nacio = new Nacionalidad(BuscarNacionalidad(nacioID));
+	                Nacionalidad nacio =BuscarNacionalidadEntera(nacioID);
 	                cliente.setNacionalidad(nacio);
 
 	                cliente.setFecha_nacimiento(rs.getDate("fecha_nacimiento"));
 
 	                String direccion = rs.getString("direccion_id");
-	                
-	                Localidad localidad = BuscarLocalidad(direccion);
-	                
-	      
-	                Direccion direc = new Direccion(direccion, localidad);
-	                cliente.setDireccion(direc);
+	                cliente.setDireccion(new Direccion(direccion));
 
 	                cliente.setCorreo_electronico(rs.getString("correo_electronico"));
 	                cliente.setTelefono(rs.getString("telefono"));

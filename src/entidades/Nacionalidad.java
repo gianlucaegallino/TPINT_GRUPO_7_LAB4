@@ -19,6 +19,10 @@ public class Nacionalidad {
 		this.nombre = nombre;
 	}
 
+	public Nacionalidad() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
         return id;
     }
