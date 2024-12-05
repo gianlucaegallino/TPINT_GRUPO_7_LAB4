@@ -7,11 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class InformesEstadisticosDao {
-	private String host = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String pass = "root";
-    private String dbName = "bdbancoliberacion?useSSL=false";
+import interfaces.IConexion;
+
+public class InformesEstadisticosDao implements IConexion{
+
     
     // METODOS
     
